@@ -1,0 +1,12 @@
+#! /bin/bash
+
+if [ "$1" == "-c" ]; then
+	
+	FILE=`echo "$2" | cut -d'.' -f 1`
+	clang -lcs50 $2 -o $FILE
+else	
+	FILE=`echo "$1" | cut -d'.' -f 1`
+	clang $1 -o $FILE
+fi
+	
+./$FILE

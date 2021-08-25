@@ -1,0 +1,24 @@
+!# /bin/bash
+
+pkill -f autostart.sh
+
+pkill -f twenty_20.py &
+pkill polybar &
+pkill xfce4-power-manager &
+pkill aw-qt &
+pkill nm-applet &
+pkill pcloud &
+redshift -x &
+
+python3 /home/musa/bin/scripts/twenty_20.py &
+/usr/bin/brave &
+redshift -O 3300 &
+polybar -r simple &
+xfce4-power-manager &
+/home/musa/Downloads/APPS/Uncompressed/activitywatch/aw-qt &
+nm-applet &
+/home/musa/Downloads/APPS/AppImage/pcloud &
+nitrogen --restore &
+unclutter &
+
+notify-send "Programs Launched!"

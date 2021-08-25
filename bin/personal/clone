@@ -1,0 +1,3 @@
+#! /bin/bash
+
+python3 /home/musa/pCloudDrive/CODING/PythonProjects/utils/terminal-stuff/git_clone.py $1

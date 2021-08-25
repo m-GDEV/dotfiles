@@ -1,0 +1,64 @@
+#! /bin/bash
+echo "Collecting Dotfiles from around the galaxy..."
+
+DIR="dotfiles-current"
+TAR="/home/musa/pCloudDrive/EXCLUDE/Files/Dotfiles"
+
+
+rm -rf /tmp/$DIR
+mkdir /tmp/$DIR
+cd /tmp/$DIR
+
+mkdir config
+mkdir bin
+mkdir themes
+mkdir icons
+mkdir etc
+
+# copying things from .config folder
+cp -r ~/.config/i3 ./config
+cp -r ~/.config/polybar ./config
+cp -r ~/.config/sakura ./config
+cp -r ~/.config/starship.toml ./config
+cp -r ~/.config/dunst ./config
+
+# copying from home dir
+cp ~/.bashrc .
+cp ~/.vimrc .
+mkdir vim
+find ~/.vim -maxdepth 4 > ./vim/vim.txt
+
+# copy from local bin folder
+cp -r ~/bin/personal ./bin
+cp -r ~/bin/scripts ./bin
+cp -r ~/bin/zMisc. ./bin
+find ~/bin/programs > ./bin/programs.txt
+
+# copy from /etc
+cp -r /etc/lightdm ./etc
+
+# collecting theme(s)
+find ~/.themes/ -maxdepth 1 -type d > ./themes/themes.txt
+
+# collecting icon theme(s)
+find ~/.icons/ -maxdepth 1 -type d > ./icons/icons.txt
+
+# extra
+read -n 1 -p "Please download your bookmarks to /tmp/dotfiles-current. Press enter to continue. "
+
+cd /tmp
+mv $TAR/$DIR/UPDATED $TAR
+mv $TAR/$DIR/.git $TAR
+
+rm -rf $TAR/$DIR
+mv -i /tmp/$DIR $TAR
+
+mv $TAR/UPDATED $TAR/$DIR
+mv $TAR/.git $TAR/$DIR
+echo "Updated: $(date)" >> $TAR/$DIR/UPDATED
+
+# Pushing to github
+cd $TAR/$DIR
+git add -A
+git commit -m "$(date +%d-%m-%y)"
+git push

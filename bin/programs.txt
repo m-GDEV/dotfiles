@@ -1,0 +1,5 @@
+/home/musa/bin/programs
+/home/musa/bin/programs/ifetch
+/home/musa/bin/programs/cheat
+/home/musa/bin/programs/hugo
+/home/musa/bin/programs/sent

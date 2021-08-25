@@ -1,0 +1,3 @@
+#! /bin/bash
+
+grep -rni --color=auto $2 $1
