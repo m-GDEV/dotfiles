@@ -60,9 +60,10 @@ alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/
 alias calc='qalc'
 alias work='cd ~/Documents/working-dir/'
 alias findgit='find . -name .git -type d -prune'
-alias sd='sakura -d . & clear'
+alias sc='sakura -d . & clear'
+alias se='sakura -d . & exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
-alias diff='diff -qsyri --color=always'
+alias diff='diff -syri --color=always'
 
 # SYSTEM UTILITIES
 alias sleeper='sleep 2100;systemctl suspend'

@@ -1,4 +1,6 @@
-#! /bin/sh
+#! /bin/bash
+
+set -eu
 
 START=8
 CORES=6

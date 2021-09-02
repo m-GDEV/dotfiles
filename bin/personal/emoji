@@ -1,0 +1,5 @@
+#! /bin/sh
+
+SEARCH="$(echo "NULL" | dmenu -p "Emoji: " -l 10)"
+
+brave https://emojipedia.org/search/?q=$SEARCH

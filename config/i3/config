@@ -245,3 +245,6 @@ bindsym F12 exec nitrogen --set-auto --random ~/Downloads/Media/Pictures/DUMP/
 
 # removes brave add with "mouse" shell script
 bindsym $mod+semicolon exec ~/bin/personal/mouse
+
+# emoji picker!
+bindsym $mod+equal exec emoji-picker

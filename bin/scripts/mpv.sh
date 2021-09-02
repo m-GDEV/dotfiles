@@ -1,6 +1,6 @@
 #! /bin/sh
 
-#set -xv
+set -xv
 
 # A script that allows user to cycle pause all instaces of mpv or choose which one to cycle pause individually
 

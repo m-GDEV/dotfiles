@@ -27,6 +27,9 @@ Plug 'junegunn/goyo.vim'
 " Color previews for CSS
 Plug 'ap/vim-css-color'                            
 
+" Brackets, Quotations, and anything surrounding a string manager
+Plug 'tpope/vim-surround'
+
 call plug#end()
 
 " PLUGIN SETTINGS ------------
@@ -83,3 +86,6 @@ set ignorecase
 
 "Will automatically switch to case sensitive if you use any capitals
 set smartcase
+
+" WHERE TF IS MY CURSOR??
+set cursorline
