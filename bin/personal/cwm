@@ -1,0 +1,42 @@
+#! /bin/bash
+
+# connectwithmusa.com script to auto generate and push html to github.
+# meant to be run after finishing work on website
+# sep 2nd, 2021
+
+# if a command fails, exit script
+set -e
+
+# checking if hugo is installed
+hugo version
+
+# website path (git repo)
+WP="~/pCloudDrive/CODING/websites/HUGO/connectwithmusa.com/"
+cd $WP
+
+# get commit message, used for both branches
+echo -n "Enter commit message: "
+read
+
+# generate site and push master branch
+git checkout master
+hugo -d ../public/
+git add -A
+git commit -m "${REPLY}"
+git push
+
+# switch to public branch and push new site
+git checkout public
+cp ./CNAME ../
+rm -r *
+cp -r ../public/* .
+cp ../CNAME .
+git add -A
+git commit -m "${REPLY}"
+git push
+git checkout master
+rm -r ../public
+rm ../CNAME
+
+
+echo -e "\n\nAll done!\n\n"
