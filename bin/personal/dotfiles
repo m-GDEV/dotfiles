@@ -13,7 +13,7 @@ mkdir config
 mkdir bin
 mkdir themes
 mkdir icons
-mkdir etc
+mkdir -p etc
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
@@ -35,7 +35,7 @@ cp -r ~/bin/zMisc. ./bin
 find ~/bin/programs > ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/lightdm ./etc
+cp -r /etc/X11 ./etc/X11/
 
 # collecting theme(s)
 find ~/.themes/ -maxdepth 1 -type d > ./themes/themes.txt
@@ -47,18 +47,16 @@ find ~/.icons/ -maxdepth 1 -type d > ./icons/icons.txt
 read -n 1 -p "Please download your bookmarks to /tmp/dotfiles-current. Press enter to continue. "
 
 cd /tmp
-mv $TAR/$DIR/UPDATED $TAR
-mv $TAR/$DIR/.git $TAR
+mv $TAR/$DIR/UPDATED /tmp/$DIR
+mv $TAR/$DIR/.git /tmp/$DIR
 
 rm -rf $TAR/$DIR
 mv -i /tmp/$DIR $TAR
 
-mv $TAR/UPDATED $TAR/$DIR
-mv $TAR/.git $TAR/$DIR
 echo "Updated: $(date)" >> $TAR/$DIR/UPDATED
 
-# Pushing to github
-cd $TAR/$DIR
-git add -A
-git commit -m "$(date +%d-%m-%y)"
-git push
+## Pushing to github
+#cd $TAR/$DIR
+#git add -A
+#git commit -m "$(date +%d-%m-%y)"
+#git push

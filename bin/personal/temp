@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -eu
+set -e
 
 START=8
 CORES=6

@@ -1,12 +1,18 @@
 #! /bin/bash
 
 if [ "$1" == "-c" ]; then
-	
-	FILE=`echo "$2" | cut -d'.' -f 1`
-	clang -lcs50 $2 -o $FILE
-else	
-	FILE=`echo "$1" | cut -d'.' -f 1`
-	clang $1 -o $FILE
+
+	FILE="${2}.c" # Source file
+	ARGS=$(echo $@ | awk '{for(i=3;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev)
+	clang -lcs50 $FILE -o $2
+	./$2 $ARGS
+
+# for normal use case
+else 
+
+	FILE="${1}.c" # Source file
+	ARGS=$(echo $@ | awk '{for(i=2;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev) # getting all cmd line args
+	clang $FILE -o $1
+	./$1 $ARGS
 fi
 	
-./$FILE

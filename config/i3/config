@@ -165,6 +165,9 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# Move workspaces between screens
+bindsym $mod+p move workspace to output right
+bindsym $mod+o move workspace to output left
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -174,15 +177,15 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym h resize grow width 10 px or 10 ppt
         bindsym j resize shrink height 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym l resize shrink width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize grow width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Down resize shrink height 10 px or 10 ppt
+        bindsym Up resize growheight 10 px or 10 ppt
         bindsym Right resize shrink width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
@@ -196,17 +199,22 @@ bindsym $mod+r mode "resize"
 # AUDIO CONTROL ---------------------
 
 #spotify shortcuts
-#bindsym XF86AudioNext     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-#bindsym XF86AudioPlay     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-#bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym Shift+XF86AudioNext     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym Shift+XF86AudioPlay     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym Shift+XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
-# playpause for all applications
+# audio control from keyboard for all applications
 bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioNext exec "playerctl next"
+bindsym XF86AudioPrev exec "playerctl previous"
+
+bindsym Shift+Left exec "playerctl position 10-"
+bindsym Shift+Right exec "playerctl position 10+"
 
 # gives user ability to select which instance of mpv to cycle pause. ie. which song playing to pause
 bindsym $mod+XF86AudioPlay exec "~/bin/scripts/mpv.sh"
 # cycles pause for all mpv instances
-bindsym Shift+XF86AudioPlay exec "~/bin/scripts/mpv.sh -a"
+#bindsym Shift+XF86AudioPlay exec "~/bin/scripts/mpv.sh -a"
 
 #ALTERING AUDIO WITH KEYBOARD WITHOUT I3-VOLUME AND THEREFORE NO DUNST NOTIFICATION
 bindsym XF86AudioMute exec amixer set Master toggle
@@ -217,19 +225,20 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse set Master 5%-
 # ADDTIONAL SCRIPTS ETC ------------
 
 # autostart script
-exec_always ~/bin/scripts/autostart.sh
+exec_always ~/bin/scripts/start.sh
 
 # scratchpad move/show
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+#bindsym $mod+Shift+minus move scratchpad
+#bindsym $mod+minus scratchpad show
 
 # GAPS (i3-gaps)
 for_window [class=".*"] border pixel 2
 gaps inner 10
 gaps outer 10
 
-# screenshot with scrot - mouse selection
+# screenshot with scrot - mouse selection on first line, full screen on second
 bindsym --release Print exec "~/bin/scripts/SC.sh"
+bindsym --release Shift+Print exec "~/bin/scripts/SC.sh -s"
 
 # /zzz/ sleep
 bindsym F8 exec "~/bin/scripts/lock.sh;systemctl suspend"
@@ -241,10 +250,13 @@ bindsym F6 exec ~/bin/scripts/lock.sh
 bindsym Ctrl+Print exec ~/bin/personal/opensc
 
 # changes wallpaper
-bindsym F12 exec nitrogen --set-auto --random ~/Downloads/Media/Pictures/DUMP/
+bindsym F12 exec ~/bin/scripts/wall_set.sh
 
 # removes brave add with "mouse" shell script
 bindsym $mod+semicolon exec ~/bin/personal/mouse
 
 # emoji picker!
 bindsym $mod+equal exec emoji-picker
+
+# open brave
+bindsym $mod+minus exec brave

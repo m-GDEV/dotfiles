@@ -1,0 +1,54 @@
+Section "Monitor"
+	Identifier   "HDMI1"
+	VendorName   "Monitor Vendor"
+	ModelName    "Monitor Model"
+	Option       "Enable" "true"
+	Option       "LeftOf" "HDMI1"
+EndSection
+
+Section "Monitor"
+	Identifier   "HDMI2"
+	VendorName   "Monitor Vendor"
+	ModelName    "Monitor Model"
+	Option       "Enable" "true"
+	Modeline     "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+	Option       "PreferredMode" "1920x1080_60.00"
+	Option       "RightOf" "HDMI1"
+EndSection
+
+Section "Device"
+	Identifier  "Card0"
+	Driver      "intel"
+	BusID       "PCI:0:2:0"
+EndSection
+
+Section "Screen"
+	Identifier "Screen0"
+	Device     "Card0"
+	Monitor    "Monitor0"
+	SubSection "Display"
+		Viewport   0 0
+		Depth     1
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     4
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     8
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     15
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     16
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     24
+	EndSubSection
+EndSection
+

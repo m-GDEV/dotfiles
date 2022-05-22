@@ -7,11 +7,12 @@
 # if a command fails, exit script
 set -e
 
-# checking if hugo is installed
+# checking if hugo and minify is installed
 hugo version
+minify --help > /dev/null 2>&1
 
 # website path (git repo)
-WP="~/pCloudDrive/CODING/websites/HUGO/connectwithmusa.com/"
+WP="$HOME/pCloudDrive/CODING/websites/personal/connectwithmusa.com/"
 cd $WP
 
 # get commit message, used for both branches
@@ -31,6 +32,10 @@ cp ./CNAME ../
 rm -r *
 cp -r ../public/* .
 cp ../CNAME .
+minify -r -o ./ --match=\.css ./
+minify -r -o ./ --match=\.html ./
+minify -r -o ./ --match=\.js ./
+minify -r -o ./ --match=\.xml ./
 git add -A
 git commit -m "${REPLY}"
 git push

@@ -30,6 +30,19 @@ Plug 'ap/vim-css-color'
 " Brackets, Quotations, and anything surrounding a string manager
 Plug 'tpope/vim-surround'
 
+" One Dark Theme
+Plug 'https://github.com/joshdick/onedark.vim'
+
+" JS and JSX Syntax
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Fish Syntax
+Plug 'dag/vim-fish'
+
+" Markdown Preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
 call plug#end()
 
 " PLUGIN SETTINGS ------------
@@ -40,15 +53,18 @@ set laststatus=2
 set noshowmode
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'deus'
+let g:lightline.colorscheme = 'molokai'
 
 
 " GENERAL SETTINGS ------------
 
 " THEMING
-packadd! dracula
-syntax enable
-colorscheme dracula
+"packadd! dracula
+"syntax enable
+"colorscheme dracula
+
+syntax on
+colorscheme onedark
 
 " Setting leader key
 let mapleader = ","
