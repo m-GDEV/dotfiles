@@ -7,7 +7,7 @@ pkill -f brave
 pkill pcloud
 pkill polybar
 pkill xfce4-power-manager
-pkill aw-qt
+#pkill aw-qt
 pkill nm-applet
 pkill -f wall.sh
 pkill -f twenty.sh
@@ -22,7 +22,7 @@ redshift -O 3300 &
 polybar -r simple &
 polybar -r simple2 & 
 xfce4-power-manager &
-/home/musa/Downloads/APPS/Uncompressed/activitywatch/aw-qt &
+#/home/musa/Downloads/APPS/Uncompressed/activitywatch/aw-qt &
 nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/twenty.sh & 

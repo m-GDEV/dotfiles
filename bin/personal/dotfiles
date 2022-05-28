@@ -1,8 +1,8 @@
 #! /bin/bash
 echo "Collecting Dotfiles from around the galaxy..."
 
-DIR="dotfiles-current"
-TAR="/home/musa/pCloudDrive/EXCLUDE/Files/Dotfiles"
+DIR="dotfiles"
+TAR="/home/musa/pCloudDrive/EXCLUDE/Files"
 
 
 rm -rf /tmp/$DIR
@@ -55,8 +55,8 @@ mv -i /tmp/$DIR $TAR
 
 echo "Updated: $(date)" >> $TAR/$DIR/UPDATED
 
-## Pushing to github
-#cd $TAR/$DIR
-#git add -A
-#git commit -m "$(date +%d-%m-%y)"
-#git push
+# Pushing to github
+cd $TAR/$DIR
+git add -A
+git commit -m "$(date +%d-%m-%y)"
+git push

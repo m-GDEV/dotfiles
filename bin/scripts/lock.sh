@@ -1,10 +1,10 @@
 #!/bin/bash
-ICON=/home/musa/Pictures/zMisc./i3lock/splash3.png
-TMPBG=/tmp/screen.png
+#ICON=/home/musa/Pictures/zMisc./i3lock/splash3.png
+#TMPBG=/tmp/screen.png
 
-rm /tmp/screen.png
+#rm /tmp/screen.png
 
-scrot /tmp/screen.png
-convert $TMPBG -scale 10% -scale 1000% $TMPBG
-convert $TMPBG $ICON -gravity center -composite -matte $TMPBG
-i3lock -u -i $TMPBG
+#scrot /tmp/screen.png
+#convert $TMPBG -scale 10% -scale 1000% $TMPBG
+#convert $TMPBG $ICON -gravity center -composite -matte $TMPBG
+i3lock -i ~/Pictures/Wallpapers/elden-ring-malenia.png
