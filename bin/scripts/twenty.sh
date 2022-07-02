@@ -1,12 +1,14 @@
+#!/bin/bash
+
 # simple shell script alternative to twenty_20.py
 # this tells you to look around every 20 mins
 
 
-SOUND="~/Downloads/Media/Audio/zMisc./Sound-Effects/THUNDER.mp3"
+SOUND="$HOME/Downloads/Media/Audio/zMisc./Sound-Effects/THUNDER.mp3"
 
 while [ 7 -gt 6 ]
 do
-	if [ $(date +%H) -gt 23 || $(date +%H) -lt 9 ]; then
+	if [ "$(date +%H)" -gt 23 ] || [ "$(date +%H)" -lt 9 ]; then
 		echo "D"
 		sleep 1200
 	else

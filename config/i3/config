@@ -232,7 +232,8 @@ exec_always ~/bin/scripts/start.sh
 #bindsym $mod+minus scratchpad show
 
 # GAPS (i3-gaps)
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 2
+for_window [floating] border pixel 0
 gaps inner 10
 gaps outer 10
 hide_edge_borders smart

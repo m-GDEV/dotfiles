@@ -44,11 +44,12 @@ find ~/.themes/ -maxdepth 1 -type d > ./themes/themes.txt
 find ~/.icons/ -maxdepth 1 -type d > ./icons/icons.txt
 
 # extra
-read -n 1 -p "Please download your bookmarks to /tmp/dotfiles-current. Press enter to continue. "
+read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
 
 cd /tmp
 mv $TAR/$DIR/UPDATED /tmp/$DIR
 mv $TAR/$DIR/.git /tmp/$DIR
+mv $TAR/$DIR/install.sh /tmp/$DIR
 
 rm -rf $TAR/$DIR
 mv -i /tmp/$DIR $TAR
@@ -56,6 +57,7 @@ mv -i /tmp/$DIR $TAR
 echo "Updated: $(date)" >> $TAR/$DIR/UPDATED
 
 # Pushing to github
+echo "Collected! Pushing to github..."
 cd $TAR/$DIR
 git add -A
 git commit -m "$(date +%d-%m-%y)"

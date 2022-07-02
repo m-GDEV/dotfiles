@@ -1,0 +1,9 @@
+#! /bin/bash
+
+if [ -z $1 ]; then
+	LEN=20
+else
+	LEN=$1
+fi
+
+ps aux --sort=-%mem | head -"$LEN" | awk '{printf("%s \t %s \t %s MB \t %s\n", $2, $3, ($4/100)*14820, $11)}' | cut -c -100

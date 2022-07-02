@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if [ -z $1 ]; then
+	LEN=20
+else
+	LEN=$1
+fi
+
+ps aux --sort=-%cpu | head -"$LEN" | cut -c -170
+

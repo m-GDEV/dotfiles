@@ -2,19 +2,6 @@
 
 set -e
 
-START=8
-CORES=6
-END=$(( START+CORES ))
-AVG=0
+TEMP=$(cat /sys/class/thermal/thermal_zone0/temp /sys/class/thermal/thermal_zone1/temp | tail -1)
 
-while [ "$END" -gt "$START" ]
-do
-	NUM=$(sensors | sed -n "$START"p | awk '{print $3}' | cut -b 2-3)
-	AVG=$(( AVG + NUM ))
-	START=$(( START + 1 ))
-done
-
-average=$(( AVG / CORES ))
-
-echo $average
-
+echo $(( TEMP / 1000))

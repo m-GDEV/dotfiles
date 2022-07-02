@@ -5,11 +5,15 @@
 # nvidia-xconfig:  version 510.60.02
 
 # I manually edited this file on May 29 2022 to add support for a monitor connected by the iGPU
+# I got as far as getting the second monitor to load and my mouse can go there with this config and the "mons" program. From there it seemed like i3 and polybar were working since i could create and move new windows to and from the monitor. Plus i could mute with polybar. The only problem was that it was complete black except for my mouse. If you come back, figure it out.
 
 Section "ServerLayout"
     Identifier     "Layout0"
-    Screen	   "Screen0"
-    Screen 	   "Screen1" Rightof "Screen0"
+    Screen         "Screen0"
+    Screen	   "Screen1" RightOf "Screen0"
+    #InputDevice    "Keyboard0" "CoreKeyboard"
+    #InputDevice    "Mouse0" "CorePointer"
+    #Option         "Xinerama" "0"
 EndSection
 
 #Section "Files"
@@ -45,12 +49,11 @@ EndSection
 # manually added so that iGPU monitor works
 Section "Monitor"
 	Identifier   "HDMI1"
-	VendorName   "Monitor Vendor"
-	ModelName    "Monitor Model"
+	VendorName   "LG"
 	Option       "Enable" "true"
 	Modeline     "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
 	Option       "PreferredMode" "1920x1080_60.00"
-	Option       "LeftOf" "HDMI-0"
+	#Option       "LeftOf" "HDMI-0"
 EndSection
 
 Section "Device"

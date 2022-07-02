@@ -70,6 +70,7 @@ alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
 alias push='git status;echo -ne "Pushing Changes to Github!\n\nEnter commit message: "; read; git add -A; git commit -m "${REPLY}"; git push'
 alias gitc='git commit -am'
 alias gstat='git status'
+alias clone="git clone"
 #alias yarn='yarn --emoji'
 
 # SYSTEM UTILITIES
@@ -78,7 +79,8 @@ alias die='sleep 120; shutdown'
 alias pac="sudo pacman"
 alias please='sudo apt'
 # alias pip3='python3 -m pip'
-alias sshplex='ssh musa@192.168.2.35'
+alias sshplex='ssh musa@192.168.2.166'
+alias vps="sshpass -e ssh root@158.69.225.140 -p 10950"
 alias vul='ssh root@155.138.137.8'
 alias zain='ssh zain@192.168.2.80'
 alias cr='ccrypt'
@@ -112,6 +114,7 @@ export PATH="/home/musa/.yarn/bin:$PATH" # for yarn global bins
 export STARSHIP_CONFIG=~/.config/starship.toml 
 export MICRO_TRUECOLOR=1 # idk part of dracula micro theme
 export LD_LIBRARY_PATH=/usr/local/lib # export for cs50.h
+export SSHPASS=cMCFe2nKa4ao
 
 export HISTCONTROL=ignoredups:erasedups
 export EDITOR=/usr/bin/vim
@@ -137,5 +140,3 @@ fortune -as | lolcat
 ifetch
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
-eval $(thefuck --alias)
-. "$HOME/.controller_config"

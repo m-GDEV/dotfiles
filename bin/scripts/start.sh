@@ -14,13 +14,11 @@ pkill -f twenty.sh
 
 unclutter & 
 dunst & 
-#picom &
 aplay -f cd /dev/zero &
 redshift -O 3300 &
 /usr/bin/brave &
 /home/musa/Downloads/APPS/AppImage/pcloud &
-polybar -r simple &
-polybar -r simple2 & 
+~/bin/scripts/polybar.sh &
 xfce4-power-manager &
 #/home/musa/Downloads/APPS/Uncompressed/activitywatch/aw-qt &
 nm-applet &
