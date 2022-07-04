@@ -8,6 +8,7 @@
 # - Copy all config files to their respective directories
 
 # Setup
+dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
 
 deps="curl git vim starship polybar i3 dunst"
 
@@ -41,7 +42,7 @@ rm -r ~/bin/personal
 rm -r ~/bin/scripts 
 
 # Step 2
-"Cloning dotfiles repository"
+echo "Cloning dotfiles repository"
 rm -rf /tmp/sync-dotfiles
 mkdir /tmp/sync-dotfiles
 cd /tmp/sync-dotfiles || exit 1 # here incase dir does not exists

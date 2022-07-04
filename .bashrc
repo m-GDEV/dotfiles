@@ -43,6 +43,7 @@ alias lf='exa -lah'
 alias ls='exa'
 alias ll='exa -lh'
 alias la='exa -a | grep "^\."' #only shows hidden files in dir
+alias re='cmd ls -ltrh'
 alias mv='mv -i'
 alias cp='cp -i'
 alias rm='rm -I'
