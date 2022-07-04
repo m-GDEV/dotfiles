@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# This script aims to sync all of your dotfiles from github to your device
+
+# Steps
+# - Remove all old config files
+# - Clone dotfiles directory locally in /tmp
+# - Copy all config files to their respective directories
+
+# Setup
+
+deps="curl git vim starship polybar i3 dunst"
+
+for item in $deps
+do
+	if ! command -v "$item" &> /dev/null; then
+		echo "${item} not installed, please install it and try again."
+		exit 1
+	fi
+done
+
+# vim-plug installed?
+if [ -f "$HOME/.vim/autoload/plug.vim" ]; then
+	echo "vim-plug is installed, skipping."
+else
+	echo "vim-plug not installed, installing..."
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+# Step 1
+rm -r ~/.config/polybar
+rm -r ~/.config/i3
+rm -r ~/.config/sakura
+rm -r ~/.config/dunst
+rm ~/.config/starship.toml
+rm ~/.bashrc
+rm ~/.vimrc
+# rm -rf ~/.vim
+rm -r ~/bin/personal
+rm -r ~/bin/scripts 
+
+# Step 2
+rm -rf /tmp/sync-dotfiles
+mkdir /tmp/sync-dotfiles
+cd /tmp/sync-dotfiles || exit 1 # here incase dir does not exists
+
+git clone https://github.com/m-GDEV/dotfiles
+cd dotfiles || exit 1 # here incase dir does not exists
+
+# Step 3
+cp -r ./config/i3 ~/.config/
+cp -r ./config/dunst ~/.config/
+cp -r ./config/sakura ~/.config/
+cp -r ./config/polybar ~/.config/
+cp ./config/starship.toml ~/.config/
+
+cp ./.bashrc ~/
+cp ./.vimrc ~/
+
+cp -r ./bin/personal ~/bin
+cp -r ./bin/scripts ~/bin
+
+# Installing vim plugins
+echo "Install Vim plugins?"
+read -r
+if [ "$REPLY" == "y" ]; then
+	vim +PlugClean
+	vim +PlugInstall
+fi
+
+# Make bin scripts executable
+find ~/bin -type f -exec chmod +x {} +

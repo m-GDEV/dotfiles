@@ -44,7 +44,7 @@ find ~/.themes/ -maxdepth 1 -type d > ./themes/themes.txt
 find ~/.icons/ -maxdepth 1 -type d > ./icons/icons.txt
 
 # extra
-read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
+# read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
 
 cd /tmp
 mv $TAR/$DIR/UPDATED /tmp/$DIR
