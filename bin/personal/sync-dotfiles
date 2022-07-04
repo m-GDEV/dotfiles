@@ -24,10 +24,11 @@ if [ -f "$HOME/.vim/autoload/plug.vim" ]; then
 	echo "vim-plug is installed, skipping."
 else
 	echo "vim-plug not installed, installing..."
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
 fi
 
 # Step 1
+echo "Removing old dotfiles"
 rm -r ~/.config/polybar
 rm -r ~/.config/i3
 rm -r ~/.config/sakura
@@ -40,14 +41,16 @@ rm -r ~/bin/personal
 rm -r ~/bin/scripts 
 
 # Step 2
+"Cloning dotfiles repository"
 rm -rf /tmp/sync-dotfiles
 mkdir /tmp/sync-dotfiles
 cd /tmp/sync-dotfiles || exit 1 # here incase dir does not exists
 
-git clone https://github.com/m-GDEV/dotfiles
+git clone https://github.com/m-GDEV/dotfiles &> /dev/null
 cd dotfiles || exit 1 # here incase dir does not exists
 
 # Step 3
+echo "Copying dotfiles"
 cp -r ./config/i3 ~/.config/
 cp -r ./config/dunst ~/.config/
 cp -r ./config/sakura ~/.config/
@@ -69,4 +72,5 @@ if [ "$REPLY" == "y" ]; then
 fi
 
 # Make bin scripts executable
+echo "Making ~/bin scripts executable"
 find ~/bin -type f -exec chmod +x {} +
