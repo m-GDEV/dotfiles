@@ -78,6 +78,9 @@ Plug 'mhinz/vim-startify'
 " Shows a line for each indent in a space separated file
 Plug 'Yggdroot/indentLine'
 
+" Auto bracket pairs
+Plug 'jiangmiao/auto-pairs'
+
 " ---------------
 " -- Aesthetic --
 " ---------------
@@ -87,6 +90,9 @@ Plug 'itchyny/lightline.vim'
 
 " Color previews for CSS
 Plug 'ap/vim-css-color'
+
+" Vim-prettier
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 
 " ------------
 " -- Themes --
@@ -221,6 +227,14 @@ hi StartifyPath    ctermfg=245
 hi StartifySlash   ctermfg=240
 hi StartifySpecial ctermfg=240
 
+" ------------
+" Vim-prettier
+" ------------
+
+" Autosaving
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+
 " --------------------
 " --- Vim Settings ---
 " --------------------
@@ -257,6 +271,7 @@ nnoremap <leader>n :NERDTree <Cr>
 nnoremap <leader>t :tabnew file <Cr>
 nnoremap <leader>m :MRU <Cr>
 nnoremap <leader>i :Startify <Cr>
+" <leader>p runs Prettier
 " Toggle spelling errors
 nnoremap <leader>sp :setlocal spell! spelllang=en_us<Cr>
 hi SpellBad ctermfg=red guifg=red
@@ -274,6 +289,12 @@ imap jk <Esc>
 " Using CTRL-e and CTRL-y work to scroll in insert mode
 inoremap <C-e> <C-O><C-E>
 inoremap <C-y> <C-O><C-Y>
+" CTRL-S saves
+noremap <C-s> :w<CR>
+" CTRL-Q saves and quits
+noremap <C-q> :wq<CR>
+" CTRL-X quits without saving
+noremap <C-x> :q!<CR>
 
 " -----------------------
 " -- Buffer navigation --

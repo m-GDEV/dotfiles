@@ -13,12 +13,12 @@ do
 		sleep 1200
 	else
 		VOL=$(amixer -R | sed -n 7p | cut -f7 -d" " | cut -c 2- | rev | cut -c 3- | rev)
-		amixer set 'Master' 50%
+		amixer set 'Master' 40%
 		notify-send "Look Around!"
 		play -q $SOUND
 		amixer set 'Master' "$VOL%"
 		sleep 20
-		amixer set 'Master' 50%
+		amixer set 'Master' 40%
 		play -q $SOUND
 		amixer set 'Master' "$VOL%"
 		sleep 1200

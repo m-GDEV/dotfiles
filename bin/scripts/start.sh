@@ -11,11 +11,13 @@ pkill xfce4-power-manager
 pkill nm-applet
 pkill -f wall.sh
 pkill -f twenty.sh
+pkill -f syncthing
 
 unclutter & 
 dunst & 
 aplay -f cd /dev/zero &
 redshift -O 3300 &
+syncthing &
 /usr/bin/brave &
 /home/musa/Downloads/APPS/AppImage/pcloud &
 ~/bin/scripts/polybar.sh &
