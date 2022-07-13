@@ -8,7 +8,7 @@
 # - Copy all config files to their respective directories
 
 # Setup
-dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
+#dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
 
 deps="curl git vim starship polybar i3 dunst"
 

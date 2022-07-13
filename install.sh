@@ -23,8 +23,6 @@ function iP() {
 		fi
 		echo "Installed $1."
 	else
-		echo "Skipping..."
-	fi
 }
 
 # Function for install requests
@@ -36,9 +34,9 @@ function iR(){
 # --- Lists of programs (vars starting with "O" are optional, vars including "A" are from the AUR) ---
 
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
-GUI="lxappearance sakura xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts"
+GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
-AGUI="brave-bin zoom spotify"
+AGUI="brave-bin zoom spotify sakura "
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
 
 # Terminal Programs / Programs that the user uses in the terminal
@@ -69,8 +67,6 @@ clear
 echo "Installing Terminal Programs..."
 iR "Terminal Programs" "$TERP" "pacman"
 iR "Optional Terminal Programs" "$OTERP" "pacman"
-iR "AUR Optional Terminal Programs" "$OATERP" "yay"
-clear
 
 echo "Installing Text Editors..."
 iR "Text Editors" "$TE" "pacman"
@@ -81,7 +77,7 @@ echo "Installing Developer Programs..."
 iR "Devoloper Programs" "$DEV" "pacman"
 
 # --- Alternate program installations ---
-ALT="starship bash-insulter fzf m-GDEV-dmenu mpv-mpris vim-plug"
+ALT="starship bash-insulter fzf m-GDEV-dmenu mpv-mpris vim-plug zoxide"
 echo "ALT: $ALT"
 echo -en "\n\nWould you like to install the programs with alternate installation methods? [y/n] "
 read -r
@@ -107,8 +103,10 @@ if [[ "$REPLY" == "y" ]]; then
 	sudo make install
 
 	echo "Installing vim-plug"
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+	echo "Installing zoxide"
+	curl -sS https://webinstall.dev/zoxide | bash
 
 else
 	echo "Skipping..."
