@@ -81,9 +81,6 @@ Plug 'Yggdroot/indentLine'
 " Auto bracket pairs
 Plug 'jiangmiao/auto-pairs'
 
-" Emojis
-Plug 'junegunn/vim-emoji'
-
 " ---------------
 " -- Aesthetic --
 " ---------------
@@ -237,11 +234,6 @@ hi StartifySpecial ctermfg=240
 " Autosaving
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
-
-" ---------
-" Vim-emoji
-" ---------
-set completefunc=emoji#complete
 
 " --------------------
 " --- Vim Settings ---

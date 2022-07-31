@@ -36,7 +36,7 @@ function iR(){
 # --- Lists of programs (vars starting with "O" are optional, vars including "A" are from the AUR) ---
 
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
-GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps"
+GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
 AGUI="brave-bin zoom spotify sakura "
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
@@ -70,7 +70,7 @@ clear
 echo "Installing Terminal Programs..."
 iR "Terminal Programs" "$TERP" "pacman"
 iR "Optional Terminal Programs" "$OTERP" "pacman"
-iR "Optional Terminal Programs" "$ATERP" "pacman"
+iR "Optional Terminal Programs" "$ATERP" "yay"
 iR "AUR Optional Terminal Programs" "$OATERP" "yay"
 clear
 

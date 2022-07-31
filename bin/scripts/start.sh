@@ -19,7 +19,6 @@ dunst &
 redshift -O 3300 &
 syncthing &
 /usr/bin/brave &
-/home/musa/Downloads/APPS/AppImage/pcloud &
 xfce4-power-manager &
 aw-qt &
 nm-applet &

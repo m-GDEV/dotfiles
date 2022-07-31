@@ -28,7 +28,7 @@ cp ~/.vimrc .
 cp -r ~/bin/personal ./bin
 cp -r ~/bin/scripts ./bin
 cp -r ~/bin/zMisc. ./bin
-find ~/bin/programs > ./bin/programs.txt
+find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
 cp -r /etc/X11 "./etc/X11/$HOST/"
