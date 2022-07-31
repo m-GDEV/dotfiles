@@ -49,6 +49,7 @@ echo "[$HOST] - Updated: $(date)" >> $TAR/$DIR/UPDATED
 # Pushing to github
 echo "Collected! Pushing to github..."
 cd $TAR/$DIR
+git status
 git add -A
 git commit -m "$(date +%d-%m-%y)"
 git push

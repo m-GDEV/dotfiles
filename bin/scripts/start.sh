@@ -24,6 +24,6 @@ aw-qt &
 nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/twenty.sh & 
-~/bin/scripts/polybar.sh &
+~/bin/scripts/polybar/polybar.sh &
 clear
 
