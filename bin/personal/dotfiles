@@ -2,8 +2,8 @@
 echo "Collecting Dotfiles from around the galaxy..."
 
 DIR="dotfiles"
-TAR="/home/musa/pCloudDrive/EXCLUDE/Files"
-
+TAR="/home/musa/GITCLONE/my-stuff"
+HOST=$(uname -n)
 
 rm -rf /tmp/$DIR
 mkdir /tmp/$DIR
@@ -11,9 +11,7 @@ cd /tmp/$DIR
 
 mkdir config
 mkdir bin
-mkdir themes
-mkdir icons
-mkdir -p etc
+mkdir etc
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
@@ -25,8 +23,6 @@ cp -r ~/.config/dunst ./config
 # copying from home dir
 cp ~/.bashrc .
 cp ~/.vimrc .
-mkdir vim
-find ~/.vim -maxdepth 4 > ./vim/vim.txt
 
 # copy from local bin folder
 cp -r ~/bin/personal ./bin
@@ -35,13 +31,7 @@ cp -r ~/bin/zMisc. ./bin
 find ~/bin/programs > ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/X11 ./etc/X11/
-
-# collecting theme(s)
-find ~/.themes/ -maxdepth 1 -type d > ./themes/themes.txt
-
-# collecting icon theme(s)
-find ~/.icons/ -maxdepth 1 -type d > ./icons/icons.txt
+cp -r /etc/X11 "./etc/X11/$HOST"
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
@@ -54,7 +44,7 @@ mv $TAR/$DIR/install.sh /tmp/$DIR
 rm -rf $TAR/$DIR
 mv -i /tmp/$DIR $TAR
 
-echo "Updated: $(date)" >> $TAR/$DIR/UPDATED
+echo "[$HOST] - Updated: $(date)" >> $TAR/$DIR/UPDATED
 
 # Pushing to github
 echo "Collected! Pushing to github..."

@@ -8,7 +8,7 @@
 # - Copy all config files to their respective directories
 
 # Setup
-#dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
+dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
 
 deps="curl git vim starship polybar i3 dunst"
 
@@ -61,8 +61,8 @@ cp ./config/starship.toml ~/.config/
 cp ./.bashrc ~/
 cp ./.vimrc ~/
 
-cp -r ./bin/personal ~/bin
-cp -r ./bin/scripts ~/bin
+cp -r ./bin/personal ~/bin/personal
+cp -r ./bin/scripts ~/bin/scripts/
 
 # Installing vim plugins
 echo "Install Vim plugins?"

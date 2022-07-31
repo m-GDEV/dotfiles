@@ -23,6 +23,8 @@ function iP() {
 		fi
 		echo "Installed $1."
 	else
+		echo "Skipping..."
+	fi
 }
 
 # Function for install requests
@@ -34,7 +36,7 @@ function iR(){
 # --- Lists of programs (vars starting with "O" are optional, vars including "A" are from the AUR) ---
 
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
-GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts"
+GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
 AGUI="brave-bin zoom spotify sakura "
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
@@ -42,6 +44,7 @@ OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts sim
 # Terminal Programs / Programs that the user uses in the terminal
 TERP="fortune-mod scrot bat git curl duf lm_sensors exa fd openssh ufw clang libqalculate playerctl lz4 unzip tar the_silver_searcher openssh htop yay xsel"
 OTERP="sox docx2txt ncdu ntfs-3g figlet"
+ATERP="syncthing activitywatch-bin"
 OATERP="ccrypt minify"
 
 # Text Editors
@@ -67,6 +70,9 @@ clear
 echo "Installing Terminal Programs..."
 iR "Terminal Programs" "$TERP" "pacman"
 iR "Optional Terminal Programs" "$OTERP" "pacman"
+iR "Optional Terminal Programs" "$ATERP" "pacman"
+iR "AUR Optional Terminal Programs" "$OATERP" "yay"
+clear
 
 echo "Installing Text Editors..."
 iR "Text Editors" "$TE" "pacman"
@@ -98,9 +104,13 @@ if [[ "$REPLY" == "y" ]]; then
 	sudo make install
 
 	echo "Installing mpv-mrpris"
-	git clone https://github.com/hoyon/mpv-mpris.git /tmp/mpv-mpris
-	cd /tmp/mpv-mpris
-	sudo make install
+	if ! command -v mpv &> /dev/null; then
+		echo "mpv is not installed, please install it and try again."
+    else
+	    git clone https://github.com/hoyon/mpv-mpris.git /tmp/mpv-mpris
+	    cd /tmp/mpv-mpris
+	    sudo make install
+	fi
 
 	echo "Installing vim-plug"
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -111,12 +121,6 @@ if [[ "$REPLY" == "y" ]]; then
 else
 	echo "Skipping..."
 fi
-
-
-# --- Manual installations ---
-MI="activity-watch pcloud"
-echo "Please manually install these programs if you want them: ${MI}"
-
 
 # --- Closing ---
 echo -e "\n\n\nInstallation Finished. Feel free to re-run this script again the install groups of packages you missed!\n"

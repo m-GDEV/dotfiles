@@ -123,7 +123,7 @@ export VISUAL=/usr/bin/vim
 #export BROWSER=/usr/bin/brave
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERM=xterm-256color
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 
 # zMisc.
@@ -141,3 +141,7 @@ fortune -as | lolcat
 ifetch
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+

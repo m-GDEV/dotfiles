@@ -1,3 +1,0 @@
-/home/musa/.themes/
-/home/musa/.themes/dracula
-/home/musa/.themes/Sweet-Dark

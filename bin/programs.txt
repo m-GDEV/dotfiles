@@ -1,8 +1,0 @@
-/home/musa/bin/programs
-/home/musa/bin/programs/ifetch
-/home/musa/bin/programs/syncthing
-/home/musa/bin/programs/dutree
-/home/musa/bin/programs/cheat
-/home/musa/bin/programs/hugo
-/home/musa/bin/programs/sent
-/home/musa/bin/programs/pawns-cli

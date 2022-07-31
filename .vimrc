@@ -81,6 +81,9 @@ Plug 'Yggdroot/indentLine'
 " Auto bracket pairs
 Plug 'jiangmiao/auto-pairs'
 
+" Emojis
+Plug 'junegunn/vim-emoji'
+
 " ---------------
 " -- Aesthetic --
 " ---------------
@@ -235,6 +238,11 @@ hi StartifySpecial ctermfg=240
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 
+" ---------
+" Vim-emoji
+" ---------
+set completefunc=emoji#complete
+
 " --------------------
 " --- Vim Settings ---
 " --------------------
@@ -255,8 +263,14 @@ set cursorline " Highlights line cursor is on
 set notimeout " Remove timeout for partially typed commands
 set autoindent " Automatically indent the next line
 set background=dark " Use dark a the background colour
+set expandtab " Use spaces instead of tabs
+set smarttab " Not sure DT uses it 
+set shiftwidth=4 " One tab == 4 spaces
+set tabstop=4 " One tab == 4 spaces
 
 filetype plugin on " Enable loading the plugin files for specific file types
+
+hi Comment cterm=italic
 
 " Jump to last position when reopening a file
 if has("autocmd")
@@ -268,7 +282,7 @@ endif
 " -----------------------
 let mapleader =" "
 nnoremap <leader>n :NERDTree <Cr>
-nnoremap <leader>t :tabnew file <Cr>
+nnoremap <leader>t :tabnew file <CR>
 nnoremap <leader>m :MRU <Cr>
 nnoremap <leader>i :Startify <Cr>
 " <leader>p runs Prettier
@@ -289,12 +303,20 @@ imap jk <Esc>
 " Using CTRL-e and CTRL-y work to scroll in insert mode
 inoremap <C-e> <C-O><C-E>
 inoremap <C-y> <C-O><C-Y>
-" CTRL-S saves
+" CTRL-S saves (second one saves in insert mode)
 noremap <C-s> :w<CR>
-" CTRL-Q saves and quits
+inoremap <C-s> <c-o>:w<CR>
+" CTRL-Q saves and quits (second one saves in insert mode)
 noremap <C-q> :wq<CR>
+inoremap <C-q> <c-o>:wq<CR>
 " CTRL-X quits without saving
 noremap <C-x> :q!<CR>
+" Moving around in insert mode
+imap pp <right>
+imap qq <left> 
+inoremap 00 <end>
+inoremap 11 <home>
+
 
 " -----------------------
 " -- Buffer navigation --
@@ -310,10 +332,10 @@ map <C-DOWN> <C-w>j
 map <C-UP> <C-w>k
 map <C-RIGHT> <C-w>l
 
-map <s-LEFT> :vertical resize +5 <Cr>
-map <s-RIGHT> :vertical resize -5 <Cr>
-map <s-UP> :resize +5 <Cr>
-map <s-DOWN> :resize -5 <Cr>
+map <s-l> :vertical resize +5 <Cr>
+map <s-h> :vertical resize -5 <Cr>
+map <s-j> :resize +5 <Cr>
+map <s-k> :resize -5 <Cr>
 
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>

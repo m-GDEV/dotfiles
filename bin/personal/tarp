@@ -1,0 +1,14 @@
+#! /bin/bash
+# $1 is folder
+
+if [ -z "$1" ]; then echo "No directory specified"; exit 1; fi
+
+SLASH=$(echo "$1" | rev | cut -c -1)
+DIR="$1"
+
+if [ "$SLASH" == "/" ]; then
+    DIR=$(echo "$1" | rev | cut -c 2- | rev) 
+fi
+
+tar cf - "$DIR" | pv -s $(du -sb "$DIR" | awk '{print $1}') | cat > "$DIR".tar
+

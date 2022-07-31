@@ -15,16 +15,16 @@ pkill -f syncthing
 
 unclutter & 
 dunst & 
-aplay -f cd /dev/zero &
+# aplay -f cd /dev/zero &
 redshift -O 3300 &
 syncthing &
 /usr/bin/brave &
 /home/musa/Downloads/APPS/AppImage/pcloud &
-~/bin/scripts/polybar.sh &
 xfce4-power-manager &
-#/home/musa/Downloads/APPS/Uncompressed/activitywatch/aw-qt &
+aw-qt &
 nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/twenty.sh & 
+~/bin/scripts/polybar.sh &
 clear
 

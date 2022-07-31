@@ -1,7 +1,0 @@
-/home/musa/.icons/
-/home/musa/.icons/MacOS-3D-Icons-Blue-Light
-/home/musa/.icons/Future-cursors
-/home/musa/.icons/Sweet-cursors
-/home/musa/.icons/Dracula
-/home/musa/.icons/default
-/home/musa/.icons/NeonIcons
