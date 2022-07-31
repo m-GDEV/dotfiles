@@ -31,7 +31,7 @@ cp -r ~/bin/zMisc. ./bin
 find ~/bin/programs > ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/X11 "./etc/X11/$HOST"
+cp -r /etc/X11 "./etc/X11/$HOST/"
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
