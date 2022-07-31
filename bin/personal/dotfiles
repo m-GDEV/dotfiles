@@ -11,7 +11,7 @@ cd /tmp/$DIR
 
 mkdir config
 mkdir bin
-mkdir etc
+mkdir -p etc/X11/$HOST
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
