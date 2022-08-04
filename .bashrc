@@ -72,6 +72,7 @@ alias push='git status;echo -ne "Pushing Changes to Github!\n\nEnter commit mess
 alias gitc='git commit -am'
 alias gstat='git status'
 alias clone="git clone"
+alias opensc="go ~/Pictures/screenshots/$(ls -l ~/Pictures/screenshots/ | awk '{ print $7 }' | tail -1)> /dev/null 2>&1"
 #alias yarn='yarn --emoji'
 
 # SYSTEM UTILITIES

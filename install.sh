@@ -52,7 +52,7 @@ TE="nano gvim"
 OTE="micro atom code"
 
 # Devoloper Programs
-DEV="nodejs npm python-pip yarn"
+DEV="nodejs npm python-pip yarn prettier"
 
 
 # --- Normal Installations ---

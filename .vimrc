@@ -297,7 +297,7 @@ inoremap <C-e> <C-O><C-E>
 inoremap <C-y> <C-O><C-Y>
 " CTRL-S saves (second one saves in insert mode)
 noremap <C-s> :w<CR>
-inoremap <C-s> <c-o>:w<CR>
+inoremap <C-s> <ESC>:w<CR>
 " CTRL-Q saves and quits (second one saves in insert mode)
 noremap <C-q> :wq<CR>
 inoremap <C-q> <c-o>:wq<CR>
@@ -306,8 +306,11 @@ noremap <C-x> :q!<CR>
 " Moving around in insert mode
 imap pp <right>
 imap qq <left> 
-inoremap 00 <end>
-inoremap 11 <home>
+" CTRL + L or H jumps one word
+imap <C-l> <C-Right>
+imap <C-h> <C-left>
+" inoremap 00 <end>
+" inoremap 11 <home>
 
 
 " -----------------------

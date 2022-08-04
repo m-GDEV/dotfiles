@@ -1,3 +1,0 @@
-#! /bin/bash
-
-time find /home/musa/Pictures/screenshots/ | tail -1 | xargs gio open
