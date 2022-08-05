@@ -86,7 +86,7 @@ echo "Installing Developer Programs..."
 iR "Devoloper Programs" "$DEV" "pacman"
 
 # --- Alternate program installations ---
-ALT="starship bash-insulter fzf m-GDEV-dmenu mpv-mpris vim-plug zoxide"
+ALT="starship bash-insulter fzf m-GDEV-dmenu mpv-mpris vim-plug zoxide ifetch"
 echo "ALT: $ALT"
 echo -en "\n\nWould you like to install the programs with alternate installation methods? [y/n] "
 read -r
@@ -120,6 +120,9 @@ if [[ "$REPLY" == "y" ]]; then
 
 	echo "Installing zoxide"
 	curl -sS https://webinstall.dev/zoxide | bash
+
+    echo "Installing ifetch"
+    curl -L https://raw.githubusercontent.com/m-GDEV/ifetch/master/install | bash
 
 else
 	echo "Skipping..."
