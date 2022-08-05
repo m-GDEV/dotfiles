@@ -45,7 +45,7 @@ AGUI="brave-bin zoom spotify sakura "
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
 
 # Terminal Programs / Programs that the user uses in the terminal
-TERP="fortune-mod scrot bat git curl duf lm_sensors exa fd openssh ufw clang libqalculate playerctl lz4 unzip tar the_silver_searcher openssh htop xsel"
+TERP="fortune-mod scrot bat git curl duf lm_sensors exa fd openssh ufw clang libqalculate playerctl lz4 unzip tar the_silver_searcher openssh htop xsel lolcat"
 OTERP="sox docx2txt ncdu ntfs-3g figlet"
 ATERP="syncthing activitywatch-bin"
 OATERP="ccrypt minify"
