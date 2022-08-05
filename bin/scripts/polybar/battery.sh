@@ -1,4 +1,6 @@
-BAT_STAT=$(find /sys/class/power_supply/BAT*)
+set -xv
+
+BAT_STAT=$(find /sys/class/power_supply/BAT* 2> /dev/null)
 
 # if there is no battery, echo nothing
 if [ -z $BAT_STAT ]; then
