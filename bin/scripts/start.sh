@@ -1,5 +1,6 @@
 #! /bin/bash
 # script to start all my programs
+HOST=$(uname -n)
 
 redshift -x
 pkill -f notify-osd
@@ -12,6 +13,12 @@ pkill nm-applet
 pkill -f wall.sh
 pkill -f twenty.sh
 pkill -f syncthing
+
+if [ $HOST == "PC" ]; then
+    ~/bin/scripts/monitor-layout.sh
+else
+    echo
+fi
 
 unclutter & 
 dunst & 
