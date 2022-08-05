@@ -11,7 +11,7 @@ cd /tmp/$DIR
 
 mkdir config
 mkdir bin
-mkdir -p etc/X11/$HOST
+mkdir -p etc/$HOST/X11
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
@@ -31,7 +31,7 @@ cp -r ~/bin/zMisc. ./bin
 find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/X11 "./etc/X11/$HOST/"
+cp -r /etc/X11 "./etc/$HOST/X11"
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
