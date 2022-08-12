@@ -144,6 +144,9 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -304,8 +307,8 @@ inoremap <C-q> <c-o>:wq<CR>
 " CTRL-X quits without saving
 noremap <C-x> :q!<CR>
 " Moving around in insert mode
-imap pp <right>
-imap qq <left> 
+" imap pp <right>
+" imap qq <left>
 " CTRL + L or H jumps one word
 imap <C-l> <C-Right>
 imap <C-h> <C-left>

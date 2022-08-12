@@ -11,8 +11,8 @@ pkill xfce4-power-manager
 #pkill aw-qt
 pkill nm-applet
 pkill -f wall.sh
-pkill -f twenty.sh
 pkill -f syncthing
+pkill -f numlockx
 
 if [ $HOST == "PC" ]; then
     ~/bin/scripts/monitor-layout.sh
@@ -21,16 +21,16 @@ else
 fi
 
 unclutter & 
+numlockx &
 dunst & 
 # aplay -f cd /dev/zero &
 redshift -O 3300 &
 syncthing &
 /usr/bin/brave &
 xfce4-power-manager &
-aw-qt &
 nm-applet &
 ~/bin/scripts/wall.sh &
-~/bin/scripts/twenty.sh & 
 ~/bin/scripts/polybar/polybar.sh &
+aw-qt &
 clear
 

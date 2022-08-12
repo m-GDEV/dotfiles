@@ -1,0 +1,9 @@
+#! /bin/bash
+
+# File name check
+FNC=$(echo "$1" | rev | cut -c 1-4 | rev)
+
+if [ -z "$1" || FNC != ".tar" ]; then echo "Tar file not specified"; exit 1; fi
+
+pv backup.tar | tar xf - -C . 2> /dev/null
+
