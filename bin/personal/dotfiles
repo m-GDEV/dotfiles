@@ -32,6 +32,7 @@ find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
 cp -r /etc/X11 "./etc/$HOST/X11"
+cp /etc/ly/config.ini ./etc/
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
