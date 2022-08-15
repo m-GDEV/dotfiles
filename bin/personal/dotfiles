@@ -11,7 +11,7 @@ cd /tmp/$DIR
 
 mkdir config
 mkdir bin
-mkdir -p etc/$HOST/X11
+mkdir -p etc/$HOST/
 mkdir -p etc/ly
 
 # copying things from .config folder
@@ -32,7 +32,7 @@ cp -r ~/bin/zMisc. ./bin
 find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/X11 "./etc/$HOST/X11"
+cp -r /etc/X11 "./etc/$HOST/"
 cp /etc/ly/config.ini ./etc/ly
 
 # extra
