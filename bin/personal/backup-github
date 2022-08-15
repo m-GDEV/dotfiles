@@ -1,0 +1,62 @@
+#! /bin/bash
+
+# shitty way to backup repos for a github user, fuck you i wanted to use bash not some pre-made sdk for python cus im quirky 🥴
+
+# set -xv
+START=$(date +%s)
+DATE=$(date +%d-%m-%y)
+TOKEN=$(cat pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt)
+
+echo "-- Backing up Github repositories of user m-GDEV --"
+echo -e "\nFetching repository info..."
+
+# getting repo info, getting number of private repos, getting number of public repos
+repos=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token ${TOKEN}" https://api.github.com/user/repos)
+public=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token ${TOKEN}" https://api.github.com/user | jq  | grep -i public_repos | awk '{print $2}' | rev | cut -c 2- | rev)
+private=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token ${TOKEN}" https://api.github.com/user | jq  | grep -i total_private_repos | awk '{print $2}' | rev | cut -c 2- | rev)
+
+total=$((public + private))
+
+# remove remanents, make new dir, cd into it
+rm -rf /tmp/github-backup > /dev/null 2>&1
+rm /tmp/github-backup.tar > /dev/null 2>&1
+mkdir /tmp/github-backup
+cd /tmp/github-backup
+
+# setup 1 hour cache of authentication
+echo "Setting up authentication, please enter your password:"
+git config --global credential.helper 'cache --timeout=36000'
+git clone http://github.com/m-GDEV/YT-PLAYLIST >> ./log.txt 2>&1
+rm -rf ./YT-PLAYLIST
+
+# get full name of each repo for user, clone the repo while hiding stdout
+echo -e "Cloning all $(($total + 1)) repositories... (this might take a while)"
+for ((i=0; i <= $total + 1; i++)); do
+    name=$(echo $repos | jq ".[${i}] | {name: .full_name}" | sed -n 2p | awk '{print $2}' | cut -c 2- | rev | cut -c 2- | rev)
+    git clone https://github.com/$name >> ./log.txt 2>&1
+done
+
+# creating tar file and moving to appropriate dir
+echo "Github repository backup created on $(date) for user m-GDEV" >> log.txt
+cd ../
+echo "Creating tar archive..."
+
+if [[ $USER == "musa" ]]; then 
+    tarp ./github-backup
+    mv ./github-backup.tar "./${DATE}.tar"
+    DIR="$HOME/Downloads/Media/Backups/github-backups/"
+    mkdir -p $DIR
+    SIZE=$(du -h "${DATE}.tar" | awk '{print $1}')
+    mv "./${DATE}.tar" $DIR
+else
+    DIR="$HOME"
+    tar -cvf "./${DATE}.tar"./github-backup
+    SIZE=$(du -h "${DATE}.tar" | awk '{print $1}')
+    mv "./${DATE}.tar" $DIR
+fi
+
+END=$(date +%s)
+TIME=$(($END -$START))
+MES="Done! ${SIZE} Backup tar archive created in $DIR"
+echo "$MES"
+echo "Took $(($TIME / 60)) Minutes."

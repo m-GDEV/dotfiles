@@ -1,0 +1,12 @@
+#! /bin/bash
+DATE=$(date +%d-%m-%y)
+
+rm -rf /tmp/backup.tar
+rm -rf /tmp/backup.tar.lz4
+
+tar --exclude=EXCLUDE --exclude=.git --exclude=.Trash-1000 -cf /tmp/backup.tar /home/musa/pCloudDrive
+
+lz4 -12 /tmp/backup.tar
+
+mv /tmp/backup.tar.lz4 /tmp/$DATE.tar.lz4
+mv /tmp/$DATE.tar.lz4 /home/musa/Downloads/Media/Backups/pCloud/
