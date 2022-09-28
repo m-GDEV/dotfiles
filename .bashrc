@@ -82,7 +82,8 @@ alias pac="sudo pacman"
 alias please='sudo apt'
 # alias pip3='python3 -m pip'
 alias sshplex='ssh musa@192.168.2.166'
-alias vps="ssh root@158.69.225.140 -p 10950"
+alias vps="ssh root@207.90.194.169"
+alias vps2="ssh root@158.69.225.140 -p 10950"
 alias cr='ccrypt'
 alias exe='chmod +x'
 alias p3='python3'
@@ -101,6 +102,7 @@ alias v='vim'
 alias randman='man $(find /usr/share/man/man1/ | shuf | head -1)'
 # SPELLING ERRORS
 alias sl='exa'
+alias sls="exa"
 
 
 # EXPORTS 
@@ -139,3 +141,7 @@ fortune -as | lolcat
 ifetch
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

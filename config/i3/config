@@ -37,8 +37,8 @@ bindsym $mod+Tab exec i3 workspace next
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# start rofi (a program launcher)
+bindsym $mod+d exec ~/.config/rofi/launchers/type-7/launcher.sh 
 
 
 # WINDOW MANIPULATION ---------
@@ -82,10 +82,13 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+i floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+i focus mode_toggle
+
+# make floating windows sticky (stick between workspaces)
+bindsym $mod+u sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -171,22 +174,12 @@ bindsym $mod+o move workspace to output left
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize grow width 1 px or 1 ppt
-        bindsym j resize shrink height 1 px or 1 ppt
-        bindsym k resize grow height 1 px or 1 ppt
-        bindsym l resize shrink width 1 px or 1 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize grow width 1 px or 1 ppt
-        bindsym Down resize shrink height 1 px or 1 ppt
-        bindsym Up resize growheight 1 px or 1 ppt
-        bindsym Right resize shrink width 1 px or 1 ppt
+        
+        # use hjkl to resize
+        bindsym h resize grow width 3 px or 1 ppt
+        bindsym j resize shrink height 3 px or 1 ppt
+        bindsym k resize grow height 3 px or 1 ppt
+        bindsym l resize shrink width 3 px or 1 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -208,8 +201,8 @@ bindsym XF86AudioPlay exec "playerctl play-pause"
 bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
 
-bindsym Shift+Left exec "playerctl position 10-"
-bindsym Shift+Right exec "playerctl position 10+"
+# bindsym Shift+Left exec "playerctl position 10-"
+# bindsym Shift+Right exec "playerctl position 10+"
 
 # gives user ability to select which instance of mpv to cycle pause. ie. which song playing to pause
 bindsym $mod+XF86AudioPlay exec "~/bin/scripts/mpv.sh"
@@ -235,7 +228,7 @@ exec_always ~/bin/scripts/start.sh
 for_window [class=".*"] border pixel 2
 for_window [floating] border pixel 0
 gaps inner 10
-gaps outer 10
+# gaps outer 10 | too much space
 hide_edge_borders smart
 smart_gaps on
 
@@ -244,10 +237,10 @@ bindsym --release Print exec "~/bin/scripts/SC.sh"
 bindsym --release Shift+Print exec "~/bin/scripts/SC.sh -s"
 
 # /zzz/ sleep
-bindsym F8 exec "~/bin/scripts/lock.sh;systemctl hibernate"
+bindsym F8 exec "~/bin/scripts/lock.sh && systemctl hibernate"
 
 # lock screen only
-bindsym F6 exec "~/bin/scripts/lock.sh;systemctl suspend"
+bindsym F6 exec "~/bin/scripts/lock.sh && systemctl suspend"
 
 # opensc script | opens newest screenshot
 bindsym Ctrl+Print exec ~/bin/personal/opensc

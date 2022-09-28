@@ -34,6 +34,7 @@ rm -r ~/.config/polybar
 rm -r ~/.config/i3
 rm -r ~/.config/sakura
 rm -r ~/.config/dunst
+rm -r ~/.config/picom.conf
 rm ~/.config/starship.toml
 rm ~/.bashrc
 rm ~/.vimrc

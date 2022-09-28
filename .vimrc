@@ -41,6 +41,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 
+" C / C++ Extended Highlighting
+Plug 'bfrg/vim-cpp-modern'
+
+" Better language support
+Plug 'sheerun/vim-polyglot'
+
 " COC-vim language server for auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -91,14 +97,11 @@ Plug 'itchyny/lightline.vim'
 " Color previews for CSS
 Plug 'ap/vim-css-color'
 
-" Vim-prettier
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-
 " ------------
 " -- Themes --
 " ------------
-  
 Plug 'joshdick/onedark.vim'
+Plug 'ghifarit53/daycula-vim' , {'branch' : 'main'}
 " Plug 'morhetz/gruvbox.git'
 Plug 'crusoexia/vim-monokai'
 Plug 'arcticicestudio/nord-vim'
@@ -115,11 +118,13 @@ call plug#end()
 " -- Lightline status line config --
 " ----------------------------------
 let g:lightline = {
-	\ 'colorscheme': 'molokai',
-	\ }
-
+\ 'colorscheme': 'daycula',
+\ 'separator': { 'left': '', 'right': '' },
+\ 'subseparator': { 'left': '', 'right': '' },
+\ }
 set laststatus=2
 set noshowmode 
+
 
 " No statusline in nerdtree window
 augroup filetype_nerdtree
@@ -238,16 +243,32 @@ hi StartifySpecial ctermfg=240
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 
+" ----------------
+" Daycula Settings
+" ----------------
+let g:daycula_enable_italic = 1
+
+" ---------------------------------
+" --- Colour and theme settings ---
+" ---------------------------------
+if &term =~ '256color'
+  if has('termguicolors') " Enable true (24-bit) colors instead of (8-bit) 256 colors.
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+  endif
+  colorscheme daycula " Change colorscheme here
+endif
+
 " --------------------
 " --- Vim Settings ---
 " --------------------
 
 syntax on
-colorscheme onedark
 set modifiable " Sets files to be modifiable by deafault
 set autoread " Re-reads a file when edits in another editor are detected
 set cmdheight=1 " Sets max height of commands when run
-"set foldenable " Allows folding
+set foldenable " Allows folding
 set incsearch " When searching, shows strings that match as you are typing 
 set mouse=a " Enable mouse
 set nu " Line numbers
@@ -265,7 +286,8 @@ set tabstop=4 " One tab == 4 spaces
 
 filetype plugin on " Enable loading the plugin files for specific file types
 
-hi Comment cterm=italic
+" Make comments italic
+highlight Comment cterm=italic 
 
 " Jump to last position when reopening a file
 if has("autocmd")
@@ -276,7 +298,7 @@ endif
 " --- Custom Mappings ---
 " -----------------------
 let mapleader =" "
-nnoremap <leader>n :NERDTree <Cr>
+nnoremap <silent> <expr> <leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 nnoremap <leader>t :tabnew file <CR>
 nnoremap <leader>m :MRU <Cr>
 nnoremap <leader>i :Startify <Cr>
@@ -291,8 +313,8 @@ map <C-a> <esc>ggVG
 " CTRL+C copy selected text to clipboard (only works with gvim install)<CR> 
 vnoremap <C-c> "+y 
 " Home and End keys
-map 1 <home>
-map 0 <end>
+map 1 ^  
+map 0 $
 " Map 'jk' as escape
 imap jk <Esc>
 " Using CTRL-e and CTRL-y work to scroll in insert mode
@@ -312,9 +334,6 @@ noremap <C-x> :q!<CR>
 " CTRL + L or H jumps one word
 imap <C-l> <C-Right>
 imap <C-h> <C-left>
-" inoremap 00 <end>
-" inoremap 11 <home>
-
 
 " -----------------------
 " -- Buffer navigation --
@@ -348,19 +367,8 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 
-noremap <leader>0 :tablast<cr>
+" noremap <leader>0 :tablast<cr>
 nnoremap <leader>x :tabclose<Cr>
 map <leader>tm :tabmove<Cr>
 
 
-" ---------------------------------
-" --- Colour and theme settings ---
-" ---------------------------------
-if &term =~ '256color'
-  if has('termguicolors') " Enable true (24-bit) colors instead of (8-bit) 256 colors.
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-  colorscheme onedark " Change colorscheme here
-endif

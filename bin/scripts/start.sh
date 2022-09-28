@@ -13,6 +13,7 @@ pkill nm-applet
 pkill -f wall.sh
 pkill -f syncthing
 pkill -f numlockx
+pkill -f picom
 
 if [ $HOST == "PC" ]; then
     ~/bin/scripts/monitor-layout.sh
@@ -32,5 +33,6 @@ nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/polybar/polybar.sh &
 aw-qt &
+picom --experimental-backends --backend glx &
 clear
 

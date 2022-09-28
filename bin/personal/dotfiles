@@ -20,6 +20,7 @@ cp -r ~/.config/polybar ./config
 cp -r ~/.config/sakura ./config
 cp -r ~/.config/starship.toml ./config
 cp -r ~/.config/dunst ./config
+cp ~/.config/picom.conf ./config
 
 # copying from home dir
 cp ~/.bashrc .
