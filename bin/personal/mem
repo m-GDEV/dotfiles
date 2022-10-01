@@ -6,4 +6,4 @@ else
 	LEN=$1
 fi
 
-ps aux --sort=-%mem | head -"$LEN" | awk '{printf("%s \t %s \t %s MB \t %s\n", $2, $3, ($4/100)*14820, $11)}' | cut -c -100
+ps aux --sort=-%mem | head -"$LEN" | awk -v RAM="$(free -m | sed  -n 2p | awk '{print $2}')" '{printf("%s \t %s \t %s MB \t %s\n", $2, $3, ($4/100)*RAM, $11)}' | cut -c -100
