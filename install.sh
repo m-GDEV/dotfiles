@@ -39,7 +39,7 @@ function iR(){
 sudo pacman -S yay
 
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
-GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock scrot numlockx "
+GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock scrot numlockx obsidian xournalpp"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
 AGUI="brave-bin zoom spotify sakura "
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"

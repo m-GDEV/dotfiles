@@ -15,11 +15,11 @@ pkill -f syncthing
 pkill -f numlockx
 pkill -f picom
 
-if [ $HOST == "PC" ]; then
-    ~/bin/scripts/monitor-layout.sh
-else
-    echo
-fi
+# if [ $HOST == "PC" ]; then
+#     ~/bin/scripts/monitor-layout.sh
+# else
+#     echo
+# fi
 
 unclutter & 
 numlockx &
