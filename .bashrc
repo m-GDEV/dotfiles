@@ -103,7 +103,7 @@ alias sls="exa"
 
 # EXPORTS 
 # --------------------------------------------------
-export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin"
+export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin"
 
 export STARSHIP_CONFIG=~/.config/starship.toml 
 export LD_LIBRARY_PATH=/usr/local/lib # export for cs50.h

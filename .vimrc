@@ -1,8 +1,8 @@
-          "_                    
-   "_   __(_)___ ___  __________
-  "| | / / / __ `__ \/ ___/ ___/
- "_| |/ / / / / / / / /  / /__  
-"(_)___/_/_/ /_/ /_/_/   \___/  
+"_
+"_   __(_)___ ___  __________
+"| | / / / __ `__ \/ ___/ ___/
+"_| |/ / / / / / / / /  / /__
+"(_)___/_/_/ /_/ /_/_/   \___/
 "
 " By:            | Musa Ahmed
 " Created On:    | August 20, 2021
@@ -23,8 +23,8 @@ call plug#begin('~/.vim/plugged')
 " Auto-installs Vim-Plug and all plugins if not installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
 
 " -------------------
@@ -52,6 +52,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Code formatting
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
+Plug 'vim-autoformat/vim-autoformat'
 
 " Fix copy & past problem
 Plug 'christoomey/vim-system-copy'
@@ -92,7 +93,7 @@ Plug 'jiangmiao/auto-pairs'
 " ---------------
 
 " Status line at the bottom
-Plug 'itchyny/lightline.vim' 
+Plug 'itchyny/lightline.vim'
 
 " Color previews for CSS
 Plug 'ap/vim-css-color'
@@ -118,12 +119,12 @@ call plug#end()
 " -- Lightline status line config --
 " ----------------------------------
 let g:lightline = {
-\ 'colorscheme': 'daycula',
-\ 'separator': { 'left': '', 'right': '' },
-\ 'subseparator': { 'left': '', 'right': '' },
-\ }
+            \ 'colorscheme': 'daycula',
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' },
+            \ }
 set laststatus=2
-set noshowmode 
+set noshowmode
 
 
 " No statusline in nerdtree window
@@ -144,17 +145,17 @@ endfu
 
 " Allows tab completion by pressing tab to select items
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+            \ coc#pum#visible() ? coc#pum#next(1):
+            \ CheckBackspace() ? "\<Tab>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " ----------------------
@@ -178,11 +179,11 @@ hi SyntasticErrorLine ctermbg=black
 " ---------------------
 
 " Auto start NERDTree and put cursor in empty buffer
-autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * NERDTree | wincmd p
 
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+            \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -198,7 +199,7 @@ let g:NERDAltDelims_java = 1 " Set a language to use its alternate delimiters by
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
 let g:NERDCommentEmptyLines = 1 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
-let g:NERDToggleCheckAllLines = 1 " Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
@@ -207,22 +208,22 @@ let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " --------------
 " -- Startify --
 " --------------
- let g:startify_custom_header =
-       \ startify#pad(split(system('figlet -w 100 Vim of Musa'), '\n'))
+let g:startify_custom_header =
+            \ startify#pad(split(system('figlet -w 100 Vim of Musa'), '\n'))
 "Incase you are insane and want to open a new tab with Goyo enabled
- autocmd BufEnter *
-       \ if !exists('t:startify_new_tab') && empty(expand('%')) && !exists('t:goyo_master') |
-       \   let t:startify_new_tab = 1 |
-       \   Startify |
-       \ endif
+autocmd BufEnter *
+            \ if !exists('t:startify_new_tab') && empty(expand('%')) && !exists('t:goyo_master') |
+            \   let t:startify_new_tab = 1 |
+            \   Startify |
+            \ endif
 "Bookmarks. Syntax is clear.add yours
 let g:startify_bookmarks = [ {'I': '~/i3/i3/config'},{'L': '~/.blerc'},{'Z': '~/.zshrc'},{'B': '~/.bashrc'},{'V': '~/.vimrc'}]
-    let g:startify_lists = [
-          \ { 'type': 'bookmarks' , 'header': ['   Bookmarks']      } ,
-          \ { 'type': 'files'     , 'header': ['   Recent'   ]      } ,
-          \ { 'type': 'sessions'  , 'header': ['   Sessions' ]      } ,
-          \ { 'type': 'commands'  , 'header': ['   Commands' ]      } ,
-          \ ]
+let g:startify_lists = [
+            \ { 'type': 'bookmarks' , 'header': ['   Bookmarks']      } ,
+            \ { 'type': 'files'     , 'header': ['   Recent'   ]      } ,
+            \ { 'type': 'sessions'  , 'header': ['   Sessions' ]      } ,
+            \ { 'type': 'commands'  , 'header': ['   Commands' ]      } ,
+            \ ]
 "cant tell wtf it does so its commented
 " \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
 
@@ -243,6 +244,13 @@ hi StartifySpecial ctermfg=240
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 
+" --------------
+" vim-autoformat
+" --------------
+
+" Autosaving
+au BufWrite * :Autoformat
+
 " ----------------
 " Daycula Settings
 " ----------------
@@ -252,12 +260,12 @@ let g:daycula_enable_italic = 1
 " --- Colour and theme settings ---
 " ---------------------------------
 if &term =~ '256color'
-  if has('termguicolors') " Enable true (24-bit) colors instead of (8-bit) 256 colors.
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-  colorscheme daycula " Change colorscheme here
+    if has('termguicolors') " Enable true (24-bit) colors instead of (8-bit) 256 colors.
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+        set termguicolors
+    endif
+    colorscheme daycula " Change colorscheme here
 endif
 
 " --------------------
@@ -269,29 +277,29 @@ set modifiable " Sets files to be modifiable by deafault
 set autoread " Re-reads a file when edits in another editor are detected
 set cmdheight=1 " Sets max height of commands when run
 set foldenable " Allows folding
-set incsearch " When searching, shows strings that match as you are typing 
+set incsearch " When searching, shows strings that match as you are typing
 set mouse=a " Enable mouse
 set nu " Line numbers
 set smartindent " Indentation
-set ignorecase " Case insensitive searching 
+set ignorecase " Case insensitive searching
 set smartcase " Will automatically switch to case sensitive if you use any capitals
 set cursorline " Highlights line cursor is on
 set notimeout " Remove timeout for partially typed commands
 set autoindent " Automatically indent the next line
 set background=dark " Use dark a the background colour
 set expandtab " Use spaces instead of tabs
-set smarttab " Not sure DT uses it 
+set smarttab " Not sure DT uses it
 set shiftwidth=4 " One tab == 4 spaces
 set tabstop=4 " One tab == 4 spaces
 
 filetype plugin on " Enable loading the plugin files for specific file types
 
 " Make comments italic
-highlight Comment cterm=italic 
+highlight Comment cterm=italic
 
 " Jump to last position when reopening a file
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 " -----------------------
@@ -308,12 +316,14 @@ nnoremap <leader>sp :setlocal spell! spelllang=en_us<Cr>
 hi SpellBad ctermfg=red guifg=red
 " Fix spelling errors
 nnoremap <leader>fs :normal! 1z=<Cr>
+" Open fzf file explorer
+noremap <leader>f :Files<Cr>
 " CRTL+A selects all text
 map <C-a> <esc>ggVG
-" CTRL+C copy selected text to clipboard (only works with gvim install)<CR> 
-vnoremap <C-c> "+y 
+" CTRL+C copy selected text to clipboard (only works with gvim install)<CR>
+vnoremap <C-c> "+y
 " Home and End keys
-map 1 ^  
+map 1 ^
 map 0 $
 " Map 'jk' as escape
 imap jk <Esc>
@@ -328,6 +338,7 @@ noremap <C-q> :wq<CR>
 inoremap <C-q> <c-o>:wq<CR>
 " CTRL-X quits without saving
 noremap <C-x> :q!<CR>
+inoremap <C-x> :q!<CR>
 " Moving around in insert mode
 " imap pp <right>
 " imap qq <left>

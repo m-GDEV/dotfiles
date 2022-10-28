@@ -39,9 +39,9 @@ function iR(){
 sudo pacman -S yay
 
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
-GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock scrot numlockx obsidian xournalpp"
+GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock scrot numlockx obsidian xournalpp qbittorrent"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
-AGUI="brave-bin zoom spotify sakura "
+AGUI="brave-bin zoom spotify sakura surfshark-gui-bin"
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
 
 # Terminal Programs / Programs that the user uses in the terminal
@@ -56,6 +56,9 @@ OTE="micro atom code"
 
 # Devoloper Programs
 DEV="nodejs npm python-pip yarn prettier"
+
+# Gaming programs
+GAME="heroic-games-launcher-bin lutris steam"
 
 
 # --- Normal Installations ---
@@ -84,6 +87,10 @@ clear
 
 echo "Installing Developer Programs..."
 iR "Devoloper Programs" "$DEV" "pacman"
+clear
+
+echo "Installing Game programs..."
+iR "AUR / PAC Games" "$GAME" "yay"
 
 # --- Alternate program installations ---
 ALT="starship bash-insulter fzf m-GDEV-dmenu mpv-mpris vim-plug zoxide ifetch"

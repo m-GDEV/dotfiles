@@ -2,17 +2,17 @@
 
 if [ "$1" == "-c" ]; then
 
-	FILE="${2}.c" # Source file
-	ARGS=$(echo $@ | awk '{for(i=3;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev)
-	clang -lcs50 $FILE -o $2
-	./$2 $ARGS
+    FILE="${2}.c" # Source file
+    ARGS=$(echo $@ | awk '{for(i=3;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev)
+    clang -lcs50 $FILE -o $2
+    ./$2 $ARGS
 
 # for normal use case
-else 
+else
 
-	FILE="${1}.c" # Source file
-	ARGS=$(echo $@ | awk '{for(i=2;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev) # getting all cmd line args
-	clang $FILE -o $1
-	./$1 $ARGS
+    FILE="${1}.c" # Source file
+    ARGS=$(echo $@ | awk '{for(i=2;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev) # getting all cmd line args
+    clang -Wall $FILE -o $1
+    ./$1 $ARGS
 fi
-	
+
