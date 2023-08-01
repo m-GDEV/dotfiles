@@ -38,7 +38,7 @@ bindsym $mod+Tab exec i3 workspace next
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec ~/.config/rofi/launchers/type-7/launcher.sh 
+bindsym $mod+d exec ~/.config/rofi/launchers/type-7/launcher.sh
 
 
 # WINDOW MANIPULATION ---------
@@ -77,9 +77,9 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+i floating toggle
@@ -91,22 +91,22 @@ bindsym $mod+i focus mode_toggle
 bindsym $mod+u sticky toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
 
 # vars for workspaces cus DRY
 set $ws1 "📄"
-set $ws2 "📔"
-set $ws3 "🏫"
+set $ws2 "🍿"
+set $ws3 "📚"
 set $ws4 "🎧"
-set $ws5 "☑️"
-set $ws6 "🖥️"
-set $ws7 "🖥️#2"
-set $ws8 "🗃️"
-set $ws9 "💡"
-set $ws10 "💡#2"
+set $ws5 "📊"
+set $ws6 "💬"
+set $ws7 "🚀"
+set $ws8 "🕹️"
+set $ws9 "🕹️2️"
+set $ws10 "🎮"
 set $ws11 "F1"
 set $ws12 "F2"
 set $ws13 "F3"
@@ -174,14 +174,14 @@ bindsym $mod+o move workspace to output left
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        
-        # use hjkl to resize
-        bindsym h resize grow width 3 px or 1 ppt
+
+# use hjkl to resize
+    bindsym h resize grow width 3 px or 1 ppt
         bindsym j resize shrink height 3 px or 1 ppt
         bindsym k resize grow height 3 px or 1 ppt
         bindsym l resize shrink width 3 px or 1 ppt
 
-        # back to normal: Enter or Escape
+# back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -228,9 +228,14 @@ exec_always ~/bin/scripts/start.sh
 for_window [class=".*"] border pixel 2
 for_window [floating] border pixel 0
 gaps inner 10
+
 # gaps outer 10 | too much space
 hide_edge_borders smart
 smart_gaps on
+
+# default borders
+default_border pixel 1
+default_floating_border pixel 1
 
 # screenshot with scrot - mouse selection on first line, full screen on second
 bindsym --release Print exec "~/bin/scripts/SC.sh"

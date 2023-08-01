@@ -2,7 +2,7 @@
 "_   __(_)___ ___  __________
 "| | / / / __ `__ \/ ___/ ___/
 "_| |/ / / / / / / / /  / /__
-"(_)___/_/_/ /_/ /_/_/   \___/
+"____/_/_/ /_/ /_/_/   \___/
 "
 " By:            | Musa Ahmed
 " Created On:    | August 20, 2021
@@ -87,6 +87,9 @@ Plug 'Yggdroot/indentLine'
 
 " Auto bracket pairs
 Plug 'jiangmiao/auto-pairs'
+
+" Autocomplete for tailwindcss
+Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
 " ---------------
 " -- Aesthetic --
@@ -248,7 +251,8 @@ let g:prettier#autoformat_require_pragma = 0
 " vim-autoformat
 " --------------
 
-" Autosaving
+" Autosaving & Disable autoformat on text files
+autocmd FileType vim,text let b:autoformat_autoindent=0
 au BufWrite * :Autoformat
 
 " ----------------
@@ -279,7 +283,7 @@ set cmdheight=1 " Sets max height of commands when run
 set foldenable " Allows folding
 set incsearch " When searching, shows strings that match as you are typing
 set mouse=a " Enable mouse
-set nu " Line numbers
+set rnu " Relative Line numbers
 set smartindent " Indentation
 set ignorecase " Case insensitive searching
 set smartcase " Will automatically switch to case sensitive if you use any capitals
@@ -323,8 +327,8 @@ map <C-a> <esc>ggVG
 " CTRL+C copy selected text to clipboard (only works with gvim install)<CR>
 vnoremap <C-c> "+y
 " Home and End keys
-map 1 ^
-map 0 $
+" map 1 ^
+" map 0 $
 " Map 'jk' as escape
 imap jk <Esc>
 " Using CTRL-e and CTRL-y work to scroll in insert mode
@@ -338,7 +342,7 @@ noremap <C-q> :wq<CR>
 inoremap <C-q> <c-o>:wq<CR>
 " CTRL-X quits without saving
 noremap <C-x> :q!<CR>
-inoremap <C-x> :q!<CR>
+inoremap <C-x> <ESC>:q!<CR>
 " Moving around in insert mode
 " imap pp <right>
 " imap qq <left>

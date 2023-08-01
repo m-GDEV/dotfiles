@@ -1,8 +1,3 @@
 #! /bin/bash
-
-echo $(pwd)
-
-while [ 7 -gt 6 ]; do
-    mpv ./sound.wav
-    sleep 0.1
-done
+#
+while true; do play -n synth 100 trim 0 0 && sleep 1; done

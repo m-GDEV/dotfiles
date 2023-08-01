@@ -1,7 +1,7 @@
-#      __               __             
+#      __               __
 #     / /_  ____ ______/ /_  __________
 #    / __ \/ __ `/ ___/ __ \/ ___/ ___/
-# _ / /_/ / /_/ (__  ) / / / /  / /__  
+# _ / /_/ / /_/ (__  ) / / / /  / /__
 #(_)_.___/\__,_/____/_/ /_/_/   \___/
 #
 # By:            | Musa Ahmed
@@ -32,7 +32,7 @@ shopt -s cdspell # ignore cd mispellings
 bind "set completion-ignore-case on"
 
 
-# ALIASES 
+# ALIASES
 # -------------------------------------------------------------
 
 # COMMON UTILITIES
@@ -41,14 +41,15 @@ alias cd='z' # to use z program that replaces cd
 alias lf='exa -lah'
 alias ll='exa -lh'
 alias la='exa -a | grep "^\."' # only shows hidden files in dir
-alias dus='du -hd 3 | sort -h'
-alias duc='du -hcd 1 | sort -h'
-alias dua='du -ah | sort -h'
+# alias dus='du -hd 3 | sort -h'
+alias dus='du -bhd 3 | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
+alias duc='du -bhcd 1 | sort -h'
+alias dua='du -abh | sort -h'
 
 # NUANCED UTILITIES
 alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
 alias re="find . -type f -printf '%T@ %p\n' | sort -k 1 -n | sed 's/^[^ ]* //'" # recursively lists files in dir by modification date
-alias opensc="go ~/Pictures/screenshots/$(ls -l ~/Pictures/screenshots/ | awk '{ print $7 }' | tail -1)> /dev/null 2>&1"
+alias opensc="viewnior ~/Pictures/screenshots/$( ls -tr ~/Pictures/screenshots/ | tail -1) > /dev/null 2>&1 &"
 alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
@@ -66,9 +67,9 @@ alias cat='cat -n'
 alias g='grep -in --color=auto'
 alias wl='wc -l'
 alias cmd='command'
-alias go='gio open'
+# alias go='gio open'
 
-# NUANCED RENAMES 
+# NUANCED RENAMES
 alias calc='qalc'
 alias show='viu'
 alias fm='ranger'
@@ -101,11 +102,11 @@ alias sl='exa'
 alias sls="exa"
 
 
-# EXPORTS 
+# EXPORTS
 # --------------------------------------------------
 export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin"
 
-export STARSHIP_CONFIG=~/.config/starship.toml 
+export STARSHIP_CONFIG=~/.config/starship.toml
 export LD_LIBRARY_PATH=/usr/local/lib # export for cs50.h
 
 export HISTCONTROL=ignoredups:erasedups
@@ -126,7 +127,7 @@ fi
 # fzf reverse search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# startup 
+# startup
 fortune -as | lolcat
 ifetch
 eval "$(starship init bash)"
@@ -135,4 +136,26 @@ eval "$(zoxide init bash)"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# eval "$(thefuck --alias)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/musa/.local/share/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/musa/.local/share/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/musa/.local/share/anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/musa/.local/share/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
+# #
+# export CUDA_HOME="/opt/cuda"
+# export CC="/usr/bin/gcc-11"
+# export CCX="/usr/bin/gcc-11"
 
