@@ -12,7 +12,6 @@ cd /tmp/$DIR
 mkdir config
 mkdir bin
 mkdir -p etc/$HOST/
-mkdir -p etc/ly
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
@@ -34,7 +33,6 @@ find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
 cp -r /etc/X11 "./etc/$HOST/"
-cp /etc/ly/config.ini ./etc/ly
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "
