@@ -21,12 +21,8 @@ use_color=true
 
 complete -cf sudo
 
-HISTSIZE=15000
-HISTFILESIZE=15000
-
 shopt -s checkwinsize # checks term size when bash regains control
 shopt -s expand_aliases # expand aliases so they can use arguments i think
-shopt -s histappend # Enable history appending instead of overwriting.  #139609
 shopt -s cdspell # ignore cd mispellings
 
 bind "set completion-ignore-case on"
@@ -106,6 +102,18 @@ alias sls="exa"
 # --------------------------------------------------
 export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin"
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+# Eternal, unlimited, saved after every command, bash history
+# https://stackoverflow.com/a/19533853/13646445
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
+export HISTFILE="$HOME/pCloudDrive/zMisc./bash_external_history"
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
+
 export STARSHIP_CONFIG=~/.config/starship.toml
 export LD_LIBRARY_PATH=/usr/local/lib # export for cs50.h
 
@@ -113,7 +121,8 @@ export HISTCONTROL=ignoredups:erasedups
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/brave
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c" # Fixes annoying bat ansi error thing check #2568 & #2563 on bat github
+export MANPAGER="sh -c 'col -bx | bat --style=plain  -l man -p'"
 export TERM=xterm-256color
 
 
@@ -133,29 +142,5 @@ ifetch
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-# eval "$(thefuck --alias)"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/musa/.local/share/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/musa/.local/share/anaconda3/etc/profile.d/conda.sh" ]; then
-#         . "/home/musa/.local/share/anaconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/musa/.local/share/anaconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
-# #
-# export CUDA_HOME="/opt/cuda"
-# export CC="/usr/bin/gcc-11"
-# export CCX="/usr/bin/gcc-11"
 
