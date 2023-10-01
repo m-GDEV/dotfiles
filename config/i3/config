@@ -245,7 +245,7 @@ bindsym --release Shift+Print exec "~/bin/scripts/SC.sh -s"
 bindsym F8 exec "~/bin/scripts/lock.sh && systemctl hibernate"
 
 # lock screen only
-bindsym F6 exec "~/bin/scripts/lock.sh && systemctl suspend"
+bindsym F6 exec "~/bin/scripts/lock.sh && systemctl suspend-then-hibernate"
 
 # opensc script | opens newest screenshot
 bindsym Ctrl+Print exec ~/bin/personal/opensc

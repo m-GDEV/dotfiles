@@ -115,6 +115,7 @@ export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/brave
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERM=xterm-256color
+export MANROFFOPT="-c"
 
 
 # zMisc.

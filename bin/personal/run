@@ -12,7 +12,7 @@ else
 
     FILE="${1}.c" # Source file
     ARGS=$(echo $@ | awk '{for(i=2;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev) # getting all cmd line args
-    gcc -Wall -g -std=c99 $FILE -o $1
+    gcc -Wall -lm -g -std=c99 $FILE -o $1
     ./$1 $ARGS
 fi
 

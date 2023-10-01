@@ -4,33 +4,33 @@
 
 # --- Function to install programs ---
 function iP() {
-# $1 is name of var
-# $2 is var
-# $3 is package manager
-	for i in $2; do
-		echo "$i"
-	done
+    # $1 is name of var
+    # $2 is var
+    # $3 is package manager
+    for i in $2; do
+        echo "$i"
+    done
 
-	echo -en "\nWould you like to install $1? [y/n] "
-	read -r
+    echo -en "\nWould you like to install $1? [y/n] "
+    read -r
 
-	if [[ "$REPLY" == "y" ]]; then
+    if [[ "$REPLY" == "y" ]]; then
 
-		if [[ "$3" == "yay" ]]; then
-			"$3" -S $2
-		else 
-			sudo "$3" -S $2
-		fi
-		echo "Installed $1."
-	else
-		echo "Skipping..."
-	fi
+        if [[ "$3" == "yay" ]]; then
+            "$3" -S $2
+        else
+            sudo "$3" -S $2
+        fi
+        echo "Installed $1."
+    else
+        echo "Skipping..."
+    fi
 }
 
 # Function for install requests
 function iR(){
-	#echo -e "\n${1}: \n\n${2}"; iP "$1" "$2" "$3"
-	echo -e "\n${1}:" ; iP "$1" "$2" "$3"
+    #echo -e "\n${1}: \n\n${2}"; iP "$1" "$2" "$3"
+    echo -e "\n${1}:" ; iP "$1" "$2" "$3"
 }
 
 # --- Lists of programs (vars starting with "O" are optional, vars including "A" are from the AUR) ---
@@ -98,41 +98,41 @@ echo "ALT: $ALT"
 echo -en "\n\nWould you like to install the programs with alternate installation methods? [y/n] "
 read -r
 if [[ "$REPLY" == "y" ]]; then
-	echo "Installing Starship..."
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    echo "Installing Starship..."
+    sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
-	echo "Installing Bash-Insulter"
-	sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
+    echo "Installing Bash-Insulter"
+    sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found
 
-	echo "Installing fzf..."
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install
-	
-	echo "Installing m-GDEV-dmenu"
-	git clone https://github.com/m-GDEV/m-GDEV-dmenu.git /tmp/dmenu
-	cd /tmp/dmenu
-	sudo make install
+    echo "Installing fzf..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
 
-	echo "Installing mpv-mrpris"
-	if ! command -v mpv &> /dev/null; then
-		echo "mpv is not installed, please install it and try again."
+    echo "Installing m-GDEV-dmenu"
+    git clone https://github.com/m-GDEV/m-GDEV-dmenu.git /tmp/dmenu
+    cd /tmp/dmenu
+    sudo make install
+
+    echo "Installing mpv-mrpris"
+    if ! command -v mpv &> /dev/null; then
+        echo "mpv is not installed, please install it and try again."
     else
-	    git clone https://github.com/hoyon/mpv-mpris.git /tmp/mpv-mpris
-	    cd /tmp/mpv-mpris
-	    sudo make install
-	fi
+        git clone https://github.com/hoyon/mpv-mpris.git /tmp/mpv-mpris
+        cd /tmp/mpv-mpris
+        sudo make install
+    fi
 
-	echo "Installing vim-plug"
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    echo "Installing vim-plug"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-	echo "Installing zoxide"
-	curl -sS https://webinstall.dev/zoxide | bash
+    echo "Installing zoxide"
+    curl -sS https://webinstall.dev/zoxide | bash
 
     echo "Installing ifetch"
     curl -L https://raw.githubusercontent.com/m-GDEV/ifetch/master/install | bash
 
 else
-	echo "Skipping..."
+    echo "Skipping..."
 fi
 
 # --- Closing ---

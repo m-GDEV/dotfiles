@@ -15,11 +15,6 @@ pkill -f syncthing
 pkill -f numlockx
 pkill -f picom
 
-# if [ $HOST == "PC" ]; then
-# xrandr --output DP-4 --mode 1920x1080 --rate 180.00
-# else
-# echo
-# fi
 
 unclutter &
 numlockx &
@@ -29,16 +24,24 @@ dunst &
 redshift-gtk &
 syncthing &
 /usr/bin/brave &
-xfce4-taskmanager &
 spotify &
-steam &
-heroic &
 xfce4-power-manager &
 nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/polybar/polybar.sh &
-~/bin/scripts/sound.sh &
 aw-qt &
 # picom --backend glx &
+
+if [ $HOST == "PC" ]; then
+    # xrandr --output DP-4 --mode 1920x1080 --rate 180.00
+    xfce4-taskmanager &
+    steam &
+    heroic &
+    ~/bin/scripts/sound.sh &
+else
+    echo
+fi
+
+
 clear
 
