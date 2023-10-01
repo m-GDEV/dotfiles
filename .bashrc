@@ -124,6 +124,7 @@ export BROWSER=/usr/bin/brave
 export MANROFFOPT="-c" # Fixes annoying bat ansi error thing check #2568 & #2563 on bat github
 export MANPAGER="sh -c 'col -bx | bat --style=plain  -l man -p'"
 export TERM=xterm-256color
+export MANROFFOPT="-c"
 
 
 # zMisc.
