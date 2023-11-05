@@ -37,7 +37,6 @@ alias cd='z' # to use z program that replaces cd
 alias lf='eza --icons -lah'
 alias ll='eza --icons -lh'
 alias la='eza -a | grep "^\."' # only shows hidden files in dir
-# alias dus='du -hd 3 | sort -h'
 alias dus='du -bhd 3 | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 alias duc='du -bhcd 1 | sort -h'
 alias dua='du -abh | sort -h'
@@ -69,7 +68,7 @@ alias cat='cat -n'
 alias g='grep -in --color=auto'
 alias wl='wc -l'
 alias cmd='command'
-# alias go='gio open'
+alias dmg='sudo dmesg -e'
 
 # NUANCED RENAMES
 alias calc='qalc'
@@ -119,7 +118,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 export HISTCONTROL=ignoredups:erasedups
-export HISTFILE="$HOME/pCloudDrive/zMisc./bash_external_history"
+export HISTFILE="$HOME/pCloudDrive/zMisc./dotfiles/bash_external_history"
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
 
 export STARSHIP_CONFIG=~/.config/starship.toml
