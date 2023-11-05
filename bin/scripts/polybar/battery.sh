@@ -6,6 +6,7 @@ BAT_STAT=$(find /sys/class/power_supply/BAT* 2> /dev/null)
 if [ -z $BAT_STAT ]; then
     echo -n
 else
+    echo "🔋 $(acpi command | head -1 | awk '{ print $4 }' | cut -c 1-3) |"
     STATUS=$(acpi command | head -1 | awk '{ print $3 }')
     BATTERY_LEVEL=$(acpi command | head -1 | awk '{ print $4 }' | cut -c 1-3)
 

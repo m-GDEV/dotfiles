@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Writing log file to /tmp/wifi_log.txt"
+
+while [ 4 -gt 3 ]; do
+    if curl google.com &> /dev/null; then
+        echo "✅ $(date) - Wifi is working" | tee -a /tmp/wifi_log.txt
+    else
+        echo "❌ $(date) - Wifi is NOT working" | tee -a /tmp/wifi_log.txt
+    fi
+    sleep 10
+done

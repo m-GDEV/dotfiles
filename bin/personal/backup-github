@@ -5,7 +5,7 @@
 # set -xv
 START=$(date +%s)
 DATE=$(date +%d-%m-%y)
-TOKEN=$(cat pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt)
+TOKEN=$(cat ~/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt)
 
 echo "-- Backing up Github repositories of user m-GDEV --"
 echo -e "\nFetching repository info..."
@@ -33,6 +33,7 @@ rm -rf ./YT-PLAYLIST
 echo -e "Cloning all $(($total + 1)) repositories... (this might take a while)"
 for ((i=0; i <= $total + 1; i++)); do
     name=$(echo $repos | jq ".[${i}] | {name: .full_name}" | sed -n 2p | awk '{print $2}' | cut -c 2- | rev | cut -c 2- | rev)
+    echo "Cloning $name..."
     git clone https://github.com/$name >> ./log.txt 2>&1
 done
 
@@ -41,7 +42,7 @@ echo "Github repository backup created on $(date) for user m-GDEV" >> log.txt
 cd ../
 echo "Creating tar archive..."
 
-if [[ $USER == "musa" ]]; then 
+if [[ $USER == "musa" ]]; then
     tarp ./github-backup
     mv ./github-backup.tar "./${DATE}.tar"
     DIR="$HOME/Downloads/Media/Backups/github-backups/"

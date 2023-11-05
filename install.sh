@@ -42,7 +42,7 @@ sudo pacman -S yay
 GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock scrot numlockx obsidian xournalpp qbittorrent"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
 AGUI="brave-bin zoom spotify sakura surfshark-gui-bin"
-OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder"
+OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder corekeyboard"
 
 # Terminal Programs / Programs that the user uses in the terminal
 TERP="fortune-mod bat git curl duf lm_sensors exa fd openssh ufw clang libqalculate playerctl lz4 unzip tar the_silver_searcher openssh htop xsel lolcat pv"
@@ -130,6 +130,8 @@ if [[ "$REPLY" == "y" ]]; then
 
     echo "Installing ifetch"
     curl -L https://raw.githubusercontent.com/m-GDEV/ifetch/master/install | bash
+
+    echo "To setup wallpaper system properly please download DUMP.tar from Gogole Drive and extract it to ~/Downloads/Media/Pictures/DUMP/"
 
 else
     echo "Skipping..."

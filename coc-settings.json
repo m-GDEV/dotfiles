@@ -1,0 +1,10 @@
+{
+    "coc.source.word.filetypes": ["text", "markdown"],
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "javascript",
+        "javascriptreact",
+        "json"
+    ],
+    "prettier.tabWidth": 4
+}

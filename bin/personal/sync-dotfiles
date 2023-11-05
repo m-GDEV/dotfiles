@@ -14,18 +14,18 @@ deps="curl git vim starship polybar i3 dunst"
 
 for item in $deps
 do
-	if ! command -v "$item" &> /dev/null; then
-		echo "${item} not installed, please install it and try again."
-		exit 1
-	fi
+    if ! command -v "$item" &> /dev/null; then
+        echo "${item} not installed, please install it and try again."
+        exit 1
+    fi
 done
 
 # vim-plug installed?
 if [ -f "$HOME/.vim/autoload/plug.vim" ]; then
-	echo "vim-plug is installed, skipping."
+    echo "vim-plug is installed, skipping."
 else
-	echo "vim-plug not installed, installing..."
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
+    echo "vim-plug not installed, installing..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
 fi
 
 # Step 1
@@ -34,13 +34,14 @@ rm -r ~/.config/polybar
 rm -r ~/.config/i3
 rm -r ~/.config/sakura
 rm -r ~/.config/dunst
-rm -r ~/.config/picom.conf
 rm ~/.config/starship.toml
 rm ~/.bashrc
 rm ~/.vimrc
+rm ~/.vim/coc-settings.json
 # rm -rf ~/.vim
 rm -r ~/bin/personal
-rm -r ~/bin/scripts 
+rm -r ~/bin/scripts
+rm -r /etc/oblogout.conf
 
 # Step 2
 echo "Cloning dotfiles repository"
@@ -61,16 +62,19 @@ cp ./config/starship.toml ~/.config/
 
 cp ./.bashrc ~/
 cp ./.vimrc ~/
+cp ./coc-settings.json ~/.vim/
 
 cp -r ./bin/personal ~/bin/personal
 cp -r ./bin/scripts ~/bin/scripts/
+
+cp ./etc/oblogout.conf /etc/
 
 # Installing vim plugins
 echo "Install Vim plugins?"
 read -r
 if [ "$REPLY" == "y" ]; then
-	vim +PlugClean
-	vim +PlugInstall
+    vim +PlugClean
+    vim +PlugInstall
 fi
 
 # Make bin scripts executable
