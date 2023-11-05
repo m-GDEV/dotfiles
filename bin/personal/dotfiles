@@ -29,7 +29,6 @@ cp ~/.vim/coc-settings.json .
 cp -r ~/bin/personal ./bin
 cp -r ~/bin/scripts ./bin
 cp -r ~/bin/zMisc. ./bin
-find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
 cp -r /etc/oblogout.conf ./etc
