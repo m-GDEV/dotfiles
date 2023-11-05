@@ -2,7 +2,7 @@
 echo "Collecting Dotfiles from around the galaxy..."
 
 DIR="dotfiles"
-TAR="/home/musa/GITCLONE/my-stuff"
+TAR="$HOME/pCloudDrive/zMisc."
 HOST=$(uname -n)
 
 rm -rf /tmp/$DIR

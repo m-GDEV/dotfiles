@@ -58,7 +58,7 @@ ln -s $dir/.bashrc $HOME/.bashrc
 ln -s $dir/.vimrc $HOME/.vimrc
 ln -s $dir/coc-settings.json $HOME/.vim/coc-settings.json
 
-ln -s $dir/bin $HOME/bin
+ln -s $dir/bin $HOME/
 
 ln -s $dir/etc/oblogout.conf /etc/oblogout.conf
 
