@@ -47,6 +47,7 @@ alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
 alias re="find . -type f -printf '%T@ %p\n' | sort -k 1 -n | sed 's/^[^ ]* //'" # recursively lists files in dir by modification date
 alias opensc="viewnior ~/Pictures/screenshots/$( ls -tr ~/Pictures/screenshots/ | tail -1) > /dev/null 2>&1 &"
 alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
+alias spe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/uni-password.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
 
@@ -72,6 +73,7 @@ alias fm='ranger'
 alias diff='diff -syri --color=always'
 alias exe='chmod +x'
 alias p3='python3'
+alias ts='sudo tlp-stat -s'
 
 # GIT UTILITIES
 alias clone="git clone"
