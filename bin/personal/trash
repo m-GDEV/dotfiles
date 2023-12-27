@@ -1,3 +1,0 @@
-#! /bin/bash
-
-mv -i "$@" /home/musa/FILEZ/Files/Trash

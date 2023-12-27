@@ -1,7 +1,15 @@
-#! /bin/bash
+#!/bin/bash
+
 # script to start all my programs
+# --- In the future i should make a config file this script reads from where each
+# line has the following info: [program name] - [universal, pc, or laptop]
+# that way i read them all once and use functions instead of hardcoding them
+# like i am below ---
+# --- If you're making changes, check if every program is installed before running
+# if they all arent tell the user ---
 HOST=$(uname -n)
 
+# Kill all programs (this is only important if restarting i3 for example)
 redshift -x
 pkill -f notify-osd
 pkill -f brave
@@ -14,32 +22,42 @@ pkill -f wall.sh
 pkill -f syncthing
 pkill -f numlockx
 pkill -f picom
+pkill -f 'screen-brightness.py'
+pkill -f parcellite
+pkill -f beeper
+pkill -f corekeyboard
+pkill -f picom
 
-
+# Programs to start on any device
 unclutter &
 numlockx &
 dunst &
-# aplay -f cd /dev/zero &
 /usr/lib/geoclue-2.0/demos/agent &
 redshift-gtk &
 syncthing &
-/usr/bin/brave &
+firefox &
 spotify &
 xfce4-power-manager &
 nm-applet &
 ~/bin/scripts/wall.sh &
 ~/bin/scripts/polybar/polybar.sh &
 aw-qt &
-# picom --backend glx &
+parcellite &
+beeper &
 
+# Programs to start only on a PC
 if [ $HOST == "PC" ]; then
-    # xrandr --output DP-4 --mode 1920x1080 --rate 180.00
+    picom --no-vsync &
     xfce4-taskmanager &
     steam &
-    heroic &
+    lutris &
+    ~/bin/scripts/screen-brightness.py &
     ~/bin/scripts/sound.sh &
-else
-    echo
+
+# Programs to start only on my laptop
+elif [ $HOST == "ENVY" ]; then
+    picom --vsync &
+    corekeyboard &
 fi
 
 

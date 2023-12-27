@@ -51,7 +51,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Code formatting
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'vim-autoformat/vim-autoformat'
 
 " Fix copy & past problem
@@ -90,6 +89,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " Autocomplete for tailwindcss
 Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+
+" Git Changes Displayer (requires vim 8.0.902+)
+Plug 'mhinz/vim-signify'
 
 " ---------------
 " -- Aesthetic --
@@ -161,7 +163,14 @@ function! CheckBackspace() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" ----------------------
+" Auto-installs these extensions on startup if they're missing
+let g:coc_global_extensions = [
+            \ 'coc-pyright', 'coc-clangd', 'coc-tsserver', 'coc-word',
+            \ 'coc-prettier'
+            \ ]
+
+
+" " ----------------------
 " -- Syntastic config --
 " ----------------------
 set statusline+=%#warningmsg#
@@ -239,14 +248,6 @@ hi StartifyPath    ctermfg=245
 hi StartifySlash   ctermfg=240
 hi StartifySpecial ctermfg=240
 
-" ------------
-" Vim-prettier
-" ------------
-
-" Autosaving
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
-
 " --------------
 " vim-autoformat
 " --------------
@@ -259,6 +260,11 @@ au BufWrite * :Autoformat
 " Daycula Settings
 " ----------------
 let g:daycula_enable_italic = 1
+
+" ----------------
+" vim-signify Settings
+" ----------------
+set updatetime=100
 
 " ---------------------------------
 " --- Colour and theme settings ---

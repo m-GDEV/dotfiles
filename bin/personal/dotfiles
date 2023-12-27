@@ -2,7 +2,7 @@
 echo "Collecting Dotfiles from around the galaxy..."
 
 DIR="dotfiles"
-TAR="/home/musa/GITCLONE/my-stuff"
+TAR="$HOME/pCloudDrive/zMisc."
 HOST=$(uname -n)
 
 rm -rf /tmp/$DIR
@@ -11,7 +11,7 @@ cd /tmp/$DIR
 
 mkdir config
 mkdir bin
-mkdir -p etc/$HOST/
+mkdir -p etc
 
 # copying things from .config folder
 cp -r ~/.config/i3 ./config
@@ -19,20 +19,19 @@ cp -r ~/.config/polybar ./config
 cp -r ~/.config/sakura ./config
 cp -r ~/.config/starship.toml ./config
 cp -r ~/.config/dunst ./config
-cp ~/.config/picom.conf ./config
 
 # copying from home dir
 cp ~/.bashrc .
 cp ~/.vimrc .
+cp ~/.vim/coc-settings.json .
 
 # copy from local bin folder
 cp -r ~/bin/personal ./bin
 cp -r ~/bin/scripts ./bin
 cp -r ~/bin/zMisc. ./bin
-find ~/bin/programs >> ./bin/programs.txt
 
 # copy from /etc
-cp -r /etc/X11 "./etc/$HOST/"
+cp -r /etc/oblogout.conf ./etc
 
 # extra
 # read -n 1 -p "Please download your bookmarks to /tmp/dotfiles. Press enter to continue. "

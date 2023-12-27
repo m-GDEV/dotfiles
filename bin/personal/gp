@@ -1,3 +1,0 @@
-#! /bin/bash
-
-cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b

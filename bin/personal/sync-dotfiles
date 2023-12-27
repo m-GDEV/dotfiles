@@ -10,67 +10,64 @@
 # Setup
 # dotfiles # run the dotfiles script to update for any new changes to dotfiles before updating
 
-deps="curl git vim starship polybar i3 dunst"
+deps="curl git vim starship polybar i3 dunst oblogout ln"
+dir="$HOME/pCloudDrive/zMisc./dotfiles"
+conf="$HOME/.config"
 
 for item in $deps
 do
-	if ! command -v "$item" &> /dev/null; then
-		echo "${item} not installed, please install it and try again."
-		exit 1
-	fi
+    if ! command -v "$item" &> /dev/null; then
+        echo "${item} not installed, please install it and try again."
+        exit 1
+    fi
 done
 
 # vim-plug installed?
 if [ -f "$HOME/.vim/autoload/plug.vim" ]; then
-	echo "vim-plug is installed, skipping."
+    echo "vim-plug is installed, skipping."
 else
-	echo "vim-plug not installed, installing..."
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
+    echo "vim-plug not installed, installing..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &> /dev/null
 fi
 
 # Step 1
-echo "Removing old dotfiles"
+echo "Removing old/existing dotfiles"
 rm -r ~/.config/polybar
 rm -r ~/.config/i3
 rm -r ~/.config/sakura
 rm -r ~/.config/dunst
-rm -r ~/.config/picom.conf
 rm ~/.config/starship.toml
 rm ~/.bashrc
 rm ~/.vimrc
-# rm -rf ~/.vim
+rm ~/.vim/coc-settings.json
+
 rm -r ~/bin/personal
-rm -r ~/bin/scripts 
+rm -r ~/bin/scripts
+rm -r /etc/oblogout.conf
 
 # Step 2
-echo "Cloning dotfiles repository"
-rm -rf /tmp/sync-dotfiles
-mkdir /tmp/sync-dotfiles
-cd /tmp/sync-dotfiles || exit 1 # here incase dir does not exists
+echo "Linking dotfiles from pCloudDrive"
 
-git clone https://github.com/m-GDEV/dotfiles &> /dev/null
-cd dotfiles || exit 1 # here incase dir does not exists
+ln -s $dir/config/i3 $conf/i3
+ln -s $dir/config/dunst $conf/dunst
+ln -s $dir/config/sakura $conf/sakura
+ln -s $dir/config/polybar $conf/polybar
+ln -s $dir/starship.toml $conf/starship.toml
 
-# Step 3
-echo "Copying dotfiles"
-cp -r ./config/i3 ~/.config/
-cp -r ./config/dunst ~/.config/
-cp -r ./config/sakura ~/.config/
-cp -r ./config/polybar ~/.config/
-cp ./config/starship.toml ~/.config/
+ln -s $dir/.bashrc $HOME/.bashrc
+ln -s $dir/.vimrc $HOME/.vimrc
+ln -s $dir/coc-settings.json $HOME/.vim/coc-settings.json
 
-cp ./.bashrc ~/
-cp ./.vimrc ~/
+ln -s $dir/bin $HOME/
 
-cp -r ./bin/personal ~/bin/personal
-cp -r ./bin/scripts ~/bin/scripts/
+ln -s $dir/etc/oblogout.conf /etc/oblogout.conf
 
 # Installing vim plugins
 echo "Install Vim plugins?"
 read -r
 if [ "$REPLY" == "y" ]; then
-	vim +PlugClean
-	vim +PlugInstall
+    vim +PlugClean
+    vim +PlugInstall
 fi
 
 # Make bin scripts executable

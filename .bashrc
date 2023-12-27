@@ -34,13 +34,14 @@ bind "set completion-ignore-case on"
 # COMMON UTILITIES
 alias ch='cd ~;clear'
 alias cd='z' # to use z program that replaces cd
-alias lf='exa -lah'
-alias ll='exa -lh'
-alias la='exa -a | grep "^\."' # only shows hidden files in dir
-# alias dus='du -hd 3 | sort -h'
+alias lf='eza --icons -lah'
+alias ll='eza --icons -lh'
+alias la='eza -a | grep "^\."' # only shows hidden files in dir
 alias dus='du -bhd 3 | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 alias duc='du -bhcd 1 | sort -h'
 alias dua='du -abh | sort -h'
+# Shows size of root drive without unecessary directories
+alias dufs='du -xbhd 3 --exclude=/{proc,sys,dev,run} 2> /dev/null | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 
 # NUANCED UTILITIES
 alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
@@ -50,13 +51,17 @@ alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/
 alias spe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/uni-password.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
+# Sort videos in current dir showing size, length, and filename. Built with help of chatGpt
+alias sv='ls --sort=oldest --no-icons *.mp4 | xargs -I {} sh -c '\''length=$(mediainfo --Inform="General;%Duration%" "{}") && du -bh "{}" | awk -v OFS=" | " "{print \$1, $length/1000/60, \$2}"'\'' | column -t | sort -t '\''|'\'' -k2,2n'
+alias ports='lsof -i -P -n | grep LISTEN'
+
 
 # COMMON RENAMES
 alias pac="sudo pacman"
 alias v='vim'
 alias c='clear'
 alias e='exit'
-alias ls='exa'
+alias ls='eza --icons'
 alias mv='mv -i'
 alias cp='cp -i'
 alias rm='rm -I'
@@ -64,7 +69,7 @@ alias cat='cat -n'
 alias g='grep -in --color=auto'
 alias wl='wc -l'
 alias cmd='command'
-# alias go='gio open'
+alias dmg='sudo dmesg -e'
 
 # NUANCED RENAMES
 alias calc='qalc'
@@ -78,6 +83,7 @@ alias ts='sudo tlp-stat -s'
 # GIT UTILITIES
 alias clone="git clone"
 alias push='git status;echo -ne "Pushing Changes to Github!\n\nEnter commit message: "; read; git add -A; git commit -m "${REPLY}"; git push'
+alias commit='echo -ne "Enter Commit Message: "; read; git add -A; git commit -m "${REPLY}"'
 alias gitc='git commit -am'
 alias gstat='git status'
 alias findgit='find . -name .git -type d -prune'
@@ -96,8 +102,8 @@ alias cv='vim ~/.vimrc'
 alias randman='man $(find /usr/share/man/man1/ | shuf | head -1)'
 
 # SPELLING ERRORS
-alias sl='exa'
-alias sls="exa"
+alias sl='eza --icons'
+alias sls="eza --icons"
 
 
 # EXPORTS
@@ -113,19 +119,21 @@ export PATH=$BUN_INSTALL/bin:$PATH
 export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
-export HISTFILE="$HOME/pCloudDrive/zMisc./bash_external_history"
+export HISTCONTROL=ignoredups:erasedups
+export HISTFILE="$HOME/pCloudDrive/zMisc./dotfiles/bash_external_history"
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
 
 export STARSHIP_CONFIG=~/.config/starship.toml
 export LD_LIBRARY_PATH=/usr/local/lib # export for cs50.h
+export TERM=xterm-256color
 
-export HISTCONTROL=ignoredups:erasedups
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/brave
+export PAGER=/usr/bin/bat
+
 export MANROFFOPT="-c" # Fixes annoying bat ansi error thing check #2568 & #2563 on bat github
 export MANPAGER="sh -c 'col -bx | bat --style=plain  -l man -p'"
-export TERM=xterm-256color
 export MANROFFOPT="-c"
 
 
