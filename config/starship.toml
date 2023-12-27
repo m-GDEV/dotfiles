@@ -1,1 +1,60 @@
-/home/musa/pCloudDrive/zMisc./dotfiles/config/starship.toml
+# -- Global Options ---
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+format ='${custom.tamogachi}$all'
+
+# --- Custom Modules ---
+
+# Defines symbols for success and error
+[character]
+success_symbol = "[💡](bold green)"
+error_symbol = "[❌](bold red) "
+
+[cmd_duration]
+min_time = 1
+format = "took [$duration](bold yellow)"
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 8
+truncation_symbol = "..."
+disabled = false
+
+[git_status]
+untracked = "🙈"
+modified = "📝"
+disabled = false
+
+# Displays status of last executed command
+[status]
+style = "bg:blue"
+symbol = "🔴"
+format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false
+
+[username]
+style_user = "green bold"
+style_root = "black bold"
+format = "[$user]($style) "
+disabled = false
+show_always = true
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+
+[custom.home]
+command = "echo 🏠 "  # shows output of command
+when = """ test "$HOME" == "$PWD" """
+
+[custom.tamogachi]
+command = "echo $(~/pCloudDrive/tamogachi-project/tamogachi.sh)"
+# Runs the module at all times
+when = """ test 1 """
+
+

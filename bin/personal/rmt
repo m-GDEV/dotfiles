@@ -1,3 +1,4 @@
 #!/bin/bash
 
-mv -i "$@" /home/musa/tmp
+# Force since this is garbage anyways
+mv -f "$@" /home/musa/tmp

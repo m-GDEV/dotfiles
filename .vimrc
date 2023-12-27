@@ -50,9 +50,6 @@ Plug 'sheerun/vim-polyglot'
 " COC-vim language server for auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Code formatting
-Plug 'vim-autoformat/vim-autoformat'
-
 " Fix copy & past problem
 Plug 'christoomey/vim-system-copy'
 
@@ -77,6 +74,9 @@ Plug 'https://github.com/yegappan/mru.git'
 
 " Fancy start screen
 Plug 'mhinz/vim-startify'
+
+" Auto code formatting
+Plug 'vim-autoformat/vim-autoformat'
 
 " Floating screen
 "Plug 'voldikss/vim-floaterm'
@@ -158,15 +158,37 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+
 function! CheckBackspace() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Auto-installs these extensions on startup if they're missing
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> N :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('N', 'in')
+    endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+" Auto-installs these extensions on startup if they're missin" g
 let g:coc_global_extensions = [
-            \ 'coc-pyright', 'coc-clangd', 'coc-tsserver', 'coc-word',
-            \ 'coc-prettier'
+            \ 'coc-pyright', 'coc-clangd', 'coc-tsserver',
+            \ 'coc-prettier', 'coc-emoji', 'coc-rust-analyzer'
             \ ]
 
 
@@ -178,7 +200,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -221,7 +243,7 @@ let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 " -- Startify --
 " --------------
 let g:startify_custom_header =
-            \ startify#pad(split(system('figlet -w 100 Vim of Musa'), '\n'))
+            \ startify#pad(split(system('figlet -f ANSI welcome musa'), '\n'))
 "Incase you are insane and want to open a new tab with Goyo enabled
 autocmd BufEnter *
             \ if !exists('t:startify_new_tab') && empty(expand('%')) && !exists('t:goyo_master') |
@@ -229,7 +251,7 @@ autocmd BufEnter *
             \   Startify |
             \ endif
 "Bookmarks. Syntax is clear.add yours
-let g:startify_bookmarks = [ {'I': '~/i3/i3/config'},{'L': '~/.blerc'},{'Z': '~/.zshrc'},{'B': '~/.bashrc'},{'V': '~/.vimrc'}]
+let g:startify_bookmarks = [ {'I': '~/i3/i3/config'},{'B': '~/.bashrc'},{'V': '~/.vimrc'}]
 let g:startify_lists = [
             \ { 'type': 'bookmarks' , 'header': ['   Bookmarks']      } ,
             \ { 'type': 'files'     , 'header': ['   Recent'   ]      } ,
@@ -239,22 +261,9 @@ let g:startify_lists = [
 "cant tell wtf it does so its commented
 " \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
 
-hi StartifyBracket ctermfg=240
-hi StartifyFile    ctermfg=147
-hi StartifyFooter  ctermfg=240
-hi StartifyHeader  ctermfg=114
-hi StartifyNumber  ctermfg=215
-hi StartifyPath    ctermfg=245
-hi StartifySlash   ctermfg=240
-hi StartifySpecial ctermfg=240
-
-" --------------
-" vim-autoformat
-" --------------
-
-" Autosaving & Disable autoformat on text files
-autocmd FileType vim,text let b:autoformat_autoindent=0
-au BufWrite * :Autoformat
+" This allows a custom header color but daycula overrides it and i can't
+" figure it out
+"hi StartifyHeader  guifg=#1f24de guibg=NONE
 
 " ----------------
 " Daycula Settings
@@ -264,7 +273,19 @@ let g:daycula_enable_italic = 1
 " ----------------
 " vim-signify Settings
 " ----------------
-set updatetime=100
+set updatetime=5000
+
+" ----------------
+" vim-autoformat Settings
+" ----------------
+au BufWrite * :Autoformat " BufWritePost allows format to be run on auto-saved files
+au FileType groovy,text let b:autoformat_autoindent=0
+
+let g:formatdef_custom_java = '"astyle --style=google --indent=spaces=4 --indent-switches --pad-oper --pad-header --unpad-paren --add-braces --convert-tabs"'
+let g:formatters_java = ['custom_java']
+
+let g:formatdef_custom_python = '"autopep8 --in-place --aggressive --aggressive"'
+let g:formatters_python = ['custom_python']
 
 " ---------------------------------
 " --- Colour and theme settings ---
@@ -295,6 +316,7 @@ set ignorecase " Case insensitive searching
 set smartcase " Will automatically switch to case sensitive if you use any capitals
 set cursorline " Highlights line cursor is on
 set notimeout " Remove timeout for partially typed commands
+set timeoutlen=100
 set autoindent " Automatically indent the next line
 set background=dark " Use dark a the background colour
 set expandtab " Use spaces instead of tabs
@@ -307,27 +329,40 @@ filetype plugin on " Enable loading the plugin files for specific file types
 " Make comments italic
 highlight Comment cterm=italic
 
-" Jump to last position when reopening a file
+function! FormatOnUpdate()
+    exe 'Autoformat'
+    silent update
+endfunction
+
 if has("autocmd")
+    " Jump to last position when reopening a file
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    " Save writeable files automatically 'updatetime' ms later after the cursor stops moving
+    au CursorHold,CursorHoldI <buffer> if &readonly == 0 && filereadable(bufname('%')) | call FormatOnUpdate() | endif
 endif
 
 " -----------------------
 " --- Custom Mappings ---
 " -----------------------
-let mapleader =" "
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
+" Open Nerdtree
 nnoremap <silent> <expr> <leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
-nnoremap <leader>t :tabnew file <CR>
+
 nnoremap <leader>m :MRU <Cr>
 nnoremap <leader>i :Startify <Cr>
 " <leader>p runs Prettier
 " Toggle spelling errors
 nnoremap <leader>sp :setlocal spell! spelllang=en_us<Cr>
 hi SpellBad ctermfg=red guifg=red
-" Fix spelling errors
-nnoremap <leader>fs :normal! 1z=<Cr>
+" Fix spelling errors (if this is active :Files requires a second input char
+" to activate )
+" nnoremap <leader>fs :normal! 1z=<Cr>
 " Open fzf file explorer
-noremap <leader>f :Files<Cr>
+noremap <Space>f :Files<Cr>
+" Open fzf window explorer and switch to window on enter
+noremap <Space>w :Windows<Cr>
 " CRTL+A selects all text
 map <C-a> <esc>ggVG
 " CTRL+C copy selected text to clipboard (only works with gvim install)<CR>
@@ -337,15 +372,16 @@ vnoremap <C-c> "+y
 " map 0 $
 " Map 'jk' as escape
 imap jk <Esc>
+imap JK  <Esc> :echo "Turn off caps lock!"<CR>
 " Using CTRL-e and CTRL-y work to scroll in insert mode
 inoremap <C-e> <C-O><C-E>
 inoremap <C-y> <C-O><C-Y>
 " CTRL-S saves (second one saves in insert mode)
-noremap <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
+noremap <C-s> :update<CR>
+inoremap <C-s> <ESC>:update<CR>
 " CTRL-Q saves and quits (second one saves in insert mode)
-noremap <C-q> :wq<CR>
-inoremap <C-q> <c-o>:wq<CR>
+noremap <C-q> :update<Bar>quit<CR>
+inoremap <C-q> <c-o>:update<Bar>quit<CR>
 " CTRL-X quits without saving
 noremap <C-x> :q!<CR>
 inoremap <C-x> <ESC>:q!<CR>
@@ -375,8 +411,10 @@ map <s-h> :vertical resize -5 <Cr>
 map <s-j> :resize +5 <Cr>
 map <s-k> :resize -5 <Cr>
 
-nnoremap <leader>h :tabprevious<CR>
-nnoremap <leader>l :tabnext<CR>
+" Tabs (space is needed as using space as leader doesnt raelly work)
+nnoremap <Space>t :tabnew<Cr>
+nnoremap <Space>l :tabnext<CR>
+nnoremap <Space>h :tabprevious<CR>
 "Keybindings for tab navigation with leader and number
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -387,9 +425,5 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-
-" noremap <leader>0 :tablast<cr>
-nnoremap <leader>x :tabclose<Cr>
-map <leader>tm :tabmove<Cr>
 
 

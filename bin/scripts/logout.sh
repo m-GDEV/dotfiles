@@ -28,10 +28,10 @@ if [ "$1" == "--dashboard" ]; then
     if [ "$HOST" == "ENVY" ]; then
         oblogout
     else
-        picom --no-vsync &
+        # picom --no-vsync &
         oblogout
-        sleep 1
-        pkill -f picom
+        # sleep 1
+        # pkill -f picom
     fi
 
 # Just logging out

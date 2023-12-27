@@ -41,9 +41,9 @@ rm ~/.bashrc
 rm ~/.vimrc
 rm ~/.vim/coc-settings.json
 
-rm -r ~/bin/personal
-rm -r ~/bin/scripts
-rm -r /etc/oblogout.conf
+# NEVER PUT / AFTER SYMINK DIRECTORY NAME, IT WILL DELETE LINKED DIRECTORY
+rm ~/bin
+sudo rm -r /etc/oblogout.conf
 
 # Step 2
 echo "Linking dotfiles from pCloudDrive"
@@ -52,7 +52,7 @@ ln -s $dir/config/i3 $conf/i3
 ln -s $dir/config/dunst $conf/dunst
 ln -s $dir/config/sakura $conf/sakura
 ln -s $dir/config/polybar $conf/polybar
-ln -s $dir/starship.toml $conf/starship.toml
+ln -s $dir/config/starship.toml $conf/starship.toml
 
 ln -s $dir/.bashrc $HOME/.bashrc
 ln -s $dir/.vimrc $HOME/.vimrc
@@ -60,7 +60,7 @@ ln -s $dir/coc-settings.json $HOME/.vim/coc-settings.json
 
 ln -s $dir/bin $HOME/
 
-ln -s $dir/etc/oblogout.conf /etc/oblogout.conf
+sudo ln -s $dir/etc/oblogout.conf /etc/oblogout.conf
 
 # Installing vim plugins
 echo "Install Vim plugins?"

@@ -97,20 +97,21 @@ bindsym $mod+u sticky toggle
 #bindsym $mod+d focus child
 
 # vars for workspaces cus DRY
-set $ws1 "📄"
-set $ws2 "🍿"
-set $ws3 "📚"
-set $ws4 "🎧"
-set $ws5 "📊"
-set $ws6 "💬"
-set $ws7 "🚀"
-set $ws8 "🕹️"
-set $ws9 "🕹️2️"
-set $ws10 "🎮"
-set $ws11 "F1"
-set $ws12 "F2"
-set $ws13 "F3"
-set $ws14 "F4"
+# Each workspace now has a number so polybar can sort by index
+set $ws1 "1:📄"
+set $ws2 "2:🍿"
+set $ws3 "3:📚"
+set $ws4 "4:🎧"
+set $ws5 "5:📊"
+set $ws6 "6:💬"
+set $ws7 "7:🚀"
+set $ws8 "8:🕹️"
+set $ws9 "9:🕹️2️"
+set $ws10 "10:🎮"
+set $ws11 "11:F1"
+set $ws12 "12:F2"
+set $ws13 "13:F3"
+set $ws14 "14:F4"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -232,6 +233,9 @@ for_window [class=".*"] border pixel 2
 for_window [floating] border pixel 0
 gaps inner 10
 
+# Custom window instructions based on window name
+for_window [class="Oblogout"] fullscreen enable
+
 # gaps outer 10 | too much space
 hide_edge_borders smart
 smart_gaps on
@@ -244,23 +248,19 @@ default_floating_border pixel 1
 bindsym --release Print exec "~/bin/scripts/SC.sh"
 bindsym --release Shift+Print exec "~/bin/scripts/SC.sh -s"
 
-# /zzz/ sleep
-bindsym F8 exec "~/bin/scripts/lock.sh && systemctl hibernate"
+# suspend with lock
+bindsym F6 exec "~/bin/scripts/logout.sh --suspend"
 
-# lock screen only
-bindsym F6 exec "~/bin/scripts/lock.sh && systemctl suspend"
+# show full logout screen
+bindsym F8 exec "~/bin/scripts/logout.sh --dashboard"
+
+bindsym F9 exec "polybar-msg cmd toggle"
 
 # opensc script | opens newest screenshot
-bindsym Ctrl+Print exec ~/bin/personal/opensc
+bindsym F10 exec "viewnior ~/Pictures/screenshots/$( ls -tr ~/Pictures/screenshots/ | tail -1) > /dev/null 2>&1 &"
 
 # changes wallpaper
 bindsym F12 exec ~/bin/scripts/wall_set.sh
 
-# removes brave add with "mouse" shell script
-bindsym $mod+semicolon exec ~/bin/personal/mouse
-
-# emoji picker!
-bindsym $mod+equal exec emoji-picker
-
 # open brave
-bindsym $mod+minus exec brave
+bindsym $mod+minus exec firefox

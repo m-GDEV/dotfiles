@@ -59,8 +59,16 @@ def setBrightness():
         brightness = 0  # After sunset
 
     # Set the screen brightness using ddcutil
-    set_brightness_command = f'ddcutil setvcp 10 {int(brightness)}'
-    subprocess.run(set_brightness_command, shell=True)
+
+    # Only set brightness when its not night
+    if brightness == 0:
+        pass
+    else:
+        set_brightness_command = f'ddcutil setvcp 10 {int(brightness)}'
+        subprocess.run(set_brightness_command, shell=True)
+        # Play little beep noise so I know if the script is run
+        subprocess.run('mpv --no-video https://www.youtube.com/watch?v=WsTb8HYZd-U', shell=True)
+
 
     print("---------- DEBUG --------")
     print(f"Current Time: {current_time}")

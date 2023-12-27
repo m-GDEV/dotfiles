@@ -7,6 +7,7 @@
 # like i am below ---
 # --- If you're making changes, check if every program is installed before running
 # if they all arent tell the user ---
+# use this: https://chat.openai.com/share/1409859e-1659-44b4-9aa2-f14440df95ba
 HOST=$(uname -n)
 
 # Kill all programs (this is only important if restarting i3 for example)
@@ -26,7 +27,9 @@ pkill -f 'screen-brightness.py'
 pkill -f parcellite
 pkill -f beeper
 pkill -f corekeyboard
-pkill -f picom
+pkill -f 'sound.sh'
+pkill -f autotiling
+pkill -f mate-polkit
 
 # Programs to start on any device
 unclutter &
@@ -44,6 +47,8 @@ nm-applet &
 aw-qt &
 parcellite &
 beeper &
+autotiling &
+/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
 # Programs to start only on a PC
 if [ $HOST == "PC" ]; then

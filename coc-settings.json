@@ -1,10 +1,13 @@
 {
     "coc.source.word.filetypes": ["text", "markdown"],
+    "coc.source.emoji.filetypes": null,
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "javascript",
         "javascriptreact",
         "json"
     ],
-    "prettier.tabWidth": 4
+    "prettier.tabWidth": 4,
+    "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk",
+    "java.symbols.includeSourceMethodDeclarations": true
 }
