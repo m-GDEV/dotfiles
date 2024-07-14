@@ -7,17 +7,17 @@
 # SET MOD KEY
 set $mod Mod1
 
-# SET FONT
-font pango:Ubuntu 10
+# SET FONT (basically only shows up on tabbed layout)
+font pango:Jet Brains Mono 10
 
 
 # COLORS ---------------------
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #8b06bf #000000 #FFD700 #8b06bf   #8b06bf
-client.focused_inactive #8b06bf #000000 #FFD700 #8b06bf   #000000
-client.unfocused        #8b06bf #000000 #FFD700 #8b06bf   #000000
-client.urgent           #8b06bf #000000 #FFD700 #8b06bf   #000000
+client.focused          #8b06bf #450E74 #FFD700 #8b06bf   #8b06bf
+client.focused_inactive #8b06bf #3A0754 #FFFFFF #8b06bf   #000000
+client.unfocused        #8b06bf #3A0754 #FFFFFF #8b06bf   #000000
+client.urgent           #8b06bf #000000 #FFFFFF #8b06bf   #000000
 client.placeholder      #8b06bf #000000 #FFD700 #8b06bf   #000000
 
 client.background       #8b06bf
@@ -33,12 +33,26 @@ bindsym CONTROL+SHIFT+d exec sakura
 
 # cycle through active workspaces
 bindsym $mod+Tab exec i3 workspace next
+bindsym $mod+Shift+Tab exec i3 workspace previous
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec ~/.config/rofi/launchers/type-7/launcher.sh
+
+# start manpdf (DistroTube program that generates pdf from manpage)
+bindsym $mod+m exec ~/bin/personal/manpdf
+
+# open dmenu of all pdfs in current semster directory
+# In the future i should not hardcode the name
+# bindsym $mod+e exec ~/bin/scripts/dmenu-list-files.sh "$HOME/Winter 2024/" "pdf"
+
+# Opens emoji menu
+bindsym $mod+e exec bemoji -t
+
+# Open all pdfs from school
+bindsym $mod+s exec ~/bin/scripts/dmenu-list-files.sh "$HOME/pCloudDrive/zMisc./Obsidian-Vault/UoG/Lecture Notes/" "pdf"
 
 
 # WINDOW MANIPULATION ---------
@@ -78,8 +92,8 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 # bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
+bindsym $mod+w layout tabbed
+bindsym $mod+q layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+i floating toggle
@@ -91,7 +105,10 @@ bindsym $mod+i focus mode_toggle
 bindsym $mod+u sticky toggle
 
 # focus the parent container
-# bindsym $mod+a focus parent
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+z focus child
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -146,6 +163,8 @@ bindsym $mod+Shift+F3 move container to workspace $ws13
 bindsym $mod+Shift+F4 move container to workspace $ws14
 
 # move focused window and swap to that screen with windows key
+# note: this can be used to move a workspace to another workspace
+#       by doing $mod+a to select the root container
 bindsym Mod4+1 move container to workspace $ws1; workspace $ws1
 bindsym Mod4+2 move container to workspace $ws2; workspace $ws2
 bindsym Mod4+3 move container to workspace $ws3; workspace $ws3
@@ -156,12 +175,10 @@ bindsym Mod4+7 move container to workspace $ws7; workspace $ws7
 bindsym Mod4+8 move container to workspace $ws8; workspace $ws8
 bindsym Mod4+9 move container to workspace $ws9; workspace $ws9
 bindsym Mod4+0 move container to workspace $ws10; workspace $ws10
-bindsym Mod4+F1 move container to workspace F1; workspace $ws11
-bindsym Mod4+F2 move container to workspace F2; workspace $ws12
-bindsym Mod4+F3 move container to workspace F3; workspace $ws13
-bindsym Mod4+F4 move container to workspace F4; workspace $ws14
-
-
+bindsym Mod4+F1 move container to workspace $ws11; workspace $ws11
+bindsym Mod4+F2 move container to workspace $ws12; workspace $ws12
+bindsym Mod4+F3 move container to workspace $ws13; workspace $ws13
+bindsym Mod4+F4 move container to workspace $ws14; workspace $ws14
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -195,7 +212,12 @@ bindsym $mod+r mode "resize"
 #spotify shortcuts
 bindsym Shift+XF86AudioNext     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym Shift+XF86AudioPlay     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym Shift+XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym Shift+XF86AudioPrev     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
+# on laptop this is necessary as Shift+XF86AudioPlay triggers Shift+F10 instead. Don't know how to fix it
+bindsym Shift+F11     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym Shift+F10     exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym Shift+F9      exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 # audio control from keyboard for all applications
 bindsym XF86AudioPlay exec "playerctl play-pause"
@@ -229,9 +251,11 @@ exec_always ~/bin/scripts/start.sh
 #bindsym $mod+minus scratchpad show
 
 # GAPS (i3-gaps)
-for_window [class=".*"] border pixel 2
-for_window [floating] border pixel 0
-gaps inner 10
+# for_window [class=".*"] border pixel 2
+
+# Making all floating windows no border and sticky by default
+for_window [floating] border pixel 0 sticky toggle
+# gaps inner 10
 
 # Custom window instructions based on window name
 for_window [class="Oblogout"] fullscreen enable
@@ -241,12 +265,13 @@ hide_edge_borders smart
 smart_gaps on
 
 # default borders
-default_border pixel 1
+default_border normal
 default_floating_border pixel 1
 
 # screenshot with scrot - mouse selection on first line, full screen on second
 bindsym --release Print exec "~/bin/scripts/SC.sh"
 bindsym --release Shift+Print exec "~/bin/scripts/SC.sh -s"
+bindsym --release F7 exec "~/bin/scripts/SC.sh -f"
 
 # suspend with lock
 bindsym F6 exec "~/bin/scripts/logout.sh --suspend"
@@ -264,3 +289,12 @@ bindsym F12 exec ~/bin/scripts/wall_set.sh
 
 # open brave
 bindsym $mod+minus exec firefox
+
+
+# AUTO ASSIGN BY WINDOW NAME ---------------------
+# I can't figure all this shit out right now and I don't have time to do this right now
+for_window [class="[s|S]potify"] move to workspace $ws4
+for_window [class="[x|X]fce4-taskmanager"] move to workspace $ws5
+for_window [class="[b|B]eeper"] move to workspace $ws6
+# for_window [class="Lutris"] move to workspace $ws8
+# for_window [class="(steamwebhelper)?(steam)?"] move to workspace $ws9

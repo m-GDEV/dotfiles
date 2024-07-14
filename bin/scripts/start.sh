@@ -26,9 +26,9 @@ pkill -f picom
 pkill -f 'screen-brightness.py'
 pkill -f parcellite
 pkill -f beeper
-pkill -f corekeyboard
+pkill -f onboard
 pkill -f 'sound.sh'
-pkill -f autotiling
+# pkill -f autotiling
 pkill -f mate-polkit
 
 # Programs to start on any device
@@ -39,7 +39,6 @@ dunst &
 redshift-gtk &
 syncthing &
 firefox &
-spotify &
 xfce4-power-manager &
 nm-applet &
 ~/bin/scripts/wall.sh &
@@ -47,22 +46,24 @@ nm-applet &
 aw-qt &
 parcellite &
 beeper &
-autotiling &
+# autotiling &
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
 # Programs to start only on a PC
 if [ $HOST == "PC" ]; then
-    picom --no-vsync &
+    spotify &
+    # picom --no-vsync &
     xfce4-taskmanager &
     steam &
     lutris &
     ~/bin/scripts/screen-brightness.py &
     ~/bin/scripts/sound.sh &
+    systemctl --user start nfancurve.service
 
 # Programs to start only on my laptop
 elif [ $HOST == "ENVY" ]; then
-    picom --vsync &
-    corekeyboard &
+    # picom --vsync &
+    onboard &
 fi
 
 

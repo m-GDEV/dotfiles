@@ -52,9 +52,8 @@ discharging_symbol = '💀 '
 command = "echo 🏠 "  # shows output of command
 when = """ test "$HOME" == "$PWD" """
 
+# Does not display anything but runs the tamogachi
+# So that the counter increments
 [custom.tamogachi]
-command = "echo $(~/pCloudDrive/tamogachi-project/tamogachi.sh)"
-# Runs the module at all times
-when = """ test 1 """
-
-
+command = "eval $(terminal-gachi)"
+when = "test 1"

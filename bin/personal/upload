@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# set -xv
+
+provider="upload.vps.connectwithmusa.com"
+
+deps="curl perl"
+for i in $deps; do
+    if ! command -v  "$i" 2>&1 > /dev/null; then
+        echo "$i not installed"
+        exit -1
+    fi
+done
+
+# Found on microbin github: https://github.com/szabodanika/microbin/issues/243
+mb() {
+    mbclean() {
+        echo -n "https://$provider"
+        cat | sed -n 6p | awk '{print $2}'
+    }
+
+    upload_file() {
+        curl -is -X POST "https://$provider/upload" -F "file=@$1" | mbclean
+    }
+
+    upload_text() {
+        curl -is -X POST "https://$provider/upload" -F "content=$1" | mbclean
+    }
+
+  # Check if an argument is provided
+  if [[ -n $1 ]]; then
+      # Check if the argument is a file
+      if [[ -f $1 ]]; then
+          # Prompt user for choice
+          echo "File detected. Choose an option:"
+          echo "1. Upload file (default)"
+          echo "2. Upload text from file"
+          echo -n "Enter choice (1 or 2): "
+          read choice
+          choice=${choice:-1}
+          case $choice in
+              1) upload_file "$1" ;;
+              2) upload_text "@$1" ;;
+              *) echo "Invalid choice"; return 1 ;;
+          esac
+          # Check if the argument is a directory
+      elif [[ -d $1 ]]; then
+          echo "Error: '$1' is a directory. This script can only handle files and text."
+          return 1
+      else
+          # If it's not a file or directory, assume it's a string and upload the string
+          upload_text "$1"
+      fi
+  elif [[ ! -t 0 ]]; then
+      # If no argument is provided and stdin is not from the terminal, read from stdin
+      upload_text "@/dev/stdin"
+  else
+      # If no input is provided, print usage instructions
+      echo "Error: No input provided."
+      echo "Usage:"
+      echo "  mb <text_string>"
+      echo "  mb <file_path>"
+      echo "  mb < file_path"
+      echo "  echo \"hello world\" | mb"
+      echo "  command | mb (e.g., 'python test.py | mb')"
+      echo "  command 2>&1 | mb (e.g., 'python test.py 2>&1 | mb')"
+      echo "  command 2>&1 | tee /dev/tty | mb (e.g., 'python test.py 2>&1 | tee /dev/tty | mb')"
+      return 1
+  fi
+}
+
+mb "$@"

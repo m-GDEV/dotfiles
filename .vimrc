@@ -18,14 +18,19 @@ set encoding=utf-8
 " --- Plugins - Using Vim-Plug ---
 " --------------------------------
 
-call plug#begin('~/.vim/plugged')
-
 " Auto-installs Vim-Plug and all plugins if not installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \| PlugInstall --sync | source $MYVIMRC
+            \| endif
+
+call plug#begin('~/.vim/plugged')
 
 " -------------------
 " -- Functionality --
@@ -43,6 +48,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 " C / C++ Extended Highlighting
 Plug 'bfrg/vim-cpp-modern'
+
+" Latex support
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 " Better language support
 Plug 'sheerun/vim-polyglot'
@@ -66,11 +74,17 @@ Plug 'ryanoasis/vim-devicons'
 " Fuzzy search
 Plug 'junegunn/fzf.vim'
 
+" Show registers/macros when using them
+Plug 'junegunn/vim-peekaboo'
+
 " Synxtax checker
 Plug 'vim-syntastic/syntastic'
 
 " Search and open previous Files
 Plug 'https://github.com/yegappan/mru.git'
+
+" Highlighting when using f,t,F,T motions
+Plug 'girishji/fFtT.vim'
 
 " Fancy start screen
 Plug 'mhinz/vim-startify'
@@ -87,9 +101,6 @@ Plug 'Yggdroot/indentLine'
 " Auto bracket pairs
 Plug 'jiangmiao/auto-pairs'
 
-" Autocomplete for tailwindcss
-Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
-
 " Git Changes Displayer (requires vim 8.0.902+)
 Plug 'mhinz/vim-signify'
 
@@ -103,16 +114,17 @@ Plug 'itchyny/lightline.vim'
 " Color previews for CSS
 Plug 'ap/vim-css-color'
 
+
 " ------------
 " -- Themes --
 " ------------
-Plug 'joshdick/onedark.vim'
 Plug 'ghifarit53/daycula-vim' , {'branch' : 'main'}
+" Plug 'joshdick/onedark.vim'
 " Plug 'morhetz/gruvbox.git'
-Plug 'crusoexia/vim-monokai'
-Plug 'arcticicestudio/nord-vim'
-Plug 'mhartington/oceanic-next'
-Plug 'wuelnerdotexe/vim-enfocado'
+" Plug 'crusoexia/vim-monokai'
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'mhartington/oceanic-next'
+" Plug 'wuelnerdotexe/vim-enfocado'
 
 call plug#end()
 
@@ -171,13 +183,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-nnoremap <silent> N :call ShowDocumentation()<CR>
+nnoremap <silent> M :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
     if CocAction('hasProvider', 'hover')
         call CocActionAsync('doHover')
     else
-        call feedkeys('N', 'in')
+        call feedkeys('M', 'in')
     endif
 endfunction
 
@@ -188,8 +200,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Auto-installs these extensions on startup if they're missin" g
 let g:coc_global_extensions = [
             \ 'coc-pyright', 'coc-clangd', 'coc-tsserver',
-            \ 'coc-prettier', 'coc-emoji', 'coc-rust-analyzer'
+            \ 'coc-prettier', 'coc-emoji', 'coc-rust-analyzer',
             \ ]
+" \ 'coc-vimtex'
 
 
 " " ----------------------
@@ -200,7 +213,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -251,7 +264,7 @@ autocmd BufEnter *
             \   Startify |
             \ endif
 "Bookmarks. Syntax is clear.add yours
-let g:startify_bookmarks = [ {'I': '~/i3/i3/config'},{'B': '~/.bashrc'},{'V': '~/.vimrc'}]
+let g:startify_bookmarks = [ {'I': '~/.config/i3/config'},{'B': '~/.bashrc'},{'V': '~/.vimrc'}]
 let g:startify_lists = [
             \ { 'type': 'bookmarks' , 'header': ['   Bookmarks']      } ,
             \ { 'type': 'files'     , 'header': ['   Recent'   ]      } ,
@@ -279,13 +292,35 @@ set updatetime=5000
 " vim-autoformat Settings
 " ----------------
 au BufWrite * :Autoformat " BufWritePost allows format to be run on auto-saved files
-au FileType groovy,text let b:autoformat_autoindent=0
+au FileType groovy,text,conf,python,dockerfile let b:autoformat_autoindent=0
+" To make python not take 3 seconds to save, idk if its a good idea though
+au FileType python let b:autoformat_retab=0
+au FileType python let b:autoformat_remove_trailing_spaces=0
 
+" Custom formatters for specific file types
 let g:formatdef_custom_java = '"astyle --style=google --indent=spaces=4 --indent-switches --pad-oper --pad-header --unpad-paren --add-braces --convert-tabs"'
 let g:formatters_java = ['custom_java']
 
-let g:formatdef_custom_python = '"autopep8 --in-place --aggressive --aggressive"'
+let g:formatdef_custom_python = '"black"'
 let g:formatters_python = ['custom_python']
+
+let g:formatdef_custom_javascript = '"prettier --parser javascript"'
+let g:formatters_javascript = [ 'custom_javascript' ]
+
+let g:formatdef_custom_typescript = '"prettier --parser typescript"'
+let g:formatters_typescript = [ 'custom_typescript' ]
+" typescript jsx
+let g:formatters_typescriptreact = [ 'custom_typescript' ]
+
+let g:formatdef_custom_html = '"prettier --parser html"'
+let g:formatters_html = [ 'custom_html' ]
+
+" ----------------
+" vim-latex-live-preview Settings / General latex settings
+" ----------------
+let g:tex_flavor = "latex"
+let g:livepreview_previewer = 'zathura'
+autocmd FileType tex,markdown :IndentLinesDisable
 
 " ---------------------------------
 " --- Colour and theme settings ---
@@ -296,6 +331,7 @@ if &term =~ '256color'
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
         set termguicolors
     endif
+
     colorscheme daycula " Change colorscheme here
 endif
 
@@ -323,6 +359,9 @@ set expandtab " Use spaces instead of tabs
 set smarttab " Not sure DT uses it
 set shiftwidth=4 " One tab == 4 spaces
 set tabstop=4 " One tab == 4 spaces
+set hlsearch " Show all matching when searching
+set undofile " Creates undo files for all files
+set undodir=~/.vim/undodir " Persistent undo files for all files edited in one location
 
 filetype plugin on " Enable loading the plugin files for specific file types
 
@@ -352,6 +391,9 @@ nnoremap <silent> <expr> <leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" :
 
 nnoremap <leader>m :MRU <Cr>
 nnoremap <leader>i :Startify <Cr>
+nnoremap <leader>p :LLPStartPreview<CR>
+nnoremap <leader>u :IndentLinesToggle<CR>
+
 " <leader>p runs Prettier
 " Toggle spelling errors
 nnoremap <leader>sp :setlocal spell! spelllang=en_us<Cr>
@@ -415,6 +457,11 @@ map <s-k> :resize -5 <Cr>
 nnoremap <Space>t :tabnew<Cr>
 nnoremap <Space>l :tabnext<CR>
 nnoremap <Space>h :tabprevious<CR>
+
+" Moving tabs around
+nnoremap <Space>L :tabm +1<CR>
+nnoremap <Space>H :tabm -1<CR>
+
 "Keybindings for tab navigation with leader and number
 noremap <leader>1 1gt
 noremap <leader>2 2gt

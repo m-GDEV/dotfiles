@@ -1,18 +1,57 @@
 #! /bin/bash
 
+# set -xv
+
+# This program will run/compile certain files types using programs and options I want
+# It also expects that the given option at $1 will correspond with the kind of file
+# Format: run -[option] file_without_extension
+
+# Checking if necessary programs installed
+# (i realize this stops you from compiling C if you don't have latex programs but who cares)
+deps="clang pdflatex"
+
+for dep in $deps; do
+    if ! command -v "$dep" &> /dev/null; then
+        echo "$dep not installed, please install it and try again."
+        exit 1
+    fi
+done
+
+# file_extension="${"$1"##*.}"
+
+# --- C files ---
 if [ "$1" == "-c" ]; then
 
     FILE="${2}.c" # Source file
+    # getting all cmd line args
     ARGS=$(echo $@ | awk '{for(i=3;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev)
-    clang -lcs50 $FILE -o $2
-    ./$2 $ARGS
+    clang -Wall -lm -g -std=c99 $FILE -o $2
+    if [ $? == 0 ]; then
+        ./$2 $ARGS
+    fi
 
-# for normal use case
+# --- Latex files ---
+elif [ "$1" == "-t" ]; then
+    # No space as both the "result" and source use a . unlike a C source file and executable
+    # Only redirecting stdout
+    pdflatex "$2" 1> /dev/null
+
+    if [ $? != 0 ]; then
+        echo -e "\n\nNot deleting auxiliary files as compilation failed"
+        exit 1
+    else
+        rm -i *.aux *.log *.out
+        echo "Comiplation succesful, check $2pdf"
+    fi
+
 else
-
-    FILE="${1}.c" # Source file
-    ARGS=$(echo $@ | awk '{for(i=2;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev) # getting all cmd line args
-    gcc -Wall -lm -g -std=c99 $FILE -o $1
-    ./$1 $ARGS
+    echo "You didn't specify a file type smart guy"
 fi
 
+# Old cs50 thing i don't use anymore
+# if [ "$1" == "-c"  && file_extension == ".c" ]; then
+#
+#     FILE="${2}.c" # Source file
+#     ARGS=$(echo $@ | awk '{for(i=3;i<=NF;++i) print $i}' | tr '\n' ' ' | rev | cut -zc 2-| rev)
+#     clang -lcs50 $FILE -o $2
+#     ./$2 $ARGS

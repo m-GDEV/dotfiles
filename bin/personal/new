@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Script to create a barebones file of a programming language
+
+# If filename is passed as $2 use it
+if [ ! -z "$2" ]; then
+    filename="$2"
+else
+    filename="file"
+fi
+
+case "$1" in
+    "-c")
+        if [ -f "$filename.c" ]; then
+            $EDITOR "$filename".c
+        else
+            echo -e "#include <stdio.h>\n\nint main(void)\n{\nprintf(\"Hello World\");\n}" >> "$filename.c"
+            $EDITOR "$filename".c
+        fi
+
+        ;;
+    "-h")
+        echo -e "<html>\n\n</html>" >> "$filename".html
+        $EDITOR "$filename".html
+        ;;
+    "-b")
+        echo -e "#!/bin/bash\n\n# This program ..." >> "$filename".sh
+        $EDITOR "$filename".sh
+        ;;
+    "-p")
+        if [ -f "$filename.py" ]; then
+            $EDITOR "$filename".py
+        else
+            echo -e "def main():\n\tprint(\"Hello world\")\n\nif __name__ == \"__main__\":\n\tmain()" >> "$filename".py
+            $EDITOR "$filename".py
+        fi
+        ;;
+    *)
+        echo "Invalid/No options given, quitting"
+esac

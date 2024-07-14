@@ -47,6 +47,13 @@ elif [ "$1" == "--suspend" ]; then
     exec $LOCK_COMMAND & # Need to fork since exec is weird and doesnt let i3lock do it itself
     systemctl suspend
 
+    if [ "$HOST" == "PC" ]; then
+        # Send signal to script so it changes the screenbrightness as soon as the system wakes
+        # Necessary cus sometimes the time gap between suspend and wake is long
+        sleep 5
+        kill -s SIGUSR1 $(pgrep -af 'screen-brightness.py' | awk '{print $1}')
+    fi
+
 # Hibernate
 elif [ "$1" == "--hibernate" ]; then
     exec $LOCK_COMMAND & # Need to fork since exec is weird and doesnt let i3lock do it itself

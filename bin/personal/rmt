@@ -1,4 +1,9 @@
 #!/bin/bash
 
-# Force since this is garbage anyways
-mv -f "$@" /home/musa/tmp
+# We must use rsync since mv won't allow us to "merge"
+# directories. eg: we want to get rid of dir/ but tmp
+# already has a directory named dir/
+
+for i in "$@"; do
+    rsync -a "$i" $HOME/tmp/"$i" && rm -rf "$i" || echo "ERROR: Cannot remove $i, check script"
+done

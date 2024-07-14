@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+# Update keyrings
+sudo pacman -S archlinux-keyring
+sudo pacman -S endeavouros-keyring
+
+# Update system
+sudo pacman -Syyu
+
+# Copy boot files (idk how to do this automatically with dracut, check pCloudDrive/zMisc./Tips/efi)
+sudo cp /boot/initramfs-linux.img /boot/efi/EFI/EndeavourFinal
+sudo cp /boot/initramfs-linux-fallback.img /boot/efi/EFI/EndeavourFinal
+sudo cp /boot/vmlinuz-linux /boot/efi/EFI/EndeavourFinal

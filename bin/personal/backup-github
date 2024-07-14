@@ -26,8 +26,8 @@ cd /tmp/github-backup
 # setup 1 hour cache of authentication
 echo "Setting up authentication, please enter your password:"
 git config --global credential.helper 'cache --timeout=36000'
-git clone http://github.com/m-GDEV/YT-PLAYLIST >> ./log.txt 2>&1
-rm -rf ./YT-PLAYLIST
+git clone http://github.com/m-GDEV/m-GDEV >> ./log.txt 2>&1
+rm -rf ./m-GDEV
 
 # get full name of each repo for user, clone the repo while hiding stdout
 echo -e "Cloning all $(($total + 1)) repositories... (this might take a while)"

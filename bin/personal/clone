@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# set -xv
+
+ROOT_DIR="$HOME/GITCLONE"
+
+
+print_help() {
+    echo -e \ "
+    Usage: clone <OPTIONS> <URL>
+
+    The following directories are assumed to be in: '$ROOT_DIR'
+
+    Options:
+    -h\tPrint this help
+    -c\tClone this repository to 'community-created'
+    -p\tClone this repository to 'programs'
+    -m\tClone this repository to 'my-stuff'
+    "
+}
+
+if [ "$#" != 2 ]; then
+    echo "You either didn't give enough, or gave too many command line arguments."
+    print_help
+    exit
+fi
+
+# I FUCKING LOVE WRITING REGEX WITHOUT HAVING TO ESCAPE FUCKING EVERY SINGLE CHARACTER
+# THIS IS WHAT THIS COULD HAVE LOOKED LIKE:
+# sed 's/\(https\?\:\/\/\)\(.\*\/\)\?\(.*\)/\3/g'
+# CAN YOU TELL WHAT THAT DOES? NEITHER CAN I
+# GRANTED, YOU PROBABLY CAN'T TELL WHAT THIS BELOW
+# DOES EITHER CUS REGEX IS WEIRD
+REPO_NAME=$(echo "$2" | sed -E 's/(https?:\/\/)(.*\/)?(.*)/\3/g')
+FOLDER_NAME=""
+
+if [ "$1" == "-h" ]; then
+    print_help
+    exit
+elif [ "$1" == "-c" ]; then
+    FOLDER_NAME="community-created"
+elif [ "$1" == "-p" ]; then
+    FOLDER_NAME="programs"
+elif [ "$1" == "-m" ]; then
+    FOLDER_NAME="my-stuff"
+fi
+
+git clone "$2" "$ROOT_DIR/$FOLDER_NAME/$REPO_NAME"
+cd "$ROOT_DIR/$FOLDER_NAME/$REPO_NAME"
+
+# since scripts run in a sub-shell (different process than the one i'm running the script from)
+# 'cd' typically doesn't work. this is a very bad work around that forces the user's shell to be
+# replaced with this script's shell. it works so i'm keeping it, TODO: CHANGE THIS
+exec bash

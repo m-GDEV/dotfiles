@@ -1,7 +1,0 @@
-#! /bin/bash
-
-set -e
-
-TEMP=$(cat /sys/class/thermal/thermal_zone0/temp /sys/class/thermal/thermal_zone1/temp | tail -1)
-
-echo $(( TEMP / 1000))

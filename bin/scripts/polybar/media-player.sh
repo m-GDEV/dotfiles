@@ -4,7 +4,9 @@
 # If spotify is playing it prints each lyric, if not then it prints
 # last sources title
 
-STATUS=$(playerctl -p spotify status)
+# Redirects stderr to the variable as well
+STATUS=$(playerctl -p spotify status 2>&1)
+# echo $STATUS
 
 # Check if programs installed
 if ! command -v "playerctl" &> /dev/null && ! command -v "sptlrx" &> /dev/null ; then
@@ -20,10 +22,10 @@ fi
 # Script's logic
 if [ "$STATUS" == "Paused" ] || ! playerctl -l | grep -q 'spotify' ; then
     # if [ "$STATUS" == "Paused" ]; then
-    echo "$(playerctl metadata title | cut -c -50)"
+    echo -n "$(playerctl metadata title | cut -c -50)"
 elif [ "$STATUS" == "Playing" ]; then
-    echo "$(tail -1 /tmp/lyrics)"
+    echo -n "$(tail -1 /tmp/lyrics)"
 else
-    echo "Issue, check out script"
+    echo "Nothing playing"
 fi
 

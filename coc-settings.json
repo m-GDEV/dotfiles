@@ -1,6 +1,6 @@
 {
     "coc.source.word.filetypes": ["text", "markdown"],
-    "coc.source.emoji.filetypes": null,
+    "coc.source.emoji.filetypes": ["text", "markdown"],
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "javascript",
@@ -9,5 +9,17 @@
     ],
     "prettier.tabWidth": 4,
     "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk",
-    "java.symbols.includeSourceMethodDeclarations": true
+    "java.symbols.includeSourceMethodDeclarations": true,
+    "coc.source.vimtex.filetypes": [
+        "tex",
+        "plaintex"
+    ],
+    "semanticTokens.enable": true,
+    "languageserver": {
+        "csharp-ls": {
+            "command": "csharp-ls",
+            "filetypes": ["cs"],
+            "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
+        }
+    }
 }

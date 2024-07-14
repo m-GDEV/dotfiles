@@ -4,11 +4,11 @@
 # set -xv
 
 JOURNAL_PATH="$HOME/pCloudDrive/Journal/ENTRIES/Daily-Entries"
-DATE_PRETTY="$(date +'%A, %B %e, %Y')"
-DATE_FILE="$(date +'%B-%e-%Y')"
+DATE_PRETTY="$(date +'%A, %B %d, %Y')"
+DATE_FILE="$(date +'%B-%d-%Y')"
 
 # Write date written to file
 # (echo appends since in case i already have an entry there it does not delete it)
-echo "Date Written: $DATE_PRETTY" >> "$JOURNAL_PATH/$DATE_FILE"
+echo "Date Written: $DATE_PRETTY" >> "$JOURNAL_PATH/$DATE_FILE.txt"
 # Launch vim in goyo mode
-vim -c "Goyo" "$JOURNAL_PATH/$DATE_FILE"
+vim -c "Goyo" "$JOURNAL_PATH/$DATE_FILE.txt"

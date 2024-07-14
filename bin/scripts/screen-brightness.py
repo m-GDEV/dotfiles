@@ -4,12 +4,19 @@
 import subprocess
 import datetime
 import time
+import signal
 
 # User-defined maximum allowed brightness (in percentage)
-MAX_BRIGHTNESS = 60
+MAX_BRIGHTNESS = 100
 PEAK_BRIGHTNESS_TIME = 43200 # 12pm noon
 
-def setBrightness():
+# Meant to catch signal sent from lock.sh
+def signal_handler(sig, frame):
+    # Any non-zero value will force setting the brightness
+    print("--- Inside signal handler ---")
+    setBrightness(5)
+
+def setBrightness(old_brightness: float):
     brightness = 0 # program will change this according to conditions
 
     # Get the current time in seconds
@@ -33,10 +40,12 @@ def setBrightness():
 
     # Sunset time (add one hour to sunset since its not dark immediately at sunset)
     # Screen will stop being bright 30mins after sunsset
+    # In winter it gets dark quick so additional 30 mins is not necessary
     sunset_hours = int(sunset[:2])
     sunset_minutes = int(sunset[3:])
     sunset_total_in_seconds = (sunset_hours * 3600) + (sunset_minutes * 60)
-    sunset_total_in_seconds = sunset_total_in_seconds + 1800
+    #  sunset_total_in_seconds = sunset_total_in_seconds + 1800
+    sunset_total_in_seconds = sunset_total_in_seconds
 
     # Before sunrise
     if current_time_in_seconds < sunrise_total_in_seconds:
@@ -60,15 +69,14 @@ def setBrightness():
 
     # Set the screen brightness using ddcutil
 
-    # Only set brightness when its not night
-    if brightness == 0:
+    # Only set brightness when its not night AND we have already set the brightness to 0
+    if brightness == 0 and old_brightness == 0:
         pass
     else:
         set_brightness_command = f'ddcutil setvcp 10 {int(brightness)}'
         subprocess.run(set_brightness_command, shell=True)
         # Play little beep noise so I know if the script is run
         subprocess.run('mpv --no-video https://www.youtube.com/watch?v=WsTb8HYZd-U', shell=True)
-
 
     print("---------- DEBUG --------")
     print(f"Current Time: {current_time}")
@@ -78,6 +86,17 @@ def setBrightness():
     print(f'Screen brightness set to {int(brightness)}%')
     print("--------------------------\n")
 
-while True:
-    setBrightness()
-    time.sleep(600) # Sleep for 10 minutes
+    return brightness
+
+def main():
+    signal.signal(signal.SIGUSR1, signal_handler)
+
+    currrent_brightness = 50
+
+    while True:
+        currrent_brightness = setBrightness(currrent_brightness)
+        #  time.sleep(600) # Sleep for 10 minutes
+        time.sleep(2700) # it got annoying so sleep for 45 minutes
+
+if __name__ == "__main__":
+    main()

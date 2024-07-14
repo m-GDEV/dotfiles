@@ -3,7 +3,16 @@
 # File name check
 FNC=$(echo "$1" | rev | cut -c 1-4 | rev)
 
-if [[ -z "$1" || $FNC != ".tar" ]]; then echo "Tar file not specified"; exit 1; fi
+if [[ -z "$1" || ($FNC != ".tar"  && $FNC != "r.gz") ]]; then
+    echo "Tar file not specified"; exit 1;
+fi
 
-pv $1 | tar xf - -C . 2> /dev/null
+
+if [[ $FNC == ".tar" ]]; then
+    pv $1 | tar xf - -C . 2> /dev/null
+elif [[ $FNC == "r.gz" ]]; then
+    pv $1 | tar xzf - -C . 2> /dev/null
+else
+    echo "Cannot unpack archive"
+fi
 

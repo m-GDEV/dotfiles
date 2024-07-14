@@ -1,5 +1,0 @@
-Steps to resolve conflicts
-
---- CREATE A BACKUP FIRST ---
-Run: cmd cat bash_external_history* | sed -n '/^\#[0-9]\+$/!{H;$!b};x;s/\n/ ƒ /g;p' | uniq -u | sort -n | sed 's/ ƒ /\n/g' > final && cp final final.bak
-Then: rmt bash_external_history && mv final bash_external_history
