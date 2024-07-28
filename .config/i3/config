@@ -234,11 +234,11 @@ bindsym $mod+XF86AudioPlay exec "~/bin/scripts/mpv.sh"
 
 #ALTERING AUDIO WITH KEYBOARD WITHOUT I3-VOLUME AND THEREFORE NO DUNST NOTIFICATION
 bindsym XF86AudioMute exec amixer set Master toggle
-bindsym XF86AudioRaiseVolume exec "pactl -- set-sink-volume 0 '+5%'"
-bindsym XF86AudioLowerVolume exec "pactl -- set-sink-volume 0 '-5%'"
+# bindsym XF86AudioRaiseVolume exec "pactl -- set-sink-volume 0 '+5%'"
+# bindsym XF86AudioLowerVolume exec "pactl -- set-sink-volume 0 '-5%'"
 # idk why the fuck i bothered
-# bindsym XF86AudioRaiseVolume exec "~/bin/scripts/volume.sh -I"
-# bindsym XF86AudioLowerVolume exec "~/bin/scripts/volume.sh -D"
+bindsym XF86AudioRaiseVolume exec "i3-volume -n up 5"
+bindsym XF86AudioLowerVolume exec "i3-volume -n down 5"
 
 
 # ADDTIONAL SCRIPTS ETC ------------

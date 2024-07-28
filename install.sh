@@ -41,7 +41,7 @@ sudo pacman -S yay
 # GUI Programs / A GUI program is anything that is displayed on or interacts with the GUI
 GUI="lxappearance xfce4-power-manager xfce4-taskmanager gnome-disk-utility gnome-system-monitor nemo pcmanfm arandr mpv nitrogen pavucontrol polybar unclutter gufw picom redshift noto-fonts-emoji noto-fonts i3-gaps slock maim numlockx obsidian xournalpp qbittorrent ttf-nerd-fonts-symbols mate-polkit"
 OGUI="newsflash vlc kitty onlyoffice-desktopeditors firefox"
-AGUI="brave-bin zoom spotify sakura surfshark-gui-bin"
+AGUI="brave-bin zoom spotify sakura surfshark-gui-bin i3-volume"
 OAGUI="x11-emoji-picker audio-recorder gotop youtube-dl-gui-git ttf-ms-fonts simplescreenrecorder corekeyboard"
 
 # Terminal Programs / Programs that the user uses in the terminal

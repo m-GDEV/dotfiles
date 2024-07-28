@@ -49,6 +49,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 " C / C++ Extended Highlighting
 Plug 'bfrg/vim-cpp-modern'
 
+" Razor page highlighting
+Plug 'jlcrochet/vim-razor'
+
 " Latex support
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
@@ -127,6 +130,8 @@ Plug 'ghifarit53/daycula-vim' , {'branch' : 'main'}
 " Plug 'wuelnerdotexe/vim-enfocado'
 
 call plug#end()
+
+filetype indent plugin on
 
 " -----------------------
 " --- Plugin Settings ---
@@ -405,6 +410,8 @@ hi SpellBad ctermfg=red guifg=red
 noremap <Space>f :Files<Cr>
 " Open fzf window explorer and switch to window on enter
 noremap <Space>w :Windows<Cr>
+" Open fzf window explorer and switch to window on enter
+noremap <Space>b :Buffers<Cr>
 " CRTL+A selects all text
 map <C-a> <esc>ggVG
 " CTRL+C copy selected text to clipboard (only works with gvim install)<CR>

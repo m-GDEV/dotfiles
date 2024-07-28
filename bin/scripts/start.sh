@@ -58,7 +58,7 @@ if [ $HOST == "PC" ]; then
     lutris &
     ~/bin/scripts/screen-brightness.py &
     ~/bin/scripts/sound.sh &
-    systemctl --user start nfancurve.service
+    systemctl --user start nfancurve.service &
 
 # Programs to start only on my laptop
 elif [ $HOST == "ENVY" ]; then

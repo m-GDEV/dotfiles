@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo rm /boot/efi/EFI/EndeavourFinal/initramfs-linux-fallback.img
+sudo rm /boot/efi/EFI/EndeavourFinal/initramfs-linux.img
+sudo rm /boot/efi/EFI/EndeavourFinal/vmlinuz-linux
+
+sudo cp /boot/initramfs-linux-fallback.img /boot/efi/EFI/EndeavourFinal
+sudo cp /boot/initramfs-linux.img /boot/efi/EFI/EndeavourFinal
+sudo cp /boot/vmlinuz-linux /boot/efi/EFI/EndeavourFinal

@@ -116,6 +116,7 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 alias cb='vim ~/.bashrc'
 alias cv='vim ~/.vimrc'
 alias randman='man $(find /usr/share/man/man1/ | shuf | head -1)'
+alias timer='python3 /home/musa/pCloudDrive/CODING/PythonProjects/INTERMIDIATE/timer/proper_timer.py'
 
 # SPELLING ERRORS
 alias sl='eza --icons'
@@ -161,6 +162,9 @@ fi
 
 # fzf reverse search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Allows you to create an .fdignore to hide certain files when using fzf (helpful in vim)
+# https://github.com/junegunn/fzf.vim/issues/453#issuecomment-526791474
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 # startup
 fortune -as | lolcat
