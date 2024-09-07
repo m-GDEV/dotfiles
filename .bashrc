@@ -35,9 +35,9 @@ bind "set completion-ignore-case on"
 # COMMON UTILITIES
 alias ch='cd ~;clear'
 alias cd='z' # to use z program that replaces cd
-alias lf='eza --icons -lah --group-directories-first'
-alias ll='eza --icons -lh --group-directories-first'
-alias la='eza -a | grep "^\."' # only shows hidden files in dir
+alias lf='exa --icons -lah --group-directories-first'
+alias ll='exa --icons -lh --group-directories-first'
+alias la='exa -a | grep "^\."' # only shows hidden files in dir
 alias dus='du -bhd 3 | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 alias duc='du -bhcd 1 | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 alias dua='du -abh | sort -h'
@@ -49,7 +49,7 @@ alias nvs='nvim -S Session.vim'
 # NUANCED UTILITIES
 alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
 alias re="find . -type f -printf '%T@ %p\n' | sort -k 1 -n | sed 's/^[^ ]* //'" # recursively lists files in dir by modification date
-alias opensc="viewnior ~/Pictures/screenshots/$(eza --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
+alias opensc="viewnior ~/Pictures/screenshots/$(exa --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
 alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
@@ -67,7 +67,7 @@ alias v='vim'
 alias nv='nvim'
 alias c='clear'
 alias e='exit'
-alias ls='eza --icons'
+alias ls='exa --icons'
 alias mv='mv -i'
 alias cp='cp -i'
 alias rm='rm -I'
@@ -89,7 +89,7 @@ alias fm='ranger'
 alias diff='diff -syri --color=always --width=$(tput cols)' # Diff shows lines of length amount of columsn in terminal
 alias exe='chmod +x'
 alias p3='python3'
-alias tree='eza -aT'
+alias tree='exa -aT'
 
 # GIT UTILITIES
 # alias clone="git clone"
@@ -119,8 +119,8 @@ alias randman='man $(find /usr/share/man/man1/ | shuf | head -1)'
 alias timer='python3 /home/musa/pCloudDrive/CODING/PythonProjects/INTERMIDIATE/timer/proper_timer.py'
 
 # SPELLING ERRORS
-alias sl='eza --icons'
-alias sls="eza --icons"
+alias sl='exa --icons'
+alias sls="exa --icons"
 alias ee='exit'
 
 
@@ -137,7 +137,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 export HISTCONTROL=ignoredups:erasedups
-export HISTFILE="$HOME/pCloudDrive/zMisc./dotfiles/bash_external_history"
+export HISTFILE="$HOME/pCloudDrive/zMisc/dotfiles/bash_external_history"
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
 
 export STARSHIP_CONFIG=~/.config/starship.toml
@@ -166,6 +166,10 @@ fi
 # https://github.com/junegunn/fzf.vim/issues/453#issuecomment-526791474
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
+export JAVA_FONTS=/usr/share/fonts/TTF
+# export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
 # startup
 fortune -as | lolcat
 ifetch
@@ -174,3 +178,7 @@ eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 
 export QT_STYLE_OVERRIDE=kvantum
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+. "$HOME/.cargo/env"

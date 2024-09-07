@@ -48,6 +48,7 @@ parcellite &
 beeper &
 # autotiling &
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+~/bin/scripts/i3-organize &
 
 # Programs to start only on a PC
 if [ $HOST == "PC" ]; then

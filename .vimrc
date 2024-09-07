@@ -60,6 +60,8 @@ Plug 'sheerun/vim-polyglot'
 
 " COC-vim language server for auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Current word highlighting for coc-nvim
+Plug 'IngoMeyer441/coc_current_word'
 
 " Fix copy & past problem
 Plug 'christoomey/vim-system-copy'
@@ -75,6 +77,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 
 " Fuzzy search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Show registers/macros when using them
@@ -88,6 +91,9 @@ Plug 'https://github.com/yegappan/mru.git'
 
 " Highlighting when using f,t,F,T motions
 Plug 'girishji/fFtT.vim'
+
+" Jump between lines easier
+Plug 'girishji/easyjump.vim'
 
 " Fancy start screen
 Plug 'mhinz/vim-startify'
@@ -106,6 +112,9 @@ Plug 'jiangmiao/auto-pairs'
 
 " Git Changes Displayer (requires vim 8.0.902+)
 Plug 'mhinz/vim-signify'
+
+" Turn of hlsearch automatically after search is done
+Plug 'romainl/vim-cool'
 
 " ---------------
 " -- Aesthetic --
@@ -161,6 +170,9 @@ fu s:disable_lightline_on_nerdtree() abort
     call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
 endfu
 
+" Positions nerdtree on right side
+let g:NERDTreeWinPos = "right"
+
 " --------------------
 " -- Coc-vim config --
 " --------------------
@@ -198,8 +210,13 @@ function! ShowDocumentation()
     endif
 endfunction
 
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
 " Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+hi CurrentWord cterm=underline
+" hi CurrentWord guifg=#XXXXXX guibg=#XXXXXX gui=underline,bold,italic ctermfg=XXX ctermbg=XXX cterm=underline,bold,italic
 
 
 " Auto-installs these extensions on startup if they're missin" g
@@ -287,10 +304,14 @@ let g:startify_lists = [
 " Daycula Settings
 " ----------------
 let g:daycula_enable_italic = 1
+let g:daycula_current_word = 'underline'
 
 " ----------------
 " vim-signify Settings
 " ----------------
+
+" used by vim-signifyto update git symbols & by the AutoCmd to auto save the
+" file afer not doing anything for 'updatetime' milliseconds
 set updatetime=5000
 
 " ----------------
@@ -385,6 +406,13 @@ if has("autocmd")
     au CursorHold,CursorHoldI <buffer> if &readonly == 0 && filereadable(bufname('%')) | call FormatOnUpdate() | endif
 endif
 
+" ----------------
+" easyjump.vim settings (down here because it doesn't work above (probably
+" related to incsearch))
+" ----------------
+hi EasyJump ctermfg=green ctermbg=magenta cterm=bold
+
+
 " -----------------------
 " --- Custom Mappings ---
 " -----------------------
@@ -406,12 +434,15 @@ hi SpellBad ctermfg=red guifg=red
 " Fix spelling errors (if this is active :Files requires a second input char
 " to activate )
 " nnoremap <leader>fs :normal! 1z=<Cr>
-" Open fzf file explorer
+" Open fzf file explorer (opens only files not in .gitignore)
+noremap <Space>g :GFiles<Cr>
 noremap <Space>f :Files<Cr>
 " Open fzf window explorer and switch to window on enter
 noremap <Space>w :Windows<Cr>
 " Open fzf window explorer and switch to window on enter
 noremap <Space>b :Buffers<Cr>
+" Opens Ag search
+noremap <Space>a :Ag<Cr>
 " CRTL+A selects all text
 map <C-a> <esc>ggVG
 " CTRL+C copy selected text to clipboard (only works with gvim install)<CR>

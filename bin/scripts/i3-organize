@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This program gets a list of all windows in i3 and based on the name of the window it moves
+# them to a specific workspace
+
+
+# Get workspace names: i3-msg -t get_workspaces
+
+# for my usecase i want to move organize the windows after boot
+# because of this some apps take a couple seconds to launch
+sleep 10
+
+# https://jsonselector.com helps
+WINDOWS=$(i3-msg -t get_tree | jq '[.nodes[1].nodes[1].nodes[] | select(.type="workspace") | .nodes[] | {id: .id, name: .window_properties.instance}]')
+
+echo -n "$WINDOWS" | jq -c '.[]' | while read -r window
+do
+    window_id=$(echo -n "$window" | jq '.id')
+    # jq leaves surrouding quotation marks
+    window_name=$(echo -n "$window" | jq '.name' | sed 's/"//g')
+
+    # echo "$window_id"
+    # echo "$window_name"
+
+    case "$window_name" in
+        # don't do anything for firefox since it can be in any workspace
+        Navigator)
+        ;;
+    spotify)
+        i3-msg "[con_id=$window_id]" move container to workspace '4:🎧'
+        ;;
+    xfce4-taskmanager)
+        i3-msg "[con_id=$window_id]" move container to workspace '5:📊'
+        ;;
+    beeper)
+        i3-msg "[con_id=$window_id]" move container to workspace '6:💬'
+        ;;
+    steamwebhelper)
+        i3-msg "[con_id=$window_id]" move container to workspace '8:🕹️'
+        ;;
+    lutris)
+        i3-msg "[con_id=$window_id]" move container to workspace '8:🕹️'
+        ;;
+esac
+done
+

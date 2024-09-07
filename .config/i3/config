@@ -254,7 +254,7 @@ exec_always ~/bin/scripts/start.sh
 # for_window [class=".*"] border pixel 2
 
 # Making all floating windows no border and sticky by default
-for_window [floating] border pixel 0 sticky toggle
+for_window [floating] border pixel 1 sticky toggle
 # gaps inner 10
 
 # Custom window instructions based on window name
@@ -293,8 +293,8 @@ bindsym $mod+minus exec firefox
 
 # AUTO ASSIGN BY WINDOW NAME ---------------------
 # I can't figure all this shit out right now and I don't have time to do this right now
-for_window [class="[s|S]potify"] move to workspace $ws4
-for_window [class="[x|X]fce4-taskmanager"] move to workspace $ws5
-for_window [class="[b|B]eeper"] move to workspace $ws6
+# for_window [class="[s|S]potify"] move to workspace $ws4
+# for_window [class="[x|X]fce4-taskmanager"] move to workspace $ws5
+# for_window [class="[b|B]eeper"] move to workspace $ws6
 # for_window [class="Lutris"] move to workspace $ws8
 # for_window [class="(steamwebhelper)?(steam)?"] move to workspace $ws9
