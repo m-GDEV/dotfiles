@@ -49,7 +49,7 @@ alias nvs='nvim -S Session.vim'
 # NUANCED UTILITIES
 alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
 alias re="find . -type f -printf '%T@ %p\n' | sort -k 1 -n | sed 's/^[^ ]* //'" # recursively lists files in dir by modification date
-alias opensc="viewnior ~/Pictures/screenshots/$(exa --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
+# alias opensc="viewnior ~/Pictures/screenshots/$(exa --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
 alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
@@ -137,7 +137,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 export HISTCONTROL=ignoredups:erasedups
-export HISTFILE="$HOME/pCloudDrive/zMisc/dotfiles/bash_external_history"
+# export HISTFILE="$HOME/pCloudDrive/zMisc/dotfiles/bash_external_history"
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
 
 export STARSHIP_CONFIG=~/.config/starship.toml

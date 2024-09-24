@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+history_stuff
+bash_external_history
+.*sync-conflict.*
+stow.sh
+UPDATED
+install.sh
