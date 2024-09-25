@@ -126,7 +126,7 @@ alias ee='exit'
 
 # EXPORTS
 # --------------------------------------------------
-export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin"
+export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin:/sbin:/usr/sbin"
 
 # dotnet
 export PATH="$PATH:/home/musa/.dotnet/tools"
