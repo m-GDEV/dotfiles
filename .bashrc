@@ -45,18 +45,19 @@ alias dua='du -abh | sort -h'
 alias dufs='du -xbhd 3 --exclude=/{proc,sys,dev,run} 2> /dev/null | tee /tmp/du-files && cmd cat /tmp/du-files | sort -h'
 alias vs='vim -S Session.vim'
 alias nvs='nvim -S Session.vim'
+alias cdw='cd pCloudDrive/zMisc/Personal/Resumes/co-op/summer-2024/after-getting-job/During\ Work/Insignia/'
 
 # NUANCED UTILITIES
 alias copy='xsel -i -b' # mainly used to copy the stdout to clipboard
 alias re="find . -type f -printf '%T@ %p\n' | sort -k 1 -n | sed 's/^[^ ]* //'" # recursively lists files in dir by modification date
-# alias opensc="viewnior ~/Pictures/screenshots/$(exa --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
-alias gpe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
+alias opensc="viewnior ~/Pictures/screenshots/$(exa --sort=newest ~/Pictures/screenshots | tail -1) > /dev/null 2>&1 &"
+alias gpe='command cat /home/musa/pCloudDrive/zMisc/Personal/Accounts/personal/github_token.txt | xsel -i -b && exit'
 alias rp='cmd ls -ltr /var/lib/pacman/local/' # lists all pacman packages showing last installed first
 alias ytm="mpv --no-video --input-ipc-server=/tmp/mpv-playlist"
 # Sort videos in current dir showing size, length, and filename. Built with help of chatGpt
 alias sv='ls --sort=oldest --icons=never *.mp4 | xargs -I {} sh -c '\''length=$(mediainfo --Inform="General;%Duration%" "{}") && du -bh "{}" | awk -v OFS=" | " "{print \$1, $length/1000/60, \$2}"'\'' | column -t | sort -t '\''|'\'' -k2,2n'
 alias ports='lsof -i -P -n | grep LISTEN'
-alias spe='command cat /home/musa/pCloudDrive/zMisc./Personal/Accounts/personal/uni-password.txt | xsel -i -b && exit'
+alias spe='command cat /home/musa/pCloudDrive/zMisc/Personal/Accounts/personal/uni-password.txt | xsel -i -b && exit'
 alias down='curl -LO'
 alias nvi='watch -n 0.5 nvidia-smi'
 
@@ -126,7 +127,7 @@ alias ee='exit'
 
 # EXPORTS
 # --------------------------------------------------
-export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin:/sbin:/usr/sbin"
+export PATH="$PATH:/home/musa/bin/personal:/home/musa/bin/programs:/home/musa/Downloads/APPS/AppImage:/home/musa/.yarn/bin:/home/musa/.local/bin:/home/musa/.cargo/bin"
 
 # dotnet
 export PATH="$PATH:/home/musa/.dotnet/tools"
@@ -137,7 +138,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 export HISTCONTROL=ignoredups:erasedups
-# export HISTFILE="$HOME/pCloudDrive/zMisc/dotfiles/bash_external_history"
+export HISTFILE="$HOME/pCloudDrive/zMisc/dotfiles/bash_external_history"
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND" # Forces history file to be re-written after every command
 
 export STARSHIP_CONFIG=~/.config/starship.toml
@@ -180,5 +181,5 @@ eval "$(zoxide init bash)"
 export QT_STYLE_OVERRIDE=kvantum
 
 # Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-. "$HOME/.cargo/env"
+# [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+# . "$HOME/.cargo/env"

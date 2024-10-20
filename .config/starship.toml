@@ -26,7 +26,7 @@ disabled = false
 [git_status]
 untracked = "🙈"
 modified = "📝"
-disabled = false
+disabled = true
 
 # Displays status of last executed command
 [status]
