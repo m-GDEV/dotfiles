@@ -52,7 +52,7 @@ bindsym $mod+m exec ~/bin/personal/manpdf
 bindsym $mod+e exec bemoji -t
 
 # Open all pdfs from school
-bindsym $mod+s exec ~/bin/scripts/dmenu-list-files.sh "$HOME/pCloudDrive/zMisc./Obsidian-Vault/UoG/Lecture Notes/" "pdf"
+bindsym $mod+s exec ~/bin/scripts/dmenu-list-files.sh "$HOME/pCloudDrive/zMisc/Obsidian-Vault/UoG/Lecture Notes/" "pdf"
 
 
 # WINDOW MANIPULATION ---------
@@ -113,72 +113,131 @@ bindsym $mod+z focus child
 # focus the child container
 #bindsym $mod+d focus child
 
-# vars for workspaces cus DRY
-# Each workspace now has a number so polybar can sort by index
-set $ws1 "1:📄"
-set $ws2 "2:🍿"
-set $ws3 "3:📚"
-set $ws4 "4:🎧"
-set $ws5 "5:📊"
-set $ws6 "6:💬"
-set $ws7 "7:🚀"
-set $ws8 "8:🕹️"
-set $ws9 "9:🕹️2️"
-set $ws10 "10:🎮"
-set $ws11 "11:F1"
-set $ws12 "12:F2"
-set $ws13 "13:F3"
-set $ws14 "14:F4"
+# vars cus DRY
 
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-bindsym $mod+F1 workspace $ws11
-bindsym $mod+F2 workspace $ws12
-bindsym $mod+F3 workspace $ws13
-bindsym $mod+F4 workspace $ws14
+# Monitors (change as needed!)
+set $monL DP-2
+set $monR DP-4
+
+# Toggle between both monitors
+# (focus output left wraps from the leftmost to the rightmost output)
+bindsym $mod+t focus output left
+
+# Each workspace now has a number so polybar can sort by index
+set $ws1L "1:📄2"
+set $ws2L "2:🍿2"
+set $ws3L "3:📚2"
+set $ws4L "4:🎧2"
+set $ws5L "5:📊2"
+set $ws6L "6:💬2"
+set $ws7L "7:🚀2"
+set $ws8L "8:💻2"
+set $ws9L "9:🕹️2"
+set $ws10L "10:🎮2"
+set $ws11L "11:F12"
+set $ws12L "12:F22"
+set $ws13L "13:F32"
+set $ws14L "14:F42"
+
+set $ws1R "20:📄"
+set $ws2R "21:🍿"
+set $ws3R "22:📚"
+set $ws4R "23:🎧"
+set $ws5R "24:📊"
+set $ws6R "25:💬"
+set $ws7R "26:🚀"
+set $ws8R "27:💻"
+set $ws9R "28:🕹️"
+set $ws10R "29:🎮"
+set $ws11R "30:F1"
+set $ws12R "31:F2"
+set $ws13R "32:F3"
+set $ws14R "33:F4"
+
+# assign workspaces to specific outputs
+workspace $ws1L output $monL
+workspace $ws1R output $monR
+workspace $ws2L output $monL
+workspace $ws2R output $monR
+workspace $ws3L output $monL
+workspace $ws3R output $monR
+workspace $ws4L output $monL
+workspace $ws4R output $monR
+workspace $ws5L output $monL
+workspace $ws5R output $monR
+workspace $ws6L output $monL
+workspace $ws6R output $monR
+workspace $ws7L output $monL
+workspace $ws7R output $monR
+workspace $ws8L output $monL
+workspace $ws8R output $monR
+workspace $ws9L output $monL
+workspace $ws9R output $monR
+workspace $ws10L output $monL
+workspace $ws10R output $monR
+workspace $ws11L output $monL
+workspace $ws11R output $monR
+workspace $ws12L output $monL
+workspace $ws12R output $monR
+workspace $ws13L output $monL
+workspace $ws13R output $monR
+workspace $ws14L output $monL
+workspace $ws14R output $monR
+
+# idk what this does
+# do not toggle automatically between the current and previous
+# workspace on repeated calls to `workspace NAME` (with identical NAME)
+workspace_auto_back_and_forth no
+
+# switch two workspaces at once (the need to be on different outputs)
+bindsym $mod+1 workspace $ws1L, workspace $ws1R
+bindsym $mod+2 workspace $ws2L, workspace $ws2R
+bindsym $mod+3 workspace $ws3L, workspace $ws3R
+bindsym $mod+4 workspace $ws4L, workspace $ws4R
+bindsym $mod+5 workspace $ws5L, workspace $ws5R
+bindsym $mod+6 workspace $ws6L, workspace $ws6R
+bindsym $mod+7 workspace $ws7L, workspace $ws7R
+bindsym $mod+8 workspace $ws8L, workspace $ws8R
+bindsym $mod+9 workspace $ws9L, workspace $ws9R
+bindsym $mod+0 workspace $ws10L, workspace $ws10R
+bindsym $mod+F1 workspace $ws11L, workspace $ws11R
+bindsym $mod+F2 workspace $ws12L, workspace $ws12R
+bindsym $mod+F3 workspace $ws13L, workspace $ws13R
+bindsym $mod+F4 workspace $ws14L, workspace $ws14R
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-bindsym $mod+Shift+F1 move container to workspace $ws11
-bindsym $mod+Shift+F2 move container to workspace $ws12
-bindsym $mod+Shift+F3 move container to workspace $ws13
-bindsym $mod+Shift+F4 move container to workspace $ws14
+bindsym $mod+Shift+1 move container to workspace $ws1R
+bindsym $mod+Shift+2 move container to workspace $ws2R
+bindsym $mod+Shift+3 move container to workspace $ws3R
+bindsym $mod+Shift+4 move container to workspace $ws4R
+bindsym $mod+Shift+5 move container to workspace $ws5R
+bindsym $mod+Shift+6 move container to workspace $ws6R
+bindsym $mod+Shift+7 move container to workspace $ws7R
+bindsym $mod+Shift+8 move container to workspace $ws8R
+bindsym $mod+Shift+9 move container to workspace $ws9R
+bindsym $mod+Shift+0 move container to workspace $ws10R
+bindsym $mod+Shift+F1 move container to workspace $ws11R
+bindsym $mod+Shift+F2 move container to workspace $ws12R
+bindsym $mod+Shift+F3 move container to workspace $ws13R
+bindsym $mod+Shift+F4 move container to workspace $ws14R
 
 # move focused window and swap to that screen with windows key
 # note: this can be used to move a workspace to another workspace
 #       by doing $mod+a to select the root container
-bindsym Mod4+1 move container to workspace $ws1; workspace $ws1
-bindsym Mod4+2 move container to workspace $ws2; workspace $ws2
-bindsym Mod4+3 move container to workspace $ws3; workspace $ws3
-bindsym Mod4+4 move container to workspace $ws4; workspace $ws4
-bindsym Mod4+5 move container to workspace $ws5; workspace $ws5
-bindsym Mod4+6 move container to workspace $ws6; workspace $ws6
-bindsym Mod4+7 move container to workspace $ws7; workspace $ws7
-bindsym Mod4+8 move container to workspace $ws8; workspace $ws8
-bindsym Mod4+9 move container to workspace $ws9; workspace $ws9
-bindsym Mod4+0 move container to workspace $ws10; workspace $ws10
-bindsym Mod4+F1 move container to workspace $ws11; workspace $ws11
-bindsym Mod4+F2 move container to workspace $ws12; workspace $ws12
-bindsym Mod4+F3 move container to workspace $ws13; workspace $ws13
-bindsym Mod4+F4 move container to workspace $ws14; workspace $ws14
+bindsym Mod4+1 move container to workspace $ws1R; workspace $ws1L, workspace $ws1R
+bindsym Mod4+2 move container to workspace $ws2R; workspace $ws2L, workspace $ws2R
+bindsym Mod4+3 move container to workspace $ws3R; workspace $ws3L, workspace $ws3R
+bindsym Mod4+4 move container to workspace $ws4R; workspace $ws4L, workspace $ws4R
+bindsym Mod4+5 move container to workspace $ws5R; workspace $ws5L, workspace $ws5R
+bindsym Mod4+6 move container to workspace $ws6R; workspace $ws6L, workspace $ws6R
+bindsym Mod4+7 move container to workspace $ws7R; workspace $ws7L, workspace $ws7R
+bindsym Mod4+8 move container to workspace $ws8R; workspace $ws8L, workspace $ws8R
+bindsym Mod4+9 move container to workspace $ws9R; workspace $ws9L, workspace $ws9R
+bindsym Mod4+0 move container to workspace $ws10R; workspace $ws10L, workspace $ws10R
+bindsym Mod4+F1 move container to workspace $ws11R; workspace $ws11L, workspace $ws11R
+bindsym Mod4+F2 move container to workspace $ws12R; workspace $ws12L, workspace $ws12R
+bindsym Mod4+F3 move container to workspace $ws13R; workspace $ws13L, workspace $ws13R
+bindsym Mod4+F4 move container to workspace $ws14R; workspace $ws14L, workspace $ws14R
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

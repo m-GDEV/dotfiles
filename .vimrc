@@ -317,11 +317,11 @@ set updatetime=5000
 " ----------------
 " vim-autoformat Settings
 " ----------------
-au BufWrite * :Autoformat " BufWritePost allows format to be run on auto-saved files
-au FileType groovy,text,conf,python,dockerfile,markdown.mdx let b:autoformat_autoindent=0
+" au BufWrite * :Autoformat " BufWritePost allows format to be run on auto-saved files
+au FileType groovy,text,conf,python,dockerfile,yaml,yaml.docker-compose,markdown.mdx let b:autoformat_autoindent=0
 " To make python not take 3 seconds to save, idk if its a good idea though
-au FileType python let b:autoformat_retab=0
-au FileType python let b:autoformat_remove_trailing_spaces=0
+au FileType python,markdown.mdx let b:autoformat_retab=0
+au FileType python,markdown.mdx let b:autoformat_remove_trailing_spaces=0
 
 " Custom formatters for specific file types
 let g:formatdef_custom_java = '"astyle --style=google --indent=spaces=4 --indent-switches --pad-oper --pad-header --unpad-paren --add-braces --convert-tabs"'
@@ -388,7 +388,7 @@ set tabstop=4 " One tab == 4 spaces
 set hlsearch " Show all matching when searching
 set undofile " Creates undo files for all files
 set undodir=~/.vim/undodir " Persistent undo files for all files edited in one location
-au FileType markdown,mdx.markdown setlocal conceallevel=0
+au FileType markdown,mdx.markdown,markdown.mdx setlocal conceallevel=0
 
 filetype plugin on " Enable loading the plugin files for specific file types
 

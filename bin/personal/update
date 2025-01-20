@@ -1,5 +1,6 @@
 #!/bin/bash
 
+HOST=$(uname -n)
 
 # Update keyrings
 sudo pacman -S archlinux-keyring
@@ -8,7 +9,14 @@ sudo pacman -S endeavouros-keyring
 # Update system
 sudo pacman -Syyu
 
-# Copy boot files (idk how to do this automatically with dracut, check pCloudDrive/zMisc./Tips/efi)
-sudo cp /boot/initramfs-linux.img /boot/efi/EFI/EndeavourFinal
-sudo cp /boot/initramfs-linux-fallback.img /boot/efi/EFI/EndeavourFinal
-sudo cp /boot/vmlinuz-linux /boot/efi/EFI/EndeavourFinal
+if [ "$HOST" == "PC" ]; then
+    # Copy boot files (idk how to do this automatically with dracut, check pCloudDrive/zMisc./Tips/efi)
+    sudo rm /boot/efi/EFI/EndeavourFinal/initramfs-linux-fallback.img
+    sudo rm /boot/efi/EFI/EndeavourFinal/initramfs-linux.img
+    sudo rm /boot/efi/EFI/EndeavourFinal/vmlinuz-linux
+
+    sudo cp /boot/initramfs-linux-fallback.img /boot/efi/EFI/EndeavourFinal
+    sudo cp /boot/initramfs-linux.img /boot/efi/EFI/EndeavourFinal
+    sudo cp /boot/vmlinuz-linux /boot/efi/EFI/EndeavourFinal
+fi
+

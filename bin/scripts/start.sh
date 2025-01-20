@@ -30,6 +30,7 @@ pkill -f onboard
 pkill -f 'sound.sh'
 # pkill -f autotiling
 pkill -f mate-polkit
+pkill -f xedgewarp
 
 # Programs to start on any device
 unclutter &
@@ -55,11 +56,12 @@ if [ $HOST == "PC" ]; then
     spotify &
     # picom --no-vsync &
     xfce4-taskmanager &
-    steam &
-    lutris &
+    # steam &
+    # lutris &
     ~/bin/scripts/screen-brightness.py &
     ~/bin/scripts/sound.sh &
     systemctl --user start nfancurve.service &
+    xedgewarp &
 
 # Programs to start only on my laptop
 elif [ $HOST == "ENVY" ]; then

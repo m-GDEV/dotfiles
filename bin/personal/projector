@@ -1,13 +1,10 @@
 #!/bin/bash
 
 if [ "$1" == "--enable" ] || [ "$1" == "-e" ]; then
-    xrandr --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal
-    xrandr --output DP-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
-    # picom &
-elif [ "$1" == "--disable" ] || [ "$1" == "-d" ]; then
-    xrandr --output HDMI-0 --off
-    xrandr --output DP-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal  --rate 180
     pkill -f picom
+    /home/musa/.screenlayout/projector.sh
+elif [ "$1" == "--disable" ] || [ "$1" == "-d" ]; then
+    /home/musa/.screenlayout/normal.sh
 else
     echo "provide proper options"
 fi

@@ -21,7 +21,10 @@ format = "took [$duration](bold yellow)"
 symbol = "🌱 "
 truncation_length = 8
 truncation_symbol = "..."
-disabled = false
+disabled = true
+
+[hg_branch]
+disabled = true
 
 [git_status]
 untracked = "🙈"

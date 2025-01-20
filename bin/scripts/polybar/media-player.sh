@@ -14,6 +14,11 @@ if ! command -v "playerctl" &> /dev/null && ! command -v "sptlrx" &> /dev/null ;
     exit
 fi
 
+# Kinda fixes race condition, fixlater idc
+# if [ -z "$(ps aux | grep -v 'grep' | grep 'media-player.sh' )" ]; then
+#     sptlrx pipe >> /tmp/lyrics &
+# fi
+
 # Check if pipe is running
 if [ -z "$(ps aux | grep -v 'grep' | grep 'sptlrx pipe' )" ]; then
     sptlrx pipe >> /tmp/lyrics &

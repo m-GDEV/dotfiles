@@ -45,7 +45,8 @@ elif [ "$1" == "-m" ]; then
     FOLDER_NAME="my-stuff"
 fi
 
-git clone "$2" "$ROOT_DIR/$FOLDER_NAME/$REPO_NAME"
+echo "Cloning with '--depth 1' because git history is usually not needed!"
+git clone --depth 1 "$2" "$ROOT_DIR/$FOLDER_NAME/$REPO_NAME"
 cd "$ROOT_DIR/$FOLDER_NAME/$REPO_NAME"
 
 # since scripts run in a sub-shell (different process than the one i'm running the script from)

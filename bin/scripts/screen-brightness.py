@@ -5,15 +5,32 @@ import subprocess
 import datetime
 import time
 import signal
+import shutil
+import sys
+
+# Check deps 
+if not shutil.which("ddcutil"):
+    sys.exit(f"Error: ddcutil is not installed.")
 
 # User-defined maximum allowed brightness (in percentage)
 MAX_BRIGHTNESS = 100
 PEAK_BRIGHTNESS_TIME = 43200 # 12pm noon
 
+# Global Variables
+global IGNORE_SUN
+IGNORE_SUN = False
+global IGNORE_SUN_BRIGHTNESS 
+IGNORE_SUN_BRIGHTNESS = 100
+
 # Meant to catch signal sent from lock.sh
-def signal_handler(sig, frame):
+def call_setBrightness_handler(sig, frame):
     # Any non-zero value will force setting the brightness
     print("--- Inside signal handler ---")
+    setBrightness(5)
+
+def ignoreSun(sig, frame): 
+    global IGNORE_SUN
+    IGNORE_SUN = not IGNORE_SUN
     setBrightness(5)
 
 def setBrightness(old_brightness: float):
@@ -67,14 +84,22 @@ def setBrightness(old_brightness: float):
     else:
         brightness = 0  # After sunset
 
+    # override brightness variable if global var is set
+    if IGNORE_SUN is True:
+        brightness = IGNORE_SUN_BRIGHTNESS
+
     # Set the screen brightness using ddcutil
 
     # Only set brightness when its not night AND we have already set the brightness to 0
     if brightness == 0 and old_brightness == 0:
         pass
     else:
-        set_brightness_command = f'ddcutil setvcp 10 {int(brightness)}'
-        subprocess.run(set_brightness_command, shell=True)
+        # Run ddcutil setvcp for each monitor connected
+        number_of_monitors = subprocess.run("ddcutil detect | grep 'Display' | wc -l", capture_output=True, shell=True, text=True)
+
+        for i in range(int(number_of_monitors.stdout)):
+            set_brightness_command = f'ddcutil setvcp 10 {int(brightness)} --display {i+1}'
+            subprocess.run(set_brightness_command, shell=True)
         # Play little beep noise so I know if the script is run
         subprocess.run('mpv --no-video https://www.youtube.com/watch?v=WsTb8HYZd-U', shell=True)
 
@@ -89,7 +114,8 @@ def setBrightness(old_brightness: float):
     return brightness
 
 def main():
-    signal.signal(signal.SIGUSR1, signal_handler)
+    signal.signal(signal.SIGUSR1, call_setBrightness_handler)
+    signal.signal(signal.SIGUSR2, ignoreSun)
 
     currrent_brightness = 50
 

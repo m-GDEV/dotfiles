@@ -40,7 +40,7 @@ elif [ "$1" == "-t" ]; then
         echo -e "\n\nNot deleting auxiliary files as compilation failed"
         exit 1
     else
-        rm -i *.aux *.log *.out
+        rm *.aux *.log *.out
         echo "Comiplation succesful, check $2pdf"
     fi
 

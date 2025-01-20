@@ -110,7 +110,7 @@ alias die='sleep 120; shutdown'
 
 # SSH CONNECTIONS
 alias vps="ssh root@207.90.194.169"
-alias lan="ssh musa@192.168.2.100"
+alias lan="ssh musa@192.168.2.124"
 
 # USER PROGRAMS
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
